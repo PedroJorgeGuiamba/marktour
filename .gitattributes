@@ -1,0 +1,21 @@
+# Trata automaticamente quebras de linha
+* text=auto
+
+# Arquivos PHP, HTML, CSS, JS devem usar LF
+*.php text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
+*.txt text eol=lf
+
+# Arquivos binários (imagens, fontes, etc.)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.ttf binary
+*.woff binary
+*.woff2 binary

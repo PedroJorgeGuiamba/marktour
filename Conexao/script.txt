@@ -1,0 +1,74 @@
+CREATE DATABASE IF NOT EXISTS SistemaNotas;
+USE SistemaNotas;
+
+-- Tabela de Usuários (login)
+CREATE TABLE Usuario (
+    UsuarioID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Senha VARCHAR(255) NOT NULL,
+    Tipo ENUM('Admin', 'Formador', 'Aluno') NOT NULL
+);
+
+-- Tabela de Alunos
+CREATE TABLE Aluno (
+    AlunoID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Email VARCHAR(100),
+    DataNascimento DATE,
+    UsuarioID INT UNIQUE,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
+);
+
+-- Tabela de Formadores
+CREATE TABLE Formador (
+    FormadorID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Email VARCHAR(100),
+    UsuarioID INT UNIQUE,
+    FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
+);
+
+-- Tabela de Módulos
+CREATE TABLE Modulo (
+    ModuloID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL
+);
+
+-- Tabela de Turmas
+CREATE TABLE Turma (
+    TurmaID INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(50) NOT NULL,
+    AnoLetivo YEAR NOT NULL
+);
+
+-- Tabela de Matrículas
+CREATE TABLE Matricula (
+    MatriculaID INT AUTO_INCREMENT PRIMARY KEY,
+    AlunoID INT NOT NULL,
+    TurmaID INT NOT NULL,
+    FOREIGN KEY (AlunoID) REFERENCES Aluno(AlunoID),
+    FOREIGN KEY (TurmaID) REFERENCES Turma(TurmaID)
+);
+
+-- Tabela de Lecionamento (formadores ensinam módulos em turmas)
+CREATE TABLE Leciona (
+    LecionaID INT AUTO_INCREMENT PRIMARY KEY,
+    FormadorID INT NOT NULL,
+    ModuloID INT NOT NULL,
+    TurmaID INT NOT NULL,
+    FOREIGN KEY (FormadorID) REFERENCES Formador(FormadorID),
+    FOREIGN KEY (ModuloID) REFERENCES Modulo(ModuloID),
+    FOREIGN KEY (TurmaID) REFERENCES Turma(TurmaID)
+);
+
+-- Tabela de Notas
+CREATE TABLE Nota (
+    NotaID INT AUTO_INCREMENT PRIMARY KEY,
+    MatriculaID INT NOT NULL,
+    ModuloID INT NOT NULL,
+    Periodo VARCHAR(20),
+    Valor DECIMAL(4,2) CHECK (Valor >= 0 AND Valor <= 20),
+    FOREIGN KEY (MatriculaID) REFERENCES Matricula(MatriculaID),
+    FOREIGN KEY (ModuloID) REFERENCES Modulo(ModuloID)
+);
