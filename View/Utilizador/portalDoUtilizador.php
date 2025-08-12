@@ -1,5 +1,6 @@
 <?php
 session_start();
+// include './Controller/Utilizador/Home.php';
 include '../../Controller/Utilizador/Home.php';
 ?>
 
@@ -27,7 +28,7 @@ include '../../Controller/Utilizador/Home.php';
         <!-- Nav principal -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <img src="https://www.itc.ac.mz/wp-content/uploads/2020/07/cropped-LOGO_ITC-09.png">
+                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.web">
                 <div class="nav-modal">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +45,7 @@ include '../../Controller/Utilizador/Home.php';
                                 <a class="nav-link" aria-current="page" href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#">Facebook</a>
                             </li>
                             <li class="nav-item">
-                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>

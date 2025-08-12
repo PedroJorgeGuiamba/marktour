@@ -9,7 +9,7 @@ class Conector {
         $host = "localhost";
         $user = "root";
         $pass = "Familiaguiamba1";
-        $dbname = "itc_v3";
+        $dbname = "marktour";
         $port = 3306;
 
         $this->conexao = mysqli_connect($host, $user, $pass, $dbname, $port);

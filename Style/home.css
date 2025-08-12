@@ -16,9 +16,16 @@
     padding-top: 40px;
 }
 
-header nav ul.nav li a{
+/* header nav ul.nav li a{
     color:#FFFFFF;
-}
+} */
+
+/* header nav ul.nav li a{
+    color:black;
+} */
+/* header nav ul li.nav-item ul.dropdown-menu li a.dropdown-item{
+    color: black;
+} */
 
 header ,footer{
     background-color:#3A4C91;

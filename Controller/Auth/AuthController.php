@@ -22,27 +22,27 @@ class AuthController
 
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            if ($senha === $row['password']) {
+            if ($senha === $row['senha']) {
                 session_start();
                 $_SESSION['email'] = $row['email'];
                 $_SESSION['tipo'] = $row['tipo'];
-                $_SESSION['usuario_id'] = $row['id'];
+                $_SESSION['usuario_id'] = $row['id_utilizador'];
 
                 setcookie('user_email', $email, time() + 3600, "/");
 
-                $sessaoId = iniciarSessao($row['id']);
+                $sessaoId = iniciarSessao($row['id_utilizador']);
                 registrarAtividade($sessaoId, "Login realizado com sucesso", "LOGIN");
 
                 $tipo = strtolower($row['tipo']);
 
                 if ($tipo === 'admin') {
-                header("Location: /estagio/View/Admin/portalDeAdmin.php");
+                header("Location: /marktour/View/Admin/portalDoAdmin.php");
                 exit();
                 } elseif ($tipo === 'cliente') {
-                    header("Location: /estagio/View/Utilizador/portalDoUtilizador.php");
+                    header("Location: /marktour/View/Utilizador/portalDoUtilizador.php");
                     exit();
                 } elseif ($tipo === 'empresa') {
-                    header("Location: /estagio/View/Empresa/portalDaEmpresa.php");
+                    header("Location: /marktour/View/Empresa/portalDaEmpresa.php");
                     exit();
                 } else {
                         $erros .= "Tipo de usuário desconhecido Ou Senha incorreta..<br>";

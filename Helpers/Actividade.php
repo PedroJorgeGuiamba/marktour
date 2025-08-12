@@ -6,7 +6,7 @@ function registrarAtividade($sessaoId, $descricao, $tipo = 'LOGIN', $duracao = n
     $conexao = new Conector();
     $conn = $conexao->getConexao();
 
-    $stmt = $conn->prepare("INSERT INTO actividade (id_sessao, descricao, tipo, duracao)
+    $stmt = $conn->prepare("INSERT INTO actividade_utilizador (id_sessao, descricao, tipo, duracao)
                             VALUES (?, ?, ?, ?)");
     $stmt->bind_param("issi", $sessaoId, $descricao, $tipo, $duracao);
     $stmt->execute();

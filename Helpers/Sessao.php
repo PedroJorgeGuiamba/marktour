@@ -16,7 +16,7 @@ function iniciarSessao($utilizador_id)
         $ip = '127.0.0.1';
     }
 
-    $stmt = $conn->prepare("INSERT INTO sessao (data, hora_inicio, token, se_valido, utilizador_id, ip_address, user_agent) VALUES (?, ?, ?, 1, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO sessao (data, hora_inicio, token, se_valido, id_utilizador, ip_address, user_agent) VALUES (?, ?, ?, 1, ?, ?, ?)");
     $stmt->bind_param("sssiss", $data, $hora_inicio, $token, $utilizador_id, $ip, $userAgent);
     $stmt->execute();
 
@@ -24,7 +24,7 @@ function iniciarSessao($utilizador_id)
 
     $_SESSION['token'] = $token;
     $_SESSION['sessao_id'] = $sessaoId;
-    $_SESSION['usuario_id'] = $utilizador_id;
+    $_SESSION['id_utilizador'] = $utilizador_id;
 
 
     return $sessaoId;
