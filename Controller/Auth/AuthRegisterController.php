@@ -22,7 +22,7 @@ class AuthRegisterController
         $conn = $conexao->getConexao();
 
         // Verificar se o e-mail já existe
-        $sql = "SELECT id FROM utilizador WHERE email = ?";
+        $sql = "SELECT id_utilizador FROM utilizador WHERE email = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("s", $email);
         $stmt->execute();
@@ -53,15 +53,14 @@ class AuthRegisterController
             $sessaoId = iniciarSessao($id);
             registrarAtividade($sessaoId, "Cadastro realizado com sucesso", "REGISTRO");
 
-            if ($tipo === 'admin') {
-                header("Location: /estagio/View/Admin/portalDeAdmin.php");
-                exit();
-            } elseif ($tipo === 'cliente') {
-                header("Location: /estagio/View/Utilizador/portalDoUtilizador.php");
+            if ($tipo === 'cliente') {
+                header("Location: /marktour/View/Utilizador/portalDoUtilizador.php");
                 exit();
             } elseif ($tipo === 'empresa') {
-                header("Location: /estagio/View/Empresa/portalDaEmpresa.php");
+                header("Location: /marktour/View/Empresa/portalDaEmpresa.php");
                 exit();
+            } else {
+                $erros .= "Tipo de usuário desconhecido Ou Senha incorreta..<br>";
             }
         } else {
             $erros .= "Erro ao registrar usuário.<br>";

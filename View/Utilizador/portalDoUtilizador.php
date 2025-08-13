@@ -10,7 +10,7 @@ include '../../Controller/Utilizador/Home.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal de Estudante</title>
+    <title>Portal do Utilizador</title>
 
     <!-- BootStrap Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -28,7 +28,7 @@ include '../../Controller/Utilizador/Home.php';
         <!-- Nav principal -->
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.web">
+                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp">
                 <div class="nav-modal">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
                         aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,7 @@ include '../../Controller/Utilizador/Home.php';
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2020/07/itc-p.png" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -117,7 +117,7 @@ include '../../Controller/Utilizador/Home.php';
 
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2024/10/WhatsApp-Image-2024-10-29-at-14.36.59-7-768x1024.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -128,7 +128,7 @@ include '../../Controller/Utilizador/Home.php';
 
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-26-at-15.03.08-2.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -139,7 +139,7 @@ include '../../Controller/Utilizador/Home.php';
 
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-26-at-15.03.08-2.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -150,7 +150,7 @@ include '../../Controller/Utilizador/Home.php';
 
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-26-at-15.03.08-2.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -161,7 +161,7 @@ include '../../Controller/Utilizador/Home.php';
 
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-26-at-15.03.08-2.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -172,7 +172,7 @@ include '../../Controller/Utilizador/Home.php';
 
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-26-at-15.03.08-2.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
@@ -180,10 +180,10 @@ include '../../Controller/Utilizador/Home.php';
                         </div>
                     </div>
                 </div>
-
+                
                 <div class="col">
                     <div class="card">
-                        <img src="https://www.itc.ac.mz/wp-content/uploads/2023/10/WhatsApp-Image-2023-10-26-at-15.03.08-2.jpeg" class="card-img-top" alt="...">
+                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional

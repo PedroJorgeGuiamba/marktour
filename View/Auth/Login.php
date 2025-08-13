@@ -71,12 +71,19 @@
                             <input type="password" name="password" class="form-control" id="password" placeholder="**********">
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <a href="Register.php" class="text-info">I don't have an account</a>
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
             <div class="form-group">
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-success form-control">Register</button>
+                    <button type="submit" class="btn btn-success form-control">Entrar</button>
                 </div>
             </div>
         </form>

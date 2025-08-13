@@ -36,8 +36,8 @@ class AuthController
                 $tipo = strtolower($row['tipo']);
 
                 if ($tipo === 'admin') {
-                header("Location: /marktour/View/Admin/portalDoAdmin.php");
-                exit();
+                    header("Location: /marktour/View/Admin/portalDoAdmin.php");
+                    exit();
                 } elseif ($tipo === 'cliente') {
                     header("Location: /marktour/View/Utilizador/portalDoUtilizador.php");
                     exit();
