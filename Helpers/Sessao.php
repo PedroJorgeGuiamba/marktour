@@ -59,3 +59,20 @@ function terminarSessao()
     header("Location: /estagio/View/Login.php");
     exit();
 }
+
+function selecionarSessao($token, $seValido = 1)
+{
+    $conexao = new Conector();
+    $conn = $conexao->getConexao();
+
+    $stmt = $conn->prepare("SELECT * FROM sessao WHERE token = ? AND se_valido = ?");
+    $stmt->bind_param("si", $token, $seValido);
+    $stmt->execute();
+
+    $resultado = $stmt->get_result();
+    $sessao = $resultado->fetch_assoc();
+
+    $stmt->close();
+
+    return $sessao ?: null; // Retorna null se não encontrar
+}

@@ -57,7 +57,7 @@ class AuthRegisterController
                 header("Location: /marktour/View/Utilizador/portalDoUtilizador.php");
                 exit();
             } elseif ($tipo === 'empresa') {
-                header("Location: /marktour/View/Empresa/portalDaEmpresa.php");
+                header("Location: /marktour/View/Empresa/localizacaoEmpresa.php");
                 exit();
             } else {
                 $erros .= "Tipo de usuário desconhecido Ou Senha incorreta..<br>";
