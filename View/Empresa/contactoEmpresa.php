@@ -1,7 +1,12 @@
 <?php
 session_start();
-include '../../Controller/formando/Home.php';
-require_once __DIR__ . '/../../middleware/auth.php';
+include '../../Controller/Empresa/Home.php';
+// require_once __DIR__ . '/../../middleware/auth.php';
+$id_empresa = isset($_GET['id_empresa']) ? (int)$_GET['id_empresa'] : null;
+
+if (!$id_empresa) {
+    die("Parâmetros inválidos. IDs de empresa não fornecidos.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -106,6 +111,7 @@ require_once __DIR__ . '/../../middleware/auth.php';
         <div class="formulario">
             <form action="../../Controller/Empresa/contactoEmpresa.php" method="post" id="formularioContacto">
                 <div class="row">
+                    <input type="hidden" name="id_empresa" value="<?php echo $id_empresa; ?>">
                     <div class="form-group col-md-4">
                         <label for="telefone1" class="form-label">Telefone 1:</label>
                         <input type="tel" name="telefone1" class="form-control" id="telefone1"

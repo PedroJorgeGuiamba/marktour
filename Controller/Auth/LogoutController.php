@@ -1,3 +1,3 @@
 <?php
-require_once __DIR__ . '/../../Controller/Auth/LogoutController.php';
+require_once __DIR__ . '/../../Helpers/Sessao.php';
 terminarSessao();

@@ -1,7 +1,14 @@
 <?php
 session_start();
-include '../../Controller/formando/Home.php';
-require_once __DIR__ . '/../../middleware/auth.php';
+include '../../Controller/Empresa/Home.php';
+// require_once __DIR__ . '/../../middleware/auth.php';
+// Verificar se os IDs foram passados via query string
+$id_utilizador = isset($_GET['id_utilizador']) ? (int)$_GET['id_utilizador'] : null;
+$id_localizacao = isset($_GET['id_localizacao']) ? (int)$_GET['id_localizacao'] : null;
+
+if (!$id_utilizador || !$id_localizacao) {
+    die("Parâmetros inválidos. IDs de utilizador ou localização não fornecidos.");
+}
 ?>
 
 <!DOCTYPE html>
@@ -106,6 +113,8 @@ require_once __DIR__ . '/../../middleware/auth.php';
         <div class="formulario">
             <form action="../../Controller/Empresa/empresa.php" method="post" id="formularioEmpresa">
                 <div class="row">
+                    <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>">
+                    <input type="hidden" name="id_localizacao" value="<?php echo $id_localizacao; ?>">
                     <div class="form-group col-md-4">
                         <label for="nome" class="form-label">Nome da Empresa:</label>
                         <input type="tel" name="nome" class="form-control" id="nome"

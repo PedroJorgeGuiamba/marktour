@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../../Controller/Empresa/Home.php';
-require_once __DIR__ . '/../../middleware/auth.php';
+// require_once __DIR__ . '/../../middleware/auth.php';
 ?>
 
 <!DOCTYPE html>

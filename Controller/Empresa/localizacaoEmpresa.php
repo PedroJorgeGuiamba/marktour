@@ -12,11 +12,10 @@ class FormularioDeLocalizacao
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $localizacao = new Localizacao();
-                $id_empresa = isset($_GET['id']) ? (int) $_GET['id'] : null;
+                $id_utilizador = $_SESSION['usuario_id'] ?? null;
 
-                if (!$id_empresa) {
-                    echo "ID da empresa não fornecido.";
-                    return;
+                if (!$id_utilizador) {
+                    throw new Exception("ID do utilizador não encontrado.");
                 }
 
                 $provincia = trim($_POST['provincia'] ?? '');
@@ -30,7 +29,7 @@ class FormularioDeLocalizacao
                 $endereco_detalhado = trim($_POST['endereco'] ?? '');
                 $codigo_postal = trim($_POST['codigoPostal'] ?? '');
 
-                $localizacao->setId_empresa($id_empresa);
+                
                 $localizacao->setProvincia($provincia);
                 $localizacao->setDistrito($distrito);
                 $localizacao->setBairro($bairro);
@@ -42,15 +41,20 @@ class FormularioDeLocalizacao
                 $localizacao->setEndereco_detalhado($endereco_detalhado);
                 $localizacao->setCodigo_postal($codigo_postal);
 
-                if ($localizacao->salvar()) {
+                $conexao = new Conector();
+                $conn = $conexao->getConexao();
+
+                if ($localizacao->salvar($conn)) {
+                    $id_localizacao = $conn->insert_id;
+
                     if (isset($_SESSION['sessao_id'])) {
                         registrarAtividade($_SESSION['sessao_id'], "Localização criada", "CRIACAO");
                     }
 
-                    header("Location: /marktour/View/Empresa/empresa.php?id=" . $id_empresa);
+                    header("Location: /marktour/View/Empresa/empresa.php?id_utilizador=" . $id_utilizador . "&id_localizacao=" . $id_localizacao);
                     exit();
                 } else {
-                    echo "Erro ao criar localização.";
+                    echo "Erro ao criar localização. Verifique os dados ou a conexão.";
                 }
             } catch (Exception $e) {
                 echo "Erro no sistema: " . $e->getMessage();

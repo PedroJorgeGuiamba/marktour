@@ -2,7 +2,7 @@
 session_start();
 
 require_once __DIR__ . '/../../Model/Empresa.php';
-require_once __DIR__ . '/../../Model/Contato_empresa.php';
+require_once __DIR__ . '/../../Model/Contacto.php';
 require_once __DIR__ . '/../../Helpers/Actividade.php';
 require_once __DIR__ . '/../../Conexao/conector.php';
 
@@ -12,13 +12,13 @@ class FormularioDeEmpresa
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                $empresa = new Empresa();
+                
                 $contato = new Contato_empresa();
-                $id_empresa = isset($_GET['id']) ? (int) $_GET['id'] : null;
+
+                $id_empresa = isset($_POST['id_empresa']) ? (int)$_POST['id_empresa'] : null; // Agora vem do POST
 
                 if (!$id_empresa) {
-                    echo "ID da empresa não fornecido.";
-                    return;
+                    throw new Exception("IDs de empresa não fornecidos.");
                 }
 
                 $telefone1 = trim($_POST['telefone1'] ?? '');
@@ -43,7 +43,7 @@ class FormularioDeEmpresa
                         registrarAtividade($_SESSION['sessao_id'], "Contato da empresa criado", "CRIACAO");
                     }
 
-                    header("Location: /marktour/View/Empresa/portalEmpresa.php");
+                    header("Location: /marktour/View/Empresa/portalDaEmpresa.php");
                     exit();
                 } else {
                     echo "Erro ao criar contato da empresa.";

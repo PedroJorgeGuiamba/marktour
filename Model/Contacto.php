@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../Conexao/conector.php';
+require_once __DIR__ . '/../Conexao/conector.php';
 
 class Contato_empresa
 {
@@ -40,7 +40,7 @@ class Contato_empresa
         $conexao = new Conector();
         $conn = $conexao->getConexao();
 
-        $sql = "INSERT INTO contato_empresa (id_empresa, telefone1, telefone2, telefone3, fax1, fax2, email, website) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO contacto_empresa (id_empresa, telefone1, telefone2, telefone3, fax1, fax2, email, website) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("isssssss", $this->id_empresa, $this->telefone1, $this->telefone2, $this->telefone3, $this->fax1, $this->fax2, $this->email, $this->website);
 

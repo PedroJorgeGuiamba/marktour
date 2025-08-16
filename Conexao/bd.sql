@@ -16,6 +16,22 @@ CREATE TABLE localizacao (
     codigo_postal VARCHAR(10)
 );
 
+ALTER TABLE sessao
+ADD COLUMN data DATE,
+ADD COLUMN hora_inicio TIME,
+ADD COLUMN hora_fim TIME,
+ADD COLUMN token VARCHAR(255),
+ADD COLUMN se_valido TINYINT(1),
+ADD COLUMN utilization_id INT,
+ADD COLUMN createdAt DATETIME,
+ADD COLUMN updatedAt DATETIME,
+ADD COLUMN ip_address VARCHAR(255),
+ADD COLUMN user_agent TEXT;
+
+alter table sessao 
+drop column data_inicio,
+drop column data_fim;
+
 -- TABELA DE UTILIZADOR
 CREATE TABLE utilizador (
     id_utilizador INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,6 +42,9 @@ CREATE TABLE utilizador (
     tipo ENUM('cliente', 'empresa', 'admin') NOT NULL,
     data_registo DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+insert into utilizador(nome, email, senha, telefone, tipo) value ('Pedro Jorge', 'pedro@gmail.com', '1234', '850731919', 'admin');
+insert into utilizador(nome, email, senha, telefone, tipo) value ('Pedro Jorge', 'pedrojorge@gmail.com', '1234', '850731919', 'cliente');
 
 -- TABELA DE EMPRESA
 CREATE TABLE empresa (
@@ -182,3 +201,6 @@ CREATE TABLE actividade_utilizador (
     FOREIGN KEY (id_sessao) REFERENCES sessao(id_sessao)
 );
 
+alter table actividade_utilizador 
+add tipo text, 
+add duracao int;

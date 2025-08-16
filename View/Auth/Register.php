@@ -1,4 +1,6 @@
-<?php include_once '../../Controller/Auth/AuthRegisterController.php'; ?>
+<?php
+session_start();
+?>
 
 <!DOCTYPE html>
 <html lang="pt-pt">
@@ -9,7 +11,7 @@
     <title>Registro</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Style/login.css">
+    <link rel="stylesheet" href="../../Style/home.css">
 </head>
 
 <body>
@@ -38,7 +40,7 @@
         <h2>REGISTRO</h2>
         <hr />
 
-        <form method="post">
+        <form method="post" action="../../Controller/Auth/AuthRegisterController.php">
             <?php if (!empty($erros)): ?>
                 <div class="alert alert-danger"><?= $erros ?></div>
             <?php endif; ?>
