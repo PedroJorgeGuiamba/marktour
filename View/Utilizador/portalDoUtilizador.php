@@ -97,6 +97,9 @@ include '../../Controller/Utilizador/Home.php';
                         <li><a class="dropdown-item" href="#">Reviews</a></li>
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
+                </li>
             </ul>
         </nav>
     </header>
