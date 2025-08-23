@@ -195,7 +195,7 @@
         <!-- Rodapé -->
         <footer>
             <div class="container-footer">
-                <p>© 2019 TRANSCOM . DIREITOS RESERVADOS . DESIGN & DEVELOPMENT <span>TRANSCOM</span></p>
+                <p>Copyright 2023 © Marktour | Todos Direitos Reservados <span>MARKTOUR.</span></p>
             </div>
         </footer>
     </main>
