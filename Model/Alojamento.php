@@ -32,10 +32,10 @@ class Alojamento
         $conexao = new Conector();
         $conn = $conexao->getConexao();
 
-        $sql = "INSERT INTO alojamento (nome, tipo descricao, preco_noite, num_quartos) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO alojamento (nome, tipo, descricao, preco_noite, num_quartos, id_empresa) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssdii", $nome,$tipo, $descricao, $precoPorNoite, $numQuartos, $id_empresa);
-    
+        $stmt->bind_param("sssdii", $this->nome, $this->tipo, $this->descricao, $this->precoPorNoite, $this->numQuartos, $this->id_empresa);
+
         return $stmt->execute();
     }
 }

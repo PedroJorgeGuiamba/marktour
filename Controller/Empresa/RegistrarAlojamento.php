@@ -12,27 +12,47 @@ class RegistrarAlojamento
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-                
-                $alojamento = new Alojamento();
 
-                $id_empresa = isset($_POST['id_empresa']) ? (int)$_POST['id_empresa'] : null; // Agora vem do POST
+                session_start();
 
-                if (!$id_empresa) {
-                    throw new Exception("IDs de empresa não fornecidos.");
+                if (!isset($_SESSION['id_utilizador'])) {
+                    throw new Exception("Utilizador não autenticado.");
                 }
 
-                $nome = $_POST['nome'] ?? '';
+                $id_utilizador = $_SESSION['id_utilizador'];
+
+                // Buscar empresa pelo utilizador logado
+                $conexao = new Conector();
+                $conn = $conexao->getConexao();
+
+                $stmt = $conn->prepare("SELECT id_empresa FROM empresa WHERE id_utilizador = ?");
+                $stmt->bind_param("i", $id_utilizador);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                if ($result->num_rows === 0) {
+                    throw new Exception("Nenhuma empresa associada ao utilizador.");
+                }
+
+                $empresa = $result->fetch_assoc();
+                $id_empresa = $empresa['id_empresa'];
+                
+                $nome = isset($_POST['nome']) ? trim($_POST['nome']) : '';
+                if (empty($nome)) {
+                    throw new Exception("O nome do alojamento é obrigatório.");
+                }
                 $tipo = $_POST['tipo'] ?? 'hotel'; // padrão
                 $descricao = $_POST['descricao'] ?? '';
                 $precoPorNoite = $_POST['precoPorNoite'] ?? null;
                 $numQuartos = $_POST['numeroDeQuartos'] ?? null;
 
+                $alojamento = new Alojamento();
                 $alojamento->setId_empresa( $id_empresa );
-                $alojamento->setNome( $nome );
-                $alojamento->setTipo( $tipo );
-                $alojamento->setDescricao( $descricao );
-                $alojamento->setPrecoPorNoite( $precoPorNoite );
-                $alojamento->setNumQuartos( $numQuartos );
+                $alojamento->setNome( $nome);
+                $alojamento->setTipo( $tipo);
+                $alojamento->setDescricao( $descricao);
+                $alojamento->setPrecoPorNoite( $precoPorNoite);
+                $alojamento->setNumQuartos( $numQuartos);
 
                 if ($alojamento->salvar()) {
                     if (isset($_SESSION['sessao_id'])) {

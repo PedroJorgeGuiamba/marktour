@@ -176,22 +176,18 @@ include '../../Controller/Empresa/Home.php';
                     minlength: 2
                 },
                 tipo: {
-                    required: true,
-                    minlength: 2
+                    required: true
                 },
                 descricao: {
                     required: false,
                     minlength: 2
                 },
                 precoPorNoite: {
-                    required: false,
-                    digits: true,
-                    minlength: 2
+                    required: false
                 },
                 numeroDeQuartos: {
                     required: false,
-                    digits: true,
-                    minlength: 2
+                    digits: true
                 }
             },
             messages: {
@@ -199,18 +195,11 @@ include '../../Controller/Empresa/Home.php';
                     required: "Informe o nome.",
                     minlength: "O nome deve ter pelo menos 2 caracteres."
                 },
-                tipo: {
-                    required: "Informe o tipo.",
-                    minlength: "O tipo deve ter pelo menos 2 caracteres."
-                },
                 descricao: {
                     minlength: "O descricao deve ter pelo menos 2 caracteres."
                 },
                 precoPorNoite: {
                     minlength: "O preço por noite deve ter pelo menos 2 digitos."
-                },
-                numeroDeQuartos: {
-                    minlength: "O numero de quartos deve ter pelo menos 2 caracteres."
                 }
             },
             errorClass: "is-invalid",
