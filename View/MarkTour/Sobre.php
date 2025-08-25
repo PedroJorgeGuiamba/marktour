@@ -29,12 +29,10 @@
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #000000;"></i></a>
-
+                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #000000;"></i></a>
-
+                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
@@ -81,11 +79,11 @@
                         MarkTour
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Reviews</a></li>
+                        <li><a class="dropdown-item" href="Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="Blog.php">Blog</a></li>
+                        <li><a class="dropdown-item" href="Reviews.php">Reviews</a></li>
                     </ul>
                 </li>
             </ul>
