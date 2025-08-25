@@ -30,16 +30,16 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <!-- Instagram -->
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="https://www.instagram.com/marktourreservasonline/">Instagram</a>
-                            </li>
-                            <!-- Facebook -->
-                            <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#">Facebook</a>
+                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #000000;"></i></a>
+
                             </li>
                             <li class="nav-item">
-                                <a href="View/Auth/Login.php" class="btn btn-danger">Login</a>
+                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #000000;"></i></a>
+
+                            </li>
+                            <li class="nav-item">
+                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -97,7 +97,7 @@
 
     <main>
         <section class="noticias">
-             <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
                     <div class="card">
                         <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
@@ -174,7 +174,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col">
                     <div class="card">
                         <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
@@ -191,7 +191,9 @@
         <!-- Rodapé -->
         <footer>
             <div class="container-footer">
-                <p>Copyright 2023 © Marktour | Todos Direitos Reservados <span>MARKTOUR</span>.</p>
+                <p>
+                    Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
+                </p>
             </div>
         </footer>
     </main>

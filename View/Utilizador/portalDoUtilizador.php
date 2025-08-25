@@ -183,7 +183,7 @@ include '../../Controller/Utilizador/Home.php';
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col">
                     <div class="card">
                         <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
@@ -200,7 +200,9 @@ include '../../Controller/Utilizador/Home.php';
         <!-- Rodapé -->
         <footer>
             <div class="container-footer">
-                <p>Copyright 2023 © Marktour | Todos Direitos Reservados <span>MARKTOUR.</span></p>
+                <p>
+                    Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
+                </p>
             </div>
         </footer>
     </main>

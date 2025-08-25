@@ -1,64 +1,81 @@
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, Verdana, Tahoma, Helvetica;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, Verdana, Tahoma, Helvetica;
 }
 
-.noticias, .formulario, .container-footer{
-    max-width: 1280px;
-    margin: 0 30px;
-    margin-top: 50px;
-    /* padding-left: 200px; */
+.noticias,
+.formulario,
+.container-footer {
+  max-width: 1280px;
+  margin: 0 30px;
+  /* margin-top: 50px; */
+  /* padding-left: 200px; */
+}
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-.row + .row{
-    padding-top: 40px;
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
 }
 
-/* header nav ul.nav li a{
-    color:#FFFFFF;
-} */
-
-/* header nav ul.nav li a{
-    color:black;
-} */
-/* header nav ul li.nav-item ul.dropdown-menu li a.dropdown-item{
-    color: black;
-} */
-
-header ,footer{
-    background-color:#3A4C91;
+.row + .row {
+  padding-top: 40px;
 }
 
-.container-footer{
-    padding: 50px;
+header nav ul.nav li a {
+  color: #ffffff;
 }
 
-.container-footer p{
-    color: white;
+header nav ul.nav li a {
+  color: black;
+}
+header nav ul li.nav-item ul.dropdown-menu li a.dropdown-item {
+  color: black;
 }
 
-.container-footer p span{
-    color: #3C9BFF;
+header,
+footer {
+  background-color: #3a4c91;
+}
+
+.container-footer {
+  padding: 10px;
+}
+
+.container-footer p {
+  color: white;
+}
+
+.container-footer p span {
+  color: #3c9bff;
+}
+
+#nav-link {
+  color: white;
 }
 
 /* Responsividade */
-@media screen and (max-width:1020px) {
+@media screen and (max-width: 1020px) {
+  /* footer */
+  footer .container-footer {
+    flex-direction: column;
+    gap: 30px;
+  }
 
-    /* footer */
-    footer .container-footer {
-        flex-direction: column;
-        gap: 30px;
-    }
+  footer .container-footer {
+    text-align: center;
+  }
 
-    footer .container-footer {
-        text-align: center;
-    }
-
-    header .container-footer{
-        display: block;
-    }
-
+  header .container-footer {
+    display: block;
+  }
 }
-
