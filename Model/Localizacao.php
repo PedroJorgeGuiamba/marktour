@@ -15,6 +15,9 @@ class Localizacao
     private $andar;
     private $endereco_detalhado;
     private $codigo_postal;
+    private $latitude;
+    private $longitude;
+    private $referencia;
 
     // Getters
     public function getId_localizacao() { return $this->id_localizacao; }
@@ -29,6 +32,9 @@ class Localizacao
     public function getAndar() { return $this->andar; }
     public function getEndereco_detalhado() { return $this->endereco_detalhado; }
     public function getCodigo_postal() { return $this->codigo_postal; }
+    public function getLatitude(){ return $this->latitude; }
+    public function getLongitude(){ return $this->longitude; }
+    public function getReferencia() { return $this->referencia; }
 
     // Setters
     public function setId_localizacao($id_localizacao) { $this->id_localizacao = $id_localizacao; }
@@ -43,12 +49,15 @@ class Localizacao
     public function setAndar($andar) { $this->andar = $andar; }
     public function setEndereco_detalhado($endereco_detalhado) { $this->endereco_detalhado = $endereco_detalhado; }
     public function setCodigo_postal($codigo_postal) { $this->codigo_postal = $codigo_postal; }
+    public function setLongitude($longitude) { $this->longitude = $longitude; }
+    public function setLatitude($latitude) { $this->latitude = $latitude; }
+    public function setReferencia($referencia) { $this->referencia = $referencia;}
 
     public function salvar($conn)
     {
-        $sql = "INSERT INTO localizacao (provincia, distrito, bairro, posto_administrativo, localidade, avenida, rua, andar, endereco_detalhado, codigo_postal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO localizacao (provincia, distrito, bairro, posto_administrativo, localidade, avenida, rua, andar, endereco_detalhado, codigo_postal, latitude, longitude, referencia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssss", $this->provincia, $this->distrito, $this->bairro, $this->posto_administrativo, $this->localidade, $this->avenida, $this->rua, $this->andar, $this->endereco_detalhado, $this->codigo_postal);
+        $stmt->bind_param("ssssssssss", $this->provincia, $this->distrito, $this->bairro, $this->posto_administrativo, $this->localidade, $this->avenida, $this->rua, $this->andar, $this->endereco_detalhado, $this->codigo_postal, $this->latitude, $this->longitude, $this->referencia);
 
         $success = $stmt->execute();
         if ($success) {

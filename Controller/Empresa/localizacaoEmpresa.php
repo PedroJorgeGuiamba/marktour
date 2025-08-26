@@ -28,6 +28,9 @@ class FormularioDeLocalizacao
                 $andar = trim($_POST['andar'] ?? '');
                 $endereco_detalhado = trim($_POST['endereco'] ?? '');
                 $codigo_postal = trim($_POST['codigoPostal'] ?? '');
+                $longitude = trim($_POST['longitude'] ?? '');
+                $latitude = trim($_POST['latitude'] ?? '');
+                $referencia = trim($_POST['referencia'] ?? '');
 
                 
                 $localizacao->setProvincia($provincia);
@@ -40,6 +43,9 @@ class FormularioDeLocalizacao
                 $localizacao->setAndar($andar);
                 $localizacao->setEndereco_detalhado($endereco_detalhado);
                 $localizacao->setCodigo_postal($codigo_postal);
+                $localizacao->setLatitude($latitude);
+                $localizacao->setLongitude($longitude);
+                $localizacao->setReferencia($referencia);
 
                 $conexao = new Conector();
                 $conn = $conexao->getConexao();
