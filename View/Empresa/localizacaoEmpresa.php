@@ -177,6 +177,26 @@ include '../../Controller/Empresa/Home.php';
                     </div>
                 </div>
 
+                <div class="form-group col-md-4">
+                    <label for="latitude" class="form-label">latitude:</label>
+                    <input type="text" name="latitude" class="form-control" id="latitude"
+                        placeholder="latitude">
+                    <span class="error_form" id="latitude_error_message"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="longitude" class="form-label">longitude:</label>
+                    <input type="text" name="longitude" class="form-control" id="longitude"
+                        placeholder="longitude">
+                    <span class="error_form" id="longitude_error_message"></span>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="referencia" class="form-label">referencia:</label>
+                    <input type="text" name="referencia" class="form-control" id="referencia"
+                        placeholder="referencia">
+                    <span class="error_form" id="referencia_error_message"></span>
+                </div>
                 <div class="row">
                     <div class="form-group">
                         <div class="col-md-3">
@@ -244,6 +264,18 @@ include '../../Controller/Empresa/Home.php';
                     digits: true,
                     minlength: 4,
                     maxlength: 4
+                },
+                latitude: {
+                    required: false,
+                    minlength: 1
+                },
+                longitude: {
+                    required: false,
+                    minlength: 1
+                },
+                referencia: {
+                    required: false,
+                    minlength: 2
                 }
             },
             messages: {
@@ -280,6 +312,15 @@ include '../../Controller/Empresa/Home.php';
                     digits: "Apenas números são permitidos.",
                     minlength: "O código postal deve ter 4 dígitos.",
                     maxlength: "O código postal deve ter 4 dígitos."
+                },
+                latitude: {
+                    minlength: "A latitude deve ter pelo menos 1 caracteres."
+                },
+                longitude: {
+                    minlength: "A longitude deve ter pelo menos 1 caracteres."
+                },
+                referencia: {
+                    minlength: "A referencia deve ter pelo menos 2 caracteres."
                 }
             },
             errorClass: "is-invalid",
