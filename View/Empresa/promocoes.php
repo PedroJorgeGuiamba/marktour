@@ -1,46 +1,77 @@
 <?php
-session_start();
-require_once __DIR__ . '/../../Conexao/conector.php';
-require_once __DIR__ . '/../../Model/Alojamento.php';
-
-class RecuperarAlojamentos
-{
-    public function listar()
-    {
-        $conexao = new Conector();
-        $conn = $conexao->getConexao();
-
-        // Consulta para recuperar todos os alojamentos
-        $sql = "SELECT * FROM alojamento";
-        $result = $conn->query($sql);
-
-        $alojamentos = [];
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $alojamentos[] = $row;
-            }
-        }
-
-        return $alojamentos;
-    }
-}
-
+// session_start();
+// include '../../Controller/Empresa/Home.php';
+// require_once __DIR__ . '/../../middleware/auth.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Alojamentos - MarkTour</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Promoções - MarkTour</title>
     <link rel="stylesheet" href="../../Style/home.css">
 
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+
+    <style>
+        #main1 {
+            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat;
+            height: 60vh;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        #main1::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        #main1 .content {
+            position: relative;
+            z-index: 2;
+        }
+
+        #main1 h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        #main1 p {
+            font-size: 1.2rem;
+        }
+
+        .promo-card {
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #fff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .promo-card img {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .promo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+    </style>
 </head>
 
 <body>
@@ -74,7 +105,7 @@ class RecuperarAlojamentos
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,7 +132,7 @@ class RecuperarAlojamentos
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="#">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -118,42 +149,70 @@ class RecuperarAlojamentos
             </ul>
         </nav>
     </header>
-
-    <main class="container mt-5">
-        <h2>Alojamentos Registrados</h2>
-
-        <?php
-        $recuperar = new RecuperarAlojamentos();
-        $alojamentos = $recuperar->listar();
-
-        // Data e hora atual fornecida
-        $dataHoraAtual = "09:04 PM CAT, Saturday, August 23, 2025";
-
-        if (empty($alojamentos)) {
-            echo "<div class='alert alert-warning' role='alert'>Nenhum alojamento registrado.</div>";
-        } else {
-            foreach ($alojamentos as $alojamento) {
-                echo "
-                <div class='card mb-3' style='max-width: 540px;'>
-                    <div class='card-body'>
-                        <h5 class='card-title'>{$alojamento['nome']}</h5>
-                        <p class='card-text'><strong>Tipo:</strong> {$alojamento['tipo']}</p>
-                        <p class='card-text'><strong>Descrição:</strong> {$alojamento['descricao']}</p>
-                        <p class='card-text'><strong>Preço por Noite:</strong> {$alojamento['preco_noite']} MZN</p>
-                        <p class='card-text'><strong>Número de Quartos:</strong> {$alojamento['num_quartos']}</p>
-                        <p class='card-text'><strong>Empresa ID:</strong> {$alojamento['id_empresa']}</p>
-                        <p class='card-text'><small class='text-muted'>Última atualização: {$dataHoraAtual}</small></p>
-                    </div>
-                </div>";
-            }
-        }
-        ?>
-
+    <!-- Hero -->
+    <main id="main1">
+        <div class="content">
+            <h1>Promoções Exclusivas</h1>
+            <p>Descubra pacotes especiais em hotéis, resorts e experiências únicas</p>
+            <a href="#promocoes" class="btn btn-lg btn-warning mt-3">Ver Promoções</a>
+        </div>
     </main>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Promoções -->
+    <main class="container my-5" id="promocoes">
+        <h2 class="text-center mb-4">Ofertas Imperdíveis</h2>
+        <div class="row g-4">
+            <!-- Card 1 -->
+            <div class="col-md-4">
+                <div class="promo-card">
+                    <img src="https://images.unsplash.com/photo-1501117716987-c8e1ecb210d7" alt="Hotel 1">
+                    <div class="p-3">
+                        <h5>Resort Beira-Mar</h5>
+                        <p class="text-muted">Pacote 3 noites com tudo incluído.</p>
+                        <p><strong>Preço: 15.000 MZN</strong></p>
+                        <a href="#" class="btn btn-primary w-100">Reservar Agora</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-md-4">
+                <div class="promo-card">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" alt="Hotel 2">
+                    <div class="p-3">
+                        <h5>Hotel Urbano Lux</h5>
+                        <p class="text-muted">Fim de semana romântico na cidade.</p>
+                        <p><strong>Preço: 9.500 MZN</strong></p>
+                        <a href="#" class="btn btn-primary w-100">Reservar Agora</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-md-4">
+                <div class="promo-card">
+                    <img src="https://images.unsplash.com/photo-1496417263034-38ec4f0b665a" alt="Hotel 3">
+                    <div class="p-3">
+                        <h5>Casa de Praia Privada</h5>
+                        <p class="text-muted">Experiência exclusiva junto ao mar.</p>
+                        <p><strong>Preço: 20.000 MZN</strong></p>
+                        <a href="#" class="btn btn-primary w-100">Reservar Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container-footer">
+            <p>
+                Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
