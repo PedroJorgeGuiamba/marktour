@@ -10,15 +10,15 @@
 .container-footer {
   max-width: 1280px;
   margin: 0 30px;
-  /* margin-top: 50px; */
-  /* padding-left: 200px; */
+  margin-top: 50px;
+  padding-left: 200px;
 }
-header {
+/* header {
   position: fixed;
-  top: 0;
+  top: 1;
   width: 100%;
   z-index: 1000;
-}
+} */
 
 footer {
   position: fixed;
@@ -28,7 +28,7 @@ footer {
 }
 
 .row + .row {
-  padding-top: 40px;
+  padding-top: 30px;
 }
 
 header nav ul.nav li a {
