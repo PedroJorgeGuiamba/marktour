@@ -6,24 +6,41 @@ include '../../Controller/Empresa/Home.php';
 
 <!DOCTYPE html>
 <html lang="pt-pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recuperação de Informações - MarkTour</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../../Style/home.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <style>
-        .card { margin-bottom: 20px; }
-        .no-data { color: #dc3545; }
-        .modal .form-group { margin-bottom: 1rem; }
-        .modal-footer .btn { margin: 0 5px; }
+        .card {
+            margin-bottom: 20px;
+        }
+
+        .no-data {
+            color: #dc3545;
+        }
+
+        .modal .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .modal-footer .btn {
+            margin: 0 5px;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp">
+                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp" alt="Marktour Logo" height="30">
                 <div class="nav-modal">
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -31,10 +48,10 @@ include '../../Controller/Empresa/Home.php';
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="https://www.instagram.com/marktourreservasonline/">Instagram</a>
+                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#">Facebook</a>
+                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
                                 <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
@@ -461,4 +478,5 @@ include '../../Controller/Empresa/Home.php';
         });
     </script>
 </body>
+
 </html>
