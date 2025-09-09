@@ -85,7 +85,7 @@ include '../../Controller/Empresa/Home.php';
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="../Empresa/eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
