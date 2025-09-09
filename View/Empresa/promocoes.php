@@ -11,67 +11,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Promoções - MarkTour</title>
-    <link rel="stylesheet" href="../../Style/home.css">
+    <link rel="stylesheet" href="../../Style/empresa.css">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <style>
-        #main1 {
-            background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e') center/cover no-repeat;
-            height: 60vh;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
-
-        #main1::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        #main1 .content {
-            position: relative;
-            z-index: 2;
-        }
-
-        #main1 h1 {
-            font-size: 3rem;
-            font-weight: bold;
-        }
-
-        #main1 p {
-            font-size: 1.2rem;
-        }
-
-        .promo-card {
-            border-radius: 15px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .promo-card img {
-            height: 220px;
-            object-fit: cover;
-            width: 100%;
-        }
-
-        .promo-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-        }
-    </style>
 </head>
 
 <body>

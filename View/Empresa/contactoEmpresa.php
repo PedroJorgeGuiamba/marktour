@@ -27,7 +27,7 @@ if (!$id_empresa) {
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <!-- CSS -->
-    <link rel="stylesheet" href="../../Style/home.css">
+    <link rel="stylesheet" href="../../Style/empresa.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
