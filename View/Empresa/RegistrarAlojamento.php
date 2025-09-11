@@ -104,7 +104,7 @@ include '../../Controller/Empresa/Home.php';
     </header>
 
     <main>
-        <div class="formulario">
+        <div class="formulario" style="padding-top: 100px; margin: 70px;">
             <form action="../../Controller/Empresa/RegistrarAlojamento.php" method="post" id="formularioAlojamento">
                 <div class="row">
                     <div class="form-group col-md-4">
@@ -148,7 +148,7 @@ include '../../Controller/Empresa/Home.php';
 
                     <div class="row">
                         <div class="form-group">
-                            <div class="col-md-3">
+                            <div class="col-md-3" style="padding-top: 20px;">
                                 <button type="submit" class="btn btn-success form-control">Register</button>
                             </div>
                         </div>
