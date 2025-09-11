@@ -85,7 +85,7 @@ include '../../Controller/Empresa/Home.php';
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,6 +113,32 @@ include '../../Controller/Empresa/Home.php';
     </header>
 
     <main>
+        <section class="busca my-6">
+            <div class="container">
+                <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre suas Acomodação</h2>
+                <form id="formBusca" class="row g-3">
+                    <div class="col-md-4">
+                        <input type="text" name="localizacao" class="form-control" placeholder="Digite o destino" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="checkin" class="form-control" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="date" name="checkout" class="form-control" required>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="number" name="hospedes" class="form-control" min="1" value="1" required>
+                    </div>
+                    <div class="col-md-2 d-grid">
+                        <button type="submit" class="btn btn-primary">Buscar</button>
+                    </div>
+                </form>
+
+                <!-- Resultados -->
+                <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4 mt-4"></div>
+            </div>
+        </section>
+
         <section class="noticias">
             <div class="row row-cols-1 row-cols-md-2 g-4">
                 <div class="col">
