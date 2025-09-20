@@ -35,7 +35,7 @@ function terminarSessao()
     session_start();
 
     if (!isset($_SESSION['sessao_id'])) {
-        header("Location: /../../View/Auth/Login.php");
+        header("Location: ../View/Auth/Login.php");
         exit();
     }
 
@@ -56,7 +56,7 @@ function terminarSessao()
     session_unset();
     session_destroy();
 
-    header("Location: /../../index.php");
+    header("Location: /marktour/index.php");
     exit();
 }
 

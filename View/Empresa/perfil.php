@@ -36,7 +36,7 @@ include '../../Controller/Empresa/Home.php';
     </style>
 </head>
 
-<body>
+<div >
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
@@ -64,7 +64,7 @@ include '../../Controller/Empresa/Home.php';
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home</a>
+                    <a class="nav-link active" href="portalDaEmpresa.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -109,165 +109,175 @@ include '../../Controller/Empresa/Home.php';
         </nav>
     </header>
 
-    <main class="container mt-5" id="infoContainer">
-        <h2>Informações Recuperadas</h2>
-        <div id="loading" class="text-center">
-            <div class="spinner-border text-primary" role="status">
-                <span class="visually-hidden">Carregando...</span>
+    <div style="margin: 150px;">
+        <main class="container mt-5" id="infoContainer">
+            <h2>Informações Recuperadas</h2>
+            <div id="loading" class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Modal para Edição da Empresa -->
+        <div class="modal fade" id="editEmpresaModal" tabindex="-1" aria-labelledby="editEmpresaModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editEmpresaModalLabel">Editar Dados da Empresa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editEmpresaForm">
+                            <input type="hidden" id="editEmpresaId" name="id_empresa">
+                            <div class="form-group">
+                                <label for="editNome">Nome</label>
+                                <input type="text" class="form-control" id="editNome" name="nome" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editNuit">NUIT</label>
+                                <input type="text" class="form-control" id="editNuit" name="nuit" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDescricao">Descrição</label>
+                                <input type="text" class="form-control" id="editDescricao" name="descricao" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editEstado">Estado</label>
+                                <select class="form-control" id="editEstado" name="estado" required>
+                                    <option value="aprovado">Aprovado</option>
+                                    <option value="pendente">Pendente</option>
+                                    <option value="rejeitado">Rejeitado</option>
+                                </select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" id="saveEmpresaChanges">Salvar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </main>
 
-    <!-- Modal para Edição da Empresa -->
-    <div class="modal fade" id="editEmpresaModal" tabindex="-1" aria-labelledby="editEmpresaModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editEmpresaModalLabel">Editar Dados da Empresa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <!-- Modal para Edição da Localização -->
+        <div class="modal fade" id="editLocalizacaoModal" tabindex="-1" aria-labelledby="editLocalizacaoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editLocalizacaoModalLabel">Editar Localização</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editLocalizacaoForm">
+                            <input type="hidden" id="editLocalizacaoId" name="id_localizacao">
+                            <div class="form-group">
+                                <label for="editProvincia">Província</label>
+                                <input type="text" class="form-control" id="editProvincia" name="provincia" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDistrito">Distrito</label>
+                                <input type="text" class="form-control" id="editDistrito" name="distrito" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editBairro">Bairro</label>
+                                <input type="text" class="form-control" id="editBairro" name="bairro" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editPostoAdministrativo">Posto Administrativo</label>
+                                <input type="text" class="form-control" id="editPostoAdministrativo" name="posto_administrativo" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editLocalidade">Localidade</label>
+                                <input type="text" class="form-control" id="editLocalidade" name="localidade" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editAvenida">Avenida</label>
+                                <input type="text" class="form-control" id="editAvenida" name="avenida">
+                            </div>
+                            <div class="form-group">
+                                <label for="editRua">Rua</label>
+                                <input type="text" class="form-control" id="editRua" name="rua">
+                            </div>
+                            <div class="form-group">
+                                <label for="editAndar">Andar</label>
+                                <input type="text" class="form-control" id="editAndar" name="andar">
+                            </div>
+                            <div class="form-group">
+                                <label for="editEnderecoDetalhado">Endereço Detalhado</label>
+                                <input type="text" class="form-control" id="editEnderecoDetalhado" name="endereco_detalhado">
+                            </div>
+                            <div class="form-group">
+                                <label for="editCodigoPostal">Código Postal</label>
+                                <input type="text" class="form-control" id="editCodigoPostal" name="codigo_postal">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" id="saveLocalizacaoChanges">Salvar</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    <form id="editEmpresaForm">
-                        <input type="hidden" id="editEmpresaId" name="id_empresa">
-                        <div class="form-group">
-                            <label for="editNome">Nome</label>
-                            <input type="text" class="form-control" id="editNome" name="nome" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editNuit">NUIT</label>
-                            <input type="text" class="form-control" id="editNuit" name="nuit" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editDescricao">Descrição</label>
-                            <input type="text" class="form-control" id="editDescricao" name="descricao" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editEstado">Estado</label>
-                            <select class="form-control" id="editEstado" name="estado" required>
-                                <option value="aprovado">Aprovado</option>
-                                <option value="pendente">Pendente</option>
-                                <option value="rejeitado">Rejeitado</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" id="saveEmpresaChanges">Salvar</button>
+            </div>
+        </div>
+
+        <!-- Modal para Edição do Contato -->
+        <div class="modal fade" id="editContatoModal" tabindex="-1" aria-labelledby="editContatoModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editContatoModalLabel">Editar Contato</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editContatoForm">
+                            <input type="hidden" id="editContatoId" name="id_empresa">
+                            <div class="form-group">
+                                <label for="editTelefone1">Telefone 1</label>
+                                <input type="tel" class="form-control" id="editTelefone1" name="telefone1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editTelefone2">Telefone 2</label>
+                                <input type="tel" class="form-control" id="editTelefone2" name="telefone2">
+                            </div>
+                            <div class="form-group">
+                                <label for="editTelefone3">Telefone 3</label>
+                                <input type="tel" class="form-control" id="editTelefone3" name="telefone3">
+                            </div>
+                            <div class="form-group">
+                                <label for="editFax1">Fax 1</label>
+                                <input type="tel" class="form-control" id="editFax1" name="fax1">
+                            </div>
+                            <div class="form-group">
+                                <label for="editFax2">Fax 2</label>
+                                <input type="tel" class="form-control" id="editFax2" name="fax2">
+                            </div>
+                            <div class="form-group">
+                                <label for="editEmail">Email</label>
+                                <input type="email" class="form-control" id="editEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="editWebsite">Website</label>
+                                <input type="text" class="form-control" id="editWebsite" name="website">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary" id="saveContatoChanges">Salvar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Modal para Edição da Localização -->
-    <div class="modal fade" id="editLocalizacaoModal" tabindex="-1" aria-labelledby="editLocalizacaoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editLocalizacaoModalLabel">Editar Localização</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editLocalizacaoForm">
-                        <input type="hidden" id="editLocalizacaoId" name="id_localizacao">
-                        <div class="form-group">
-                            <label for="editProvincia">Província</label>
-                            <input type="text" class="form-control" id="editProvincia" name="provincia" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editDistrito">Distrito</label>
-                            <input type="text" class="form-control" id="editDistrito" name="distrito" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editBairro">Bairro</label>
-                            <input type="text" class="form-control" id="editBairro" name="bairro" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editPostoAdministrativo">Posto Administrativo</label>
-                            <input type="text" class="form-control" id="editPostoAdministrativo" name="posto_administrativo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editLocalidade">Localidade</label>
-                            <input type="text" class="form-control" id="editLocalidade" name="localidade" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editAvenida">Avenida</label>
-                            <input type="text" class="form-control" id="editAvenida" name="avenida">
-                        </div>
-                        <div class="form-group">
-                            <label for="editRua">Rua</label>
-                            <input type="text" class="form-control" id="editRua" name="rua">
-                        </div>
-                        <div class="form-group">
-                            <label for="editAndar">Andar</label>
-                            <input type="text" class="form-control" id="editAndar" name="andar">
-                        </div>
-                        <div class="form-group">
-                            <label for="editEnderecoDetalhado">Endereço Detalhado</label>
-                            <input type="text" class="form-control" id="editEnderecoDetalhado" name="endereco_detalhado">
-                        </div>
-                        <div class="form-group">
-                            <label for="editCodigoPostal">Código Postal</label>
-                            <input type="text" class="form-control" id="editCodigoPostal" name="codigo_postal">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" id="saveLocalizacaoChanges">Salvar</button>
-                </div>
-            </div>
+    <footer>
+        <div class="container-footer">
+            <p>
+                Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
+            </p>
         </div>
-    </div>
-
-    <!-- Modal para Edição do Contato -->
-    <div class="modal fade" id="editContatoModal" tabindex="-1" aria-labelledby="editContatoModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editContatoModalLabel">Editar Contato</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="editContatoForm">
-                        <input type="hidden" id="editContatoId" name="id_empresa">
-                        <div class="form-group">
-                            <label for="editTelefone1">Telefone 1</label>
-                            <input type="tel" class="form-control" id="editTelefone1" name="telefone1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editTelefone2">Telefone 2</label>
-                            <input type="tel" class="form-control" id="editTelefone2" name="telefone2">
-                        </div>
-                        <div class="form-group">
-                            <label for="editTelefone3">Telefone 3</label>
-                            <input type="tel" class="form-control" id="editTelefone3" name="telefone3">
-                        </div>
-                        <div class="form-group">
-                            <label for="editFax1">Fax 1</label>
-                            <input type="tel" class="form-control" id="editFax1" name="fax1">
-                        </div>
-                        <div class="form-group">
-                            <label for="editFax2">Fax 2</label>
-                            <input type="tel" class="form-control" id="editFax2" name="fax2">
-                        </div>
-                        <div class="form-group">
-                            <label for="editEmail">Email</label>
-                            <input type="email" class="form-control" id="editEmail" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="editWebsite">Website</label>
-                            <input type="text" class="form-control" id="editWebsite" name="website">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                    <button type="button" class="btn btn-primary" id="saveContatoChanges">Salvar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    </footer>
 
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -65,8 +65,8 @@ include '../../Controller/Empresa/Home.php';
                         Acomodações
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
+                        <li><a class="dropdown-item" href="MeusServicos.php">Hoteis</a></li>
+                        <li><a class="dropdown-item" href="MeusServicos.php">Resorts</a></li>
                         <li><a class="dropdown-item" href="#">Lounges</a></li>
                         <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
                         <li><a class="dropdown-item" href="#">Apartamentos</a></li>
@@ -108,6 +108,12 @@ include '../../Controller/Empresa/Home.php';
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Alojamentos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="RegistrarPasseio.php">Registrar Actividade</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Actividade</a>
+                </li></main>
             </ul>
         </nav>
     </header>

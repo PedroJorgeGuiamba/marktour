@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include '../../Controller/Formador/Home.php';
+    include '../../Controller/Empresa/Home.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">

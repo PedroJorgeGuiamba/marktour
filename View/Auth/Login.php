@@ -12,6 +12,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <link rel="stylesheet" href="../Style/login.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+        function validarPost(){
+            if(grecaptcha.getResponse() != "") return true;
+
+            alert('Selecione a caixa de "Não sou um robô"');
+            return false;
+        }
+    </script>
 
     <style>
         /* .custom-container {
@@ -52,7 +62,7 @@
 
         <hr />
 
-        <form method="post">
+        <form method="post" onsubmit="return validarPost()">
             <?php if (isset($erros)): ?>
                 <div class="alert alert-danger"><?= $erros ?></div>
             <?php endif; ?>
@@ -67,8 +77,14 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder="**********">
+                            <label for="senha" class="form-label">Password</label>
+                            <input type="password" name="senha" class="form-control" id="senha" placeholder="**********">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <div class="g-recaptcha" data-sitekey="6Ldecc4rAAAAACtS7KVdg59PJga_XoEXaC0xTGhg"></div>
                         </div>
                     </div>
 
