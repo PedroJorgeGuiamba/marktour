@@ -3,6 +3,7 @@ require_once __DIR__ . '/../Conexao/conector.php';
 
 class Alojamento
 {
+    private $id_alojamento;
     private $nome;
     private $tipo;
     private $descricao;

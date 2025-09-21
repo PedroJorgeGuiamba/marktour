@@ -8,26 +8,32 @@ if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-class RecuperarAlojamentos
-{
-    public function listar()
-    {
+// Handle cart actions
+if (isset($_GET['action']) && isset($_GET['id'])) {
+    $id = $_GET['id'];
+    if ($_GET['action'] == 'add') {
+        // Fetch accommodation details
         $conexao = new Conector();
         $conn = $conexao->getConexao();
-
-        // Consulta para recuperar todos os alojamentos
-        $sql = "SELECT * FROM alojamento";
-        $result = $conn->query($sql);
-
-        $alojamentos = [];
+        $sql = "SELECT * FROM alojamento WHERE id_alojamento = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $alojamentos[] = $row;
-            }
+            $alojamento = $result->fetch_assoc();
+            $_SESSION['cart'][$id] = [
+                'nome' => $alojamento['nome'],
+                'preco_noite' => $alojamento['preco_noite'],
+                'quantidade' => isset($_SESSION['cart'][$id]) ? $_SESSION['cart'][$id]['quantidade'] + 1 : 1
+            ];
         }
-
-        return $alojamentos;
+    } elseif ($_GET['action'] == 'remove') {
+        unset($_SESSION['cart'][$id]);
     }
+    header("Location: carrinho.php");
+    exit();
 }
 ?>
 
@@ -37,29 +43,13 @@ class RecuperarAlojamentos
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Alojamentos - MarkTour</title>
+    <title>Carrinho de Compras - MarkTour</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../Style/empresa.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-    <style>
-        .cart-icon {
-            position: relative;
-            margin-left: 15px;
-        }
-        .cart-count {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background-color: #dc3545;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-        }
-    </style>
 </head>
 
 <body>
@@ -99,7 +89,7 @@ class RecuperarAlojamentos
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../Empresa/portalDaEmpresa.php">Home</a>
+                    <a class="nav-link" href="../Empresa/portalDaEmpresa.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -145,39 +135,49 @@ class RecuperarAlojamentos
     </header>
 
     <main class="container mt-5">
-        <h2>Alojamentos Registrados</h2>
+        <h2>Carrinho de Compras</h2>
 
-        <?php
-        $recuperar = new RecuperarAlojamentos();
-        $alojamentos = $recuperar->listar();
-
-        // Data e hora atual fornecida
-        $dataHoraAtual = "09:04 PM CAT, Saturday, August 23, 2025";
-
-        if (empty($alojamentos)) {
-            echo "<div class='alert alert-warning' role='alert'>Nenhum alojamento registrado.</div>";
-        } else {
-            foreach ($alojamentos as $alojamento) {
-                echo "
-                <div class='card mb-3' style='max-width: 540px;'>
-                    <div class='card-body'>
-                        <h5 class='card-title'>{$alojamento['nome']}</h5>
-                        <p class='card-text'><strong>Tipo:</strong> {$alojamento['tipo']}</p>
-                        <p class='card-text'><strong>Descrição:</strong> {$alojamento['descricao']}</p>
-                        <p class='card-text'><strong>Preço por Noite:</strong> {$alojamento['preco_noite']} MZN</p>
-                        <p class='card-text'><strong>Número de Quartos:</strong> {$alojamento['num_quartos']}</p>
-                        <p class='card-text'><strong>Empresa ID:</strong> {$alojamento['id_empresa']}</p>
-                        <p class='card-text'><small class='text-muted'>Última atualização: {$dataHoraAtual}</small></p>
-                        <div class='d-flex gap-2'>
-                            <a href='Carrinho.php?action=add&id={$alojamento['id_alojamento']}' class='btn btn-primary'>Adicionar ao Carrinho</a>
-                            <a href='reservar.php?id={$alojamento['id_alojamento']}' class='btn btn-success'>Reservar</a>
-                        </div>
-                    </div>
-                </div>";
-            }
-        }
-        ?>
-
+        <?php if (empty($_SESSION['cart'])): ?>
+            <div class='alert alert-warning' role='alert'>Seu carrinho está vazio.</div>
+        <?php else: ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço por Noite (MZN)</th>
+                        <th>Quantidade</th>
+                        <th>Total (MZN)</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $total = 0;
+                    foreach ($_SESSION['cart'] as $id => $item):
+                        $subtotal = $item['preco_noite'] * $item['quantidade'];
+                        $total += $subtotal;
+                    ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($item['nome']); ?></td>
+                            <td><?php echo number_format($item['preco_noite'], 2); ?></td>
+                            <td><?php echo $item['quantidade']; ?></td>
+                            <td><?php echo number_format($subtotal, 2); ?></td>
+                            <td>
+                                <a href="carrinho.php?action=remove&id=<?php echo $id; ?>" class="btn btn-danger btn-sm">Remover</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Total Geral:</strong></td>
+                        <td><?php echo number_format($total, 2); ?> MZN</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <a href="checkout.php" class="btn btn-success">Finalizar Reserva</a>
+            </div>
+        <?php endif; ?>
     </main>
 
     <!-- Bootstrap JS -->
