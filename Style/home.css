@@ -27,9 +27,9 @@ footer {
   z-index: 1000;
 }
 
-.row + .row {
+/* .row + .row {
   padding-top: 30px;
-}
+} */
 
 header nav ul.nav li a {
   color: #ffffff;
@@ -47,9 +47,9 @@ footer {
   background-color: #3a4c91;
 }
 
-.container-footer {
+/* .container-footer {
   padding: 10px;
-}
+} */
 
 .container-footer p {
   color: white;

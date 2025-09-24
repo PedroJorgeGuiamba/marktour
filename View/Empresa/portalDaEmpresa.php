@@ -119,7 +119,8 @@ include '../../Controller/Empresa/Home.php';
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Actividade</a>
-                </li></main>
+                </li>
+                </main>
             </ul>
         </nav>
     </header>
@@ -127,21 +128,26 @@ include '../../Controller/Empresa/Home.php';
     <main>
         <section class="busca my-6">
             <div class="container">
-                <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre suas Acomodação</h2>
-                <form id="formBusca" class="row g-3">
-                    <div class="col-md-4">
+                <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre sua Acomodação</h2>
+
+                <form id="formBusca" class="row g-3 justify-content-center text-center">
+                    <div class="col-md-3">
+                        <label style="color:black"></label>
                         <input type="text" name="localizacao" class="form-control" placeholder="Digite o destino" required>
                     </div>
                     <div class="col-md-2">
+                        <label style="color:black">Check-in</label>
                         <input type="date" name="checkin" class="form-control" required>
                     </div>
                     <div class="col-md-2">
+                        <label style="color:black">Check-out</label>
                         <input type="date" name="checkout" class="form-control" required>
                     </div>
                     <div class="col-md-2">
+                        <label style="color:black">Hóspedes</label>
                         <input type="number" name="hospedes" class="form-control" min="1" value="1" required>
                     </div>
-                    <div class="col-md-2 d-grid">
+                    <div class="col-md-2 d-grid align-items-end">
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>

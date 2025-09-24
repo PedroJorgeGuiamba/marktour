@@ -105,7 +105,7 @@ include '../../Controller/Empresa/Home.php';
 
     <main>
         <div class="formulario">
-            <form action="../../Controller/Empresa/localizacaoEmpresa.php" method="post" id="formularioLocalizacao">
+            <form action="../../Controller/Empresa/localizacaoEmpresa.php" method="post" id="formularioLocalizacao" style="padding-top:100px ;">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="provincia" class="form-label">Provincia:</label>
@@ -198,7 +198,7 @@ include '../../Controller/Empresa/Home.php';
                         placeholder="referencia">
                     <span class="error_form" id="referencia_error_message"></span>
                 </div>
-                <div class="row">
+                <div class="row" style="padding-top: 20px;">
                     <div class="form-group">
                         <div class="col-md-3">
                             <button type="submit" class="btn btn-success form-control">Register</button>

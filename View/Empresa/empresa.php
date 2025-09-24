@@ -114,7 +114,7 @@ if (!$id_utilizador || !$id_localizacao) {
     <main>
         <div class="formulario">
             <form action="../../Controller/Empresa/empresa.php" method="post" id="formularioEmpresa">
-                <div class="row">
+                <div class="row" style="padding-top: 100px;">
                     <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>">
                     <input type="hidden" name="id_localizacao" value="<?php echo $id_localizacao; ?>">
                     <div class="form-group col-md-4">
@@ -138,7 +138,7 @@ if (!$id_utilizador || !$id_localizacao) {
                             placeholder="pedro.co.mz">
                         <span class="error_form" id="descricao_error_message"></span>
                     </div>
-                    <div class="row">
+                    <div class="row" style="padding-top: 20px;">
                         <div class="form-group">
                             <div class="col-md-3">
                                 <button type="submit" class="btn btn-success form-control">Register</button>
