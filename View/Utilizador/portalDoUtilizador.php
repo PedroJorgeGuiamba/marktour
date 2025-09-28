@@ -19,7 +19,88 @@ include '../../Controller/Utilizador/Home.php';
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="../../Style/home.css">
+    <style>
+        /* ====== Motor de Busca ====== */
+        .busca {
+            padding: 40px 20px;
+            border-radius: 12px;
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
 
+        .busca h2 {
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #000000ff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .busca form .form-control {
+            border-radius: 8px;
+            border: none;
+            padding: 12px;
+            font-size: 15px;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .busca form .form-control:focus {
+            border: 2px solid #fff;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+        }
+
+        .busca form button {
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            background: #023e8a;
+            border: none;
+            color: #fff;
+            transition: background 0.3s ease;
+        }
+
+        .busca form button:hover {
+            background: #03045e;
+        }
+
+        /* ====== Resultados ====== */
+        #resultadosBusca {
+            margin-top: 30px;
+        }
+
+        #resultadosBusca .card {
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        #resultadosBusca .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        #resultadosBusca .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        #resultadosBusca .card-body {
+            padding: 20px;
+        }
+
+        #resultadosBusca .card-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #0077b6;
+        }
+
+        #resultadosBusca .card-text {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
 
 </head>
 
@@ -104,6 +185,36 @@ include '../../Controller/Utilizador/Home.php';
         </nav>
     </header>
 
+    <section class="busca my-6">
+        <div class="container">
+            <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre sua Acomodação</h2>
+
+            <form id="formBusca" class="row g-3 justify-content-center text-center">
+                <div class="col-md-3">
+                    <label style="color:black"></label>
+                    <input type="text" name="localizacao" class="form-control" placeholder="Digite o destino" required>
+                </div>
+                <div class="col-md-2">
+                    <label style="color:black">Check-in</label>
+                    <input type="date" name="checkin" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <label style="color:black">Check-out</label>
+                    <input type="date" name="checkout" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <label style="color:black">Hóspedes</label>
+                    <input type="number" name="hospedes" class="form-control" min="1" value="1" required>
+                </div>
+                <div class="col-md-2 d-grid align-items-end">
+                    <button ltype="submit" class="btn btn-primary">Buscar</button>
+                </div>
+            </form>
+
+            <!-- Resultados -->
+            <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4 mt-4"></div>
+        </div>
+    </section>
     <main>
         <section class="noticias">
             <div class="row row-cols-1 row-cols-md-2 g-4">

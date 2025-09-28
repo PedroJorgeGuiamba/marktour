@@ -144,7 +144,7 @@ class RecuperarAlojamentos
         </nav>
     </header>
 
-    <main class="container mt-5">
+    <main class="container mt-5" style="padding-top: 100px;">
         <h2>Alojamentos Registrados</h2>
 
         <?php

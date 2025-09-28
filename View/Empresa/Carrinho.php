@@ -28,6 +28,8 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                 'preco_noite' => $alojamento['preco_noite'],
                 'quantidade' => isset($_SESSION['cart'][$id]) ? $_SESSION['cart'][$id]['quantidade'] + 1 : 1
             ];
+        } else {
+            $_SESSION['cart_error'] = "Alojamento não encontrado ou ID inválido.";
         }
     } elseif ($_GET['action'] == 'remove') {
         unset($_SESSION['cart'][$id]);
@@ -50,6 +52,22 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+    <style>
+        .cart-icon {
+            position: relative;
+            margin-left: 15px;
+        }
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -137,6 +155,12 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     <main class="container mt-5">
         <h2>Carrinho de Compras</h2>
 
+        <?php if (isset($_SESSION['cart_error'])): ?>
+            <div class='alert alert-danger' role='alert'>
+                <?php echo $_SESSION['cart_error']; unset($_SESSION['cart_error']); ?>
+            </div>
+        <?php endif; ?>
+
         <?php if (empty($_SESSION['cart'])): ?>
             <div class='alert alert-warning' role='alert'>Seu carrinho está vazio.</div>
         <?php else: ?>
@@ -175,7 +199,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                 </tbody>
             </table>
             <div class="d-flex justify-content-end">
-                <a href="checkout.php" class="btn btn-success">Finalizar Reserva</a>
+                <a href="../../View/MarkTour/CheckOut.php" class="btn btn-success">Finalizar Reserva</a>
             </div>
         <?php endif; ?>
     </main>
