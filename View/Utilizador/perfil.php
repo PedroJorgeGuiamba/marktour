@@ -79,12 +79,12 @@ include '../../Controller/Utilizador/Home.php';
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         MarkTour
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Reviews</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                        <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
                 </li>
             </ul>

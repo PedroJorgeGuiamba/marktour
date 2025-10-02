@@ -3,49 +3,38 @@ session_start();
 require_once __DIR__ . '/../../Conexao/conector.php';
 require_once __DIR__ . '/../../Model/Alojamento.php';
 
-// Initialize cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-// Handle cart actions
-if (isset($_GET['action']) && isset($_GET['id'])) {
-    $id = $_GET['id'];
-    if ($_GET['action'] == 'add') {
-        // Fetch accommodation details
+class RecuperarAlojamentos
+{
+    public function listar()
+    {
         $conexao = new Conector();
         $conn = $conexao->getConexao();
-        $sql = "SELECT * FROM alojamento WHERE id_alojamento = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
+
+        $sql = "SELECT * FROM alojamento";
+        $result = $conn->query($sql);
+
+        $alojamentos = [];
         if ($result->num_rows > 0) {
-            $alojamento = $result->fetch_assoc();
-            $_SESSION['cart'][$id] = [
-                'nome' => $alojamento['nome'],
-                'preco_noite' => $alojamento['preco_noite'],
-                'quantidade' => isset($_SESSION['cart'][$id]) ? $_SESSION['cart'][$id]['quantidade'] + 1 : 1
-            ];
-        } else {
-            $_SESSION['cart_error'] = "Alojamento não encontrado ou ID inválido.";
+            while ($row = $result->fetch_assoc()) {
+                $alojamentos[] = $row;
+            }
         }
-    } elseif ($_GET['action'] == 'remove') {
-        unset($_SESSION['cart'][$id]);
+
+        return $alojamentos;
     }
-    header("Location: carrinho.php");
-    exit();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrinho de Compras - MarkTour</title>
+    <title>Recuperar Alojamentos - MarkTour</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../../Style/empresa.css">
@@ -89,7 +78,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                             <li class="nav-item">
                                 <a href="carrinho.php" class="cart-icon">
@@ -107,7 +96,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="../Empresa/portalDaEmpresa.php">Home</a>
+                    <a class="nav-link active" href="../Utilizador/portalDoUtilizador.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -141,67 +130,54 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                         MarkTour
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Reviews</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
     </header>
 
-    <main class="container mt-5">
-        <h2>Carrinho de Compras</h2>
+    <main class="container mt-5" style="padding-top: 100px;">
+        <h2>Alojamentos Registrados</h2>
 
-        <?php if (isset($_SESSION['cart_error'])): ?>
-            <div class='alert alert-danger' role='alert'>
-                <?php echo $_SESSION['cart_error']; unset($_SESSION['cart_error']); ?>
-            </div>
-        <?php endif; ?>
+        <?php
+            $recuperar = new RecuperarAlojamentos();
+            $alojamentos = $recuperar->listar();
 
-        <?php if (empty($_SESSION['cart'])): ?>
-            <div class='alert alert-warning' role='alert'>Seu carrinho está vazio.</div>
-        <?php else: ?>
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Preço por Noite (MZN)</th>
-                        <th>Quantidade</th>
-                        <th>Total (MZN)</th>
-                        <th>Ação</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $total = 0;
-                    foreach ($_SESSION['cart'] as $id => $item):
-                        $subtotal = $item['preco_noite'] * $item['quantidade'];
-                        $total += $subtotal;
-                    ?>
-                        <tr>
-                            <td><?php echo htmlspecialchars($item['nome']); ?></td>
-                            <td><?php echo number_format($item['preco_noite'], 2); ?></td>
-                            <td><?php echo $item['quantidade']; ?></td>
-                            <td><?php echo number_format($subtotal, 2); ?></td>
-                            <td>
-                                <a href="carrinho.php?action=remove&id=<?php echo $id; ?>" class="btn btn-danger btn-sm">Remover</a>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    <tr>
-                        <td colspan="3" class="text-end"><strong>Total Geral:</strong></td>
-                        <td><?php echo number_format($total, 2); ?> MZN</td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="d-flex justify-content-end">
-                <a href="../../View/MarkTour/CheckOut.php" class="btn btn-success">Finalizar Reserva</a>
-            </div>
-        <?php endif; ?>
+            // Usar a data e hora atual
+            $dataHoraAtual = date("h:i A T, l, F d, Y");
+
+            if (empty($alojamentos)) {
+                echo "<div class='alert alert-warning' role='alert'>Nenhum alojamento registrado.</div>";
+            } else {
+                foreach ($alojamentos as $alojamento) {
+                    echo "
+                    <div class='col'>
+                        <div class='card mb-3' style='max-width: 540px;'>
+                            <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                            <div class='card-body'>
+                                <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
+                                <p class='card-text'><strong>Tipo:</strong> " . htmlspecialchars($alojamento['tipo']) . "</p>
+                                <p class='card-text'><strong>Descrição:</strong> " . htmlspecialchars($alojamento['descricao']) . "</p>
+                                <p class='card-text'><strong>Preço por Noite:</strong> " . htmlspecialchars($alojamento['preco_noite']) . " MZN</p>
+                                <p class='card-text'><strong>Número de Quartos:</strong> " . htmlspecialchars($alojamento['num_quartos']) . "</p>
+                                <p class='card-text'><strong>Empresa ID:</strong> " . htmlspecialchars($alojamento['id_empresa']) . "</p>
+                                <p class='card-text'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                <div class='d-flex gap-2'>
+                                    <a href='Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                    <a href='reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+                }
+            }
+        ?>
+
     </main>
 
     <!-- Bootstrap JS -->

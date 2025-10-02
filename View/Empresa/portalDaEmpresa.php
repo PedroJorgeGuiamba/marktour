@@ -1,6 +1,9 @@
 <?php
 session_start();
-// include './Controller/Utilizador/Home.php';
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
 include '../../Controller/Empresa/Home.php';
 ?>
 
@@ -15,15 +18,26 @@ include '../../Controller/Empresa/Home.php';
     <!-- BootStrap Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <!-- CSS -->
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../Style/empresa.css">
-
+    <style>
+        .cart-icon {
+            position: relative;
+            margin-left: 15px;
+        }
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+    </style>
 </head>
 
 <body>
@@ -45,13 +59,13 @@ include '../../Controller/Empresa/Home.php';
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="carrinho.php" class="cart-icon me-3">
+                                <a href="/View/Empresa/carrinho.php" class="cart-icon me-3">
                                     <i class="fas fa-shopping-cart fs-4" style="color: #3a4c91;"></i>
                                     <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -114,12 +128,8 @@ include '../../Controller/Empresa/Home.php';
                     <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Alojamentos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="RegistrarPasseio.php">Registrar Actividade</a>
+                    <a class="nav-link active" aria-current="page" href="RegistrarPasseio.php">Registrar Passeios</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Actividade</a>
-                </li>
-                </main>
             </ul>
         </nav>
     </header>

@@ -110,32 +110,52 @@ if (!$id_utilizador || !$id_localizacao) {
         </nav>
     </header>
 
-
     <main>
         <div class="formulario">
-            <form action="../../Controller/Empresa/empresa.php" method="post" id="formularioEmpresa">
+            <form action="../../Controller/Empresa/empresa.php"
+            method="post" id="formularioEmpresa"
+            enctype="multipart/form-data">
                 <div class="row" style="padding-top: 100px;">
                     <input type="hidden" name="id_utilizador" value="<?php echo $id_utilizador; ?>">
                     <input type="hidden" name="id_localizacao" value="<?php echo $id_localizacao; ?>">
                     <div class="form-group col-md-4">
                         <label for="nome" class="form-label">Nome da Empresa:</label>
-                        <input type="tel" name="nome" class="form-control" id="nome"
+                        <input type="text" name="nome" class="form-control" id="nome"
                             placeholder="Marktour">
                         <span class="error_form" id="nome_error_message"></span>
                     </div>
 
                     <div class="form-group col-md-4">
                         <label for="nuit" class="form-label">Nuit:</label>
-                        <input type="tel" name="nuit" class="form-control" id="nuit"
-                            placeholder="85xxxxxxx">
+                        <input type="text" name="nuit" class="form-control" id="nuit"
+                            placeholder="3456789">
                         <span class="error_form" id="nuit_error_message"></span>
                     </div>
-
+                    
+                    <div class="form-group col-md-4">
+                        <label for="imagem_nuit_path" class="form-label">Documento do NUIT:</label>
+                        <input type="file" name="imagem_nuit_path" class="form-control" id="imagem_nuit_path"
+                        accept="image/jpeg,image/png,image/gif,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <span class="error_form" id="imagem_error_message"></span>
+                    </div>
 
                     <div class="form-group col-md-4">
-                        <label for="descricao" class="form-label">Descricao:</label>
+                        <label for="numAlvara" class="form-label">Número de Alvara:</label>
+                        <input type="text" name="numAlvara" class="form-control" id="numAlvara"
+                            placeholder="46678988765">
+                        <span class="error_form" id="numAlvara_error_message"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="imagem_alvara_path" class="form-label">Documento do Alvara:</label>
+                        <input type="file" name="imagem_alvara_path" class="form-control" id="imagem_alvara_path" accept="image/jpeg,image/png,image/gif,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <span class="error_form" id="imagem_error_message"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="descricao" class="form-label">Descricao da empresa:</label>
                         <input type="text" name="descricao" class="form-control" id="descricao"
-                            placeholder="pedro.co.mz">
+                            placeholder="Empresa Turistica">
                         <span class="error_form" id="descricao_error_message"></span>
                     </div>
                     <div class="row" style="padding-top: 20px;">
@@ -145,7 +165,7 @@ if (!$id_utilizador || !$id_localizacao) {
                             </div>
                         </div>
                     </div>
-
+                </div>
             </form>
         </div>
     </main>

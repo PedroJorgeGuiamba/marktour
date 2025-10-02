@@ -11,6 +11,9 @@ class Empresa
     private $descricao;
     private $estado;
     private $data_registro;
+    private $ImagemNuitPath;
+    private $ImagemAlvaraPath;
+    private $NumAlvara;
 
     public function __construct()
     {
@@ -34,16 +37,19 @@ class Empresa
     public function setId_utilizador($id_utilizador) { $this->id_utilizador = $id_utilizador; }
     public function setNome($nome) { $this->nome = $nome; }
     public function setNuit($nuit) { $this->nuit = $nuit; }
+    public function setNumAlvara($NumAlvara) { $this->NumAlvara = $NumAlvara; }
     public function setDescricao($descricao) { $this->descricao = $descricao; }
     public function setEstado($estado) { $this->estado = $estado; }
     public function setData_registro($data_registro) { $this->data_registro = $data_registro; }
+    public function setImagemNuitPath($ImagemNuitPath) { $this->ImagemNuitPath = $ImagemNuitPath; }
+    public function setImagemAlvaraPath($ImagemAlvaraPath) { $this->ImagemAlvaraPath = $ImagemAlvaraPath; }
 
     public function salvar($conn)
     {
         
-        $sql = "INSERT INTO empresa (id_utilizador, id_localizacao,nome, nuit, descricao, estado_verificacao, data_registo) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO empresa (id_utilizador, id_localizacao, nome, nuit, descricao, estado_verificacao, data_registo, imagem_nuit_path, imagem_alvara_path, numAlvara) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iisisss", $this->id_utilizador,$this->id_localizacao, $this->nome, $this->nuit, $this->descricao, $this->estado, $this->data_registro);
+        $stmt->bind_param("iisissssss", $this->id_utilizador,$this->id_localizacao, $this->nome, $this->nuit, $this->descricao, $this->estado, $this->data_registro, $this->ImagemNuitPath, $this->ImagemAlvaraPath, $this->NumAlvara);
 
         $success = $stmt->execute();
         if ($success) {

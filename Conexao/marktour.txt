@@ -1,0 +1,123 @@
+marktour/
+│
+├── Conexao/
+│   └── conector.php                     ← Classe de conexão com o MySQL
+│
+├── Controller/
+│   ├── Auth/
+│   │   ├── AuthController.php           ← Login
+│   │   ├── AuthConfirmationController.php           ← Login
+│   │   ├── AuthMailSender.py           ← Login
+│   │   ├── LogoutController.php
+│   │   └── AuthRegisterController.php   ← Registro
+│   │
+│   ├── Empresa/
+│   │   ├── EmpresaController.php        ← CRUD Empresa
+│   │   ├── AlojamentoController.php     ← CRUD Alojamento
+│   │   ├── ViagemController.php         ← CRUD Viagem
+│   │   ├── localizacaoEmpresa.php
+│   │   ├── contactoEmpresa.php
+│   │   ├── empresa.php
+│   │   ├── perfil.php
+│   │   └── ActividadeController.php     ← CRUD Actividade
+│   │
+│   ├── Utilizador/
+│   │   ├── ReservaController.php        ← Reservas
+│   │   ├── PagamentoController.php      ← Pagamentos
+│   │   ├── ComentarioController.php     ← Comentários
+│   │   ├── Home.php     ← Comentários
+│   │   ├── PerfilController.php     ← Comentários
+│   │   └── AvaliacaoController.php      ← Avaliações
+│   │
+│   ├── Admin/
+│   │   ├── DashboardController.php      ← Estatísticas e controle
+│   │   ├── FaqController.php            ← FAQ CRUD
+│   │   └── VerificacaoController.php    ← Aprovação de empresas
+│
+├── Helpers/
+│   ├── Sessao.php                       ← Gerenciador de sessão (tokens)
+│   ├── Actividade.php                   ← Registra atividades
+│   ├── Criptografia.php
+│   └── auth.php
+│
+├── middleware/
+│   └── auth.php
+│
+├── uploads/
+│   └── alojamentos/
+│   └── empresa/
+│   │   ├── alvara/
+│   │   └── nuit/
+│
+├── lib/
+│   └── stripe/
+│
+├── Model/
+│   ├── Utilizador.php
+│   ├── Empresa.php
+│   ├── Contacto.php
+│   ├── Usuario.php
+│   ├── Alojamento.php
+│   ├── Viagem.php
+│   ├── Actividade.php
+│   ├── Reserva.php
+│   ├── Pagamento.php
+│   ├── Avaliacao.php
+│   ├── Comentario.php
+│   ├── Faq.php
+│   └── Localizacao.php
+│
+├── View/
+│   ├── Auth/
+│   │   ├── Login.php
+│   │   ├── Validar.php
+│   │   └── Register.php
+│   │
+│   └── Erro/
+│   │   └── erro.php
+│   │
+│   ├── Admin/
+│   │   ├── Dashboard.php
+│   │   ├── AprovarReservas.php
+│   │   ├── perfil.php
+│   │   ├── portalDoAdmin.php
+│   │   └── EmpresasPendentes.php
+│   │
+│   ├── Empresa/
+│   │   ├── Estatisticas.php
+│   │   ├── eventos.php
+│   │   ├── meusServicos.php
+│   │   ├── Home.php
+│   │   ├── MeusServicos.php
+│   │   ├── MeusAlojamentos.php
+│   │   ├── portalDaEmpresa.php
+│   │   ├── promocoes.php
+│   │   ├── localizacaoEmpresa.php
+│   │   ├── RehistrarAlojamentos.php
+│   │   ├── RegistrarPasseio.php
+│   │   ├── contactoEmpresa.php
+│   │   ├── empresa.php
+│   │   ├── perfil.php
+│   │   └── RegistarServico.php
+│   │
+│   ├── MarkTour/
+│   │   ├── Blog.php
+│   │   ├── Contactos.php
+│   │   ├── faq.php
+│   │   ├── Reviews.php
+│   │   ├── Sobre.php
+│   │   ├── Success.php
+│   │   └── CheckOut.php
+│   │
+│   ├── Utilizador/
+│   │   ├── Carrinho.php
+│   │   ├── portalDoUtilizador.php
+│   │   ├── perfil.php
+│   │   ├── MeusAlojamentos.php
+│   │   └── MinhasReservas.php
+│
+├── Style/
+│   └── style.css                        ← Estilos globais
+│
+├── index.php                            ← Página inicial pública
+└── README.md

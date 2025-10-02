@@ -120,7 +120,7 @@
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="View/Auth/Login.php" class="btn btn-danger">Login</a>
+                                <a href="View/Auth/Login.php" class="me-3"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
                             </li>
                         </ul>
                     </div>

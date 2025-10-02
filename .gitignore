@@ -2,3 +2,5 @@ Controller/Auth/.env
 lib/stripe/README.md
 actualizar.php
 erros.php
+uploads
+Conexao/conector.php

@@ -105,25 +105,8 @@ include '../../Controller/Empresa/Home.php';
     </header>
 
     <main>
-
-
-
-
-
-
-
-
-
         <div class="formulario">
             <form action="../../Controller/Empresa/localizacaoEmpresa.php" method="post" id="formularioLocalizacao" style="padding-top:100px ;">
-
-
-
-
-
-
-
-
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="provincia" class="form-label">Provincia:</label>
@@ -357,5 +340,4 @@ include '../../Controller/Empresa/Home.php';
         });
     </script>
 </body>
-
 </html>

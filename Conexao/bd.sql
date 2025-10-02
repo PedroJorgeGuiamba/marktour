@@ -201,6 +201,21 @@ CREATE TABLE actividade_utilizador (
     FOREIGN KEY (id_sessao) REFERENCES sessao(id_sessao)
 );
 
-alter table actividade_utilizador 
+alter table actividade_utilizador
 add tipo text, 
 add duracao int;
+
+ALTER TABLE reserva ADD COLUMN id_pagamento INT, ADD FOREIGN KEY (id_pagamento) REFERENCES pagamento(id_pagamento);
+ALTER TABLE pagamento ADD COLUMN referencia_stripe VARCHAR(255);
+CREATE TABLE notificacao (id_notificacao INT AUTO_INCREMENT PRIMARY KEY, id_utilizador INT, mensagem TEXT, lida TINYINT(1) DEFAULT 0, data DATETIME DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY (id_utilizador) REFERENCES utilizador(id_utilizador));
+ALTER TABLE reserva ADD COLUMN data_checkin DATE, ADD COLUMN data_checkout DATE;
+CREATE TABLE admin_aprovacao(id_aprovacao INT AUTO_INCREMENT PRIMARY KEY, id_reserva INT, id_admin INT, data_aprovacao DATETIME, FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva), FOREIGN KEY (id_admin) REFERENCES utilizador(id_utilizador));
+ALTER TABLE reserva ADD CONSTRAINT chk_datas CHECK (data_checkout > data_checkin);
+
+ALTER TABLE alojamento
+ADD COLUMN imagem_path VARCHAR(255) DEFAULT NULL;
+
+ALTER TABLE empresa
+ADD COLUMN imagem_nuit_path VARCHAR(255) DEFAULT NULL,
+ADD COLUMN imagem_alvara_path VARCHAR(255) DEFAULT NULL,
+ADD COLUMN numAlvara VARCHAR(255) DEFAULT NULL;

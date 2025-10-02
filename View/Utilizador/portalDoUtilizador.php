@@ -1,7 +1,32 @@
 <?php
 session_start();
-// include './Controller/Utilizador/Home.php';
 include '../../Controller/Utilizador/Home.php';
+include '../../Conexao/conector.php';
+
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+class RecuperarAlojamentos
+{
+    public function listar()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+
+        $sql = "SELECT * FROM alojamento";
+        $result = $conn->query($sql);
+
+        $alojamentos = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $alojamentos[] = $row;
+            }
+        }
+
+        return $alojamentos;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,6 +42,9 @@ include '../../Controller/Utilizador/Home.php';
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <!-- CSS -->
     <link rel="stylesheet" href="../../Style/home.css">
     <style>
@@ -118,15 +146,30 @@ include '../../Controller/Utilizador/Home.php';
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <!-- Instagram -->
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="https://www.instagram.com/marktourreservasonline/">Instagram</a>
                             </li>
                             <!-- Facebook -->
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#">Facebook</a>
+                            </li> -->
+                            <!-- <li class="nav-item">
+                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="carrinho.php" class="cart-icon me-3">
+                                    <i class="fas fa-shopping-cart fs-4" style="color: #3a4c91;"></i>
+                                    <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -218,93 +261,40 @@ include '../../Controller/Utilizador/Home.php';
     <main>
         <section class="noticias">
             <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                $recuperar = new RecuperarAlojamentos();
+                $alojamentos = $recuperar->listar();
 
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
+                // Usar a data e hora atual
+                $dataHoraAtual = date("h:i A T, l, F d, Y");
 
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
+                if (empty($alojamentos)) {
+                    echo "<div class='alert alert-warning' role='alert'>Nenhum alojamento registrado.</div>";
+                } else {
+                    foreach ($alojamentos as $alojamento) {
+                        echo "
+                        <div class='col'>
+                            <div class='card mb-3' style='max-width: 540px;'>
+                                <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                <div class='card-body'>
+                                    <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
+                                    <p class='card-text'><strong>Tipo:</strong> " . htmlspecialchars($alojamento['tipo']) . "</p>
+                                    <p class='card-text'><strong>Descrição:</strong> " . htmlspecialchars($alojamento['descricao']) . "</p>
+                                    <p class='card-text'><strong>Preço por Noite:</strong> " . htmlspecialchars($alojamento['preco_noite']) . " MZN</p>
+                                    <p class='card-text'><strong>Número de Quartos:</strong> " . htmlspecialchars($alojamento['num_quartos']) . "</p>
+                                    <p class='card-text'><strong>Empresa ID:</strong> " . htmlspecialchars($alojamento['id_empresa']) . "</p>
+                                    <p class='card-text'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                    <div class='d-flex gap-2'>
+                                        <a href='Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                        <a href='reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>";
+                    }
+                }
+                ?>
             </div>
         </section>
 

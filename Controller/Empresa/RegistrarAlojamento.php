@@ -12,18 +12,33 @@ class RegistrarAlojamento
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
-
                 session_start();
-
                 if (!isset($_SESSION['id_utilizador'])) {
                     throw new Exception("Utilizador não autenticado.");
                 }
-
                 $id_utilizador = $_SESSION['id_utilizador'];
-
-                // Buscar empresa pelo utilizador logado
                 $conexao = new Conector();
                 $conn = $conexao->getConexao();
+
+                // Configuração do upload
+                $uploadDir = "../../uploads/alojamentos/";
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                $imagemPath = null;
+                if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == UPLOAD_ERR_OK) {
+                    $imagemName = basename($_FILES['imagem']['name']);
+                    $imagemExt = strtolower(pathinfo($imagemName, PATHINFO_EXTENSION));
+                    $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+                    if (in_array($imagemExt, $allowedExts)) {
+                        $newImagemName = uniqid() . '.' . $imagemExt;
+                        $targetFile = $uploadDir . $newImagemName;
+                        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $targetFile)) {
+                            $imagemPath = "/marktour/uploads/alojamentos/" . $newImagemName;
+                        }
+                    }
+                }
 
                 $stmt = $conn->prepare("SELECT id_empresa FROM empresa WHERE id_utilizador = ?");
                 $stmt->bind_param("i", $id_utilizador);
@@ -53,6 +68,7 @@ class RegistrarAlojamento
                 $alojamento->setDescricao( $descricao);
                 $alojamento->setPrecoPorNoite( $precoPorNoite);
                 $alojamento->setNumQuartos( $numQuartos);
+                $alojamento->setImagemPath($imagemPath);
 
                 if ($alojamento->salvar()) {
                     if (isset($_SESSION['sessao_id'])) {

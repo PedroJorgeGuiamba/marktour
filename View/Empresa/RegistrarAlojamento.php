@@ -46,7 +46,7 @@ include '../../Controller/Empresa/Home.php';
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -105,7 +105,9 @@ include '../../Controller/Empresa/Home.php';
 
     <main>
         <div class="formulario" style="padding-top: 100px; margin: 70px;">
-            <form action="../../Controller/Empresa/RegistrarAlojamento.php" method="post" id="formularioAlojamento">
+            <form action="../../Controller/Empresa/RegistrarAlojamento.php"
+            method="post" id="formularioAlojamento"
+            enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="nome" class="form-label">nome:</label>
@@ -144,6 +146,12 @@ include '../../Controller/Empresa/Home.php';
                         <label for="numeroDeQuartos" class="form-label">Numero De Quartos:</label>
                         <input type="number" name="numeroDeQuartos" class="form-control" id="numeroDeQuartos">
                         <span class="error_form" id="numeroDeQuartos_error_message"></span>
+                    </div>
+
+                    <div class="form-group col-md-4">
+                        <label for="imagem" class="form-label">Imagem do Alojamento:</label>
+                        <input type="file" name="imagem" class="form-control" id="imagem" accept="image/*">
+                        <span class="error_form" id="imagem_error_message"></span>
                     </div>
 
                     <div class="row">
@@ -189,6 +197,10 @@ include '../../Controller/Empresa/Home.php';
                 numeroDeQuartos: {
                     required: false,
                     digits: true
+                },
+                imagem: {
+                    required: true,
+                    accept: "image/jpeg,image/png,image/gif"
                 }
             },
             messages: {
@@ -201,6 +213,10 @@ include '../../Controller/Empresa/Home.php';
                 },
                 precoPorNoite: {
                     minlength: "O preço por noite deve ter pelo menos 2 digitos."
+                },
+                imagem: {
+                    required: "Por favor, envie uma imagem.",
+                    accept: "Apenas arquivos JPG, PNG ou GIF são permitidos."
                 }
             },
             errorClass: "is-invalid",

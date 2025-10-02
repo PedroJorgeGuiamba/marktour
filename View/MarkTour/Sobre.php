@@ -1,8 +1,3 @@
-<?php
-// session_start();
-// include '../../Controller/Utilizador/Home.php';
-?>
-
 <!DOCTYPE html>
 <html lang="pt-pt">
 

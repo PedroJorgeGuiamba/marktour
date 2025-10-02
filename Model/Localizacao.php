@@ -57,7 +57,7 @@ class Localizacao
     {
         $sql = "INSERT INTO localizacao (provincia, distrito, bairro, posto_administrativo, localidade, avenida, rua, andar, endereco_detalhado, codigo_postal, latitude, longitude, referencia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssss", $this->provincia, $this->distrito, $this->bairro, $this->posto_administrativo, $this->localidade, $this->avenida, $this->rua, $this->andar, $this->endereco_detalhado, $this->codigo_postal, $this->latitude, $this->longitude, $this->referencia);
+        $stmt->bind_param("sssssssssssss", $this->provincia, $this->distrito, $this->bairro, $this->posto_administrativo, $this->localidade, $this->avenida, $this->rua, $this->andar, $this->endereco_detalhado, $this->codigo_postal, $this->latitude, $this->longitude, $this->referencia);
 
         $success = $stmt->execute();
         if ($success) {
