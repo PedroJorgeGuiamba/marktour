@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS -->
-    <link rel="stylesheet" href="../../Style/empresa.css">
+    <link rel="stylesheet" href="../../Style/Empresas.css">
     <title>Home</title>
 </head>
 <body>

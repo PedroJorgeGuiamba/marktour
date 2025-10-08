@@ -18,89 +18,7 @@ include '../../Controller/Utilizador/Home.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="../../Style/home.css">
-    <style>
-        /* ====== Motor de Busca ====== */
-        .busca {
-            padding: 40px 20px;
-            border-radius: 12px;
-            color: #fff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .busca h2 {
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #000000ff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .busca form .form-control {
-            border-radius: 8px;
-            border: none;
-            padding: 12px;
-            font-size: 15px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .busca form .form-control:focus {
-            border: 2px solid #fff;
-            outline: none;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-        }
-
-        .busca form button {
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            background: #023e8a;
-            border: none;
-            color: #fff;
-            transition: background 0.3s ease;
-        }
-
-        .busca form button:hover {
-            background: #03045e;
-        }
-
-        /* ====== Resultados ====== */
-        #resultadosBusca {
-            margin-top: 30px;
-        }
-
-        #resultadosBusca .card {
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        #resultadosBusca .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        #resultadosBusca .card img {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        #resultadosBusca .card-body {
-            padding: 20px;
-        }
-
-        #resultadosBusca .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0077b6;
-        }
-
-        #resultadosBusca .card-text {
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="../../Style/index.css">
 
 </head>
 
@@ -126,7 +44,7 @@ include '../../Controller/Utilizador/Home.php';
                                 <a class="nav-link" aria-current="page" href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#">Facebook</a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -185,137 +103,236 @@ include '../../Controller/Utilizador/Home.php';
         </nav>
     </header>
 
-    <section class="busca my-6">
-        <div class="container">
-            <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre sua Acomodação</h2>
-
-            <form id="formBusca" class="row g-3 justify-content-center text-center">
-                <div class="col-md-3">
-                    <label style="color:black"></label>
-                    <input type="text" name="localizacao" class="form-control" placeholder="Digite o destino" required>
-                </div>
-                <div class="col-md-2">
-                    <label style="color:black">Check-in</label>
-                    <input type="date" name="checkin" class="form-control" required>
-                </div>
-                <div class="col-md-2">
-                    <label style="color:black">Check-out</label>
-                    <input type="date" name="checkout" class="form-control" required>
-                </div>
-                <div class="col-md-2">
-                    <label style="color:black">Hóspedes</label>
-                    <input type="number" name="hospedes" class="form-control" min="1" value="1" required>
-                </div>
-                <div class="col-md-2 d-grid align-items-end">
-                    <button ltype="submit" class="btn btn-primary">Buscar</button>
-                </div>
-            </form>
-
-            <!-- Resultados -->
-            <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4 mt-4"></div>
-        </div>
-    </section>
     <main>
-        <section class="noticias">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
+        <!-- Hero Section com imagem de fundo e busca -->
+        <section class="hero-section position-relative" style="background: url('https://www.visitarafrica.com/media/k2/items/cache/5e58b7b25b6a8f9a7ad4b2e96a6e51bc_XL.jpg') center/cover no-repeat; height: 80vh;">
+            <div class="hero-bg"></div>
+            <div class="container position-relative">
+                <div class="row justify-content-center text-center text-white py-5">
+                    <div class="col-lg-8">
+                        <h1 class="display-4 fw-bold mb-4">Descubra Lugares Incríveis</h1>
+                        <p class="lead mb-5">Explore destinos únicos e viva experiências inesquecíveis</p>
                     </div>
                 </div>
 
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
+                <!-- Formulário de busca destacado -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="search-box bg-white rounded shadow p-4">
+                            <h3 class="text-center mb-4">Encontre sua Acomodação Ideal</h3>
+                            <form id="formBusca" class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Destino</label>
+                                    <input type="text" name="localizacao" class="form-control" placeholder="Para onde você vai?" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Check-in</label>
+                                    <input type="date" name="checkin" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Check-out</label>
+                                    <input type="date" name="checkout" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Hóspedes</label>
+                                    <select name="hospedes" class="form-select" required>
+                                        <option value="1">1 Hóspede</option>
+                                        <option value="2" selected>2 Hóspedes</option>
+                                        <option value="3">3 Hóspedes</option>
+                                        <option value="4">4 Hóspedes</option>
+                                        <option value="5">5+ Hóspedes</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-grid align-self-end">
+                                    <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Rodapé -->
-        <footer>
-            <div class="container-footer">
-                <p>
-                    Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
-                </p>
+        <!-- Destaques e ofertas especiais -->
+        <section class="destaques py-5 bg-light">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Destinos em Destaque</h2>
+                        <p class="text-muted">Os lugares mais procurados pelos nossos viajantes</p>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Card 1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Praia paradisíaca">
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-warning text-dark">Popular</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Praias do Sul</h5>
+                                <p class="card-text text-muted">Descubra as praias mais belas com águas cristalinas e areias brancas.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">A partir de R$ 299</span>
+                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Montanhas">
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-success">Ecoturismo</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Serra Verde</h5>
+                                <p class="card-text text-muted">Aventuras nas montanhas com trilhas deslumbrantes e paisagens únicas.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">A partir de R$ 189</span>
+                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cidade histórica">
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-info">Cultural</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Cidades Históricas</h5>
+                                <p class="card-text text-muted">Viaje no tempo e descubra a rica história e arquitetura colonial.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">A partir de R$ 159</span>
+                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </footer>
+        </section>
+
+        <!-- Resultados da busca -->
+        <section class="resultados-busca py-5">
+            <div class="container">
+                <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4"></div>
+            </div>
+        </section>
+
+        <!-- Dicas e notícias de viagem -->
+        <section class="dicas-noticias py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Dicas e Notícias de Viagem</h2>
+                        <p class="text-muted">Fique por dentro das últimas tendências e novidades do mundo do turismo</p>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <!-- Notícia 1 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Viagem sustentável">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Sustentabilidade</span>
+                                <h5 class="card-title">Como viajar de forma mais sustentável</h5>
+                                <p class="card-text text-muted">Descubra dicas práticas para reduzir seu impacto ambiental durante suas viagens e contribuir para um turismo mais responsável.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notícia 2 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Destinos em alta">
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-2">Tendências</span>
+                                <h5 class="card-title">Os destinos mais procurados para 2023</h5>
+                                <p class="card-text text-muted">Confira a lista dos lugares que estão ganhando popularidade entre os viajantes e prepare sua próxima aventura.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notícia 3 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Gastronomia">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Gastronomia</span>
+                                <h5 class="card-title">Sabores regionais: uma viagem pelo paladar</h5>
+                                <p class="card-text text-muted">Explore a riqueza da culinária local em cada destino e descubra pratos típicos que vão surpreender seu paladar.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notícia 4 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Fotografia">
+                            <div class="card-body">
+                                <span class="badge bg-info mb-2">Fotografia</span>
+                                <h5 class="card-title">Dicas para fotos incríveis em suas viagens</h5>
+                                <p class="card-text text-muted">Aprenda técnicas simples para registrar momentos especiais e criar memórias visuais que vão durar para sempre.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?ixlib=rb-4.0.3&auto=format&fit=crop&w=1800&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+        }
+
+        .search-box {
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+    </style>
+    <!-- Rodapé -->
+    <footer>
+        <div class="container-footer">
+            <p>
+                Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
+            </p>
+        </div>
+    </footer>
     </main>
 
     <!-- Scripts do BootStrap -->

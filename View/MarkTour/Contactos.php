@@ -92,7 +92,7 @@
             </ul>
         </nav>
     </header>
-    <main class="container my-5" style="margin-top:120px; margin-bottom:100px;">
+    <main class="container my-5">
         <h1 class="page-title text-center mb-5">Contacte-nos</h1>
 
         <div class="row g-4">

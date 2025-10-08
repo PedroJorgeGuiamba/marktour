@@ -7,104 +7,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Style/login.css">
+    <link rel="stylesheet" href="../../Style/login.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
     <script>
-        function validarPost(){
-            if(grecaptcha.getResponse() != "") return true;
+        function validarPost() {
+            if (grecaptcha.getResponse() != "") return true;
 
             alert('Selecione a caixa de "Não sou um robô"');
             return false;
         }
     </script>
-
-    <style>
-        /* .custom-container {
-            max-width: 400px;
-            margin: 0 auto;
-        } */
-    </style>
 </head>
 
 <body>
 
     <header>
-        <!-- Nav principal -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp">
+        <nav class="navbar">
+            <div class="nav-container">
+                <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp" alt="Marktour Logo">
                 <div class="nav-modal">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+                    <button class="nav-toggle" type="button">
+                        <span class="nav-toggle-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarText">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <!-- Instagram -->
+                    <div class="nav-menu">
+                        <ul class="nav-list">
                             <li>
                                 <a class="nav-link" href="../View/Login.php">Entrar</a>
                             </li>
                         </ul>
                     </div>
                 </div>
+            </div>
         </nav>
     </header>
 
-    <div class="container custom-container">
-        <h2>
-            LOGIN
-        </h2>
+    <div class="container">
+        <h2>LOGIN</h2>
 
         <hr />
 
         <form method="post" onsubmit="return validarPost()">
             <?php if (isset($erros)): ?>
-                <div class="alert alert-danger"><?= $erros ?></div>
+                <div class="alert-error"><?= $erros ?></div>
             <?php endif; ?>
 
-            <div class="card mb-3">
+            <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="form-group col-md-4">
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="pedrojorge@guiamba.com">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="example@gmail.com">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
+                    <div class="form-row">
+                        <div class="form-group">
                             <label for="senha" class="form-label">Password</label>
                             <input type="password" name="senha" class="form-control" id="senha" placeholder="**********">
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="form-group col-md-4">
+                    <div class="form-row">
+                        <div class="form-group">
                             <div class="g-recaptcha" data-sitekey="6Ldecc4rAAAAACtS7KVdg59PJga_XoEXaC0xTGhg"></div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <a href="Register.php" class="text-info">I don't have an account</a>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <a href="Register.php" class="text-link">I don't have an account</a>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="form-group">
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-success form-control">Entrar</button>
-                </div>
+                <button type="submit" class="btn-submit">Entrar</button>
             </div>
+
         </form>
     </div>
-
 
 </body>
 

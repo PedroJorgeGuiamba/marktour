@@ -2,7 +2,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Segoe UI", "Arial", sans-serif;
+  font-family: "Segoe UI", "Arial", sans-serif, -apple-system,
+    BlinkMacSystemFont, "San Francisco", "Helvetica Neue", Helvetica, sans-serif;
 }
 
 /* Header e Footer */
@@ -20,7 +21,7 @@ header {
 }
 
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0;
   width: 100%;
   z-index: 1000;
@@ -28,13 +29,13 @@ footer {
 
 .container-footer {
   text-align: center;
-  padding: 10px 0;
+  padding: 15px 10px;
 }
 
 .container-footer p {
   color: white;
   margin: 0;
-  font-size: 14px;
+  font-size: clamp(12px, 3vw, 14px);
 }
 
 .container-footer p span {
@@ -46,6 +47,7 @@ footer {
 .nav-link {
   color: black !important;
   transition: color 0.3s ease;
+  font-size: clamp(14px, 3vw, 16px);
 }
 
 .nav-link:hover {
@@ -75,57 +77,61 @@ footer {
 .card-3 {
   background-color: #3c9bff;
   border-radius: 20px;
-  padding: 50px;
-  margin: 20px 0;
+  padding: clamp(20px, 5vw, 50px);
+  margin: 20px auto;
   color: white;
+  max-width: 1200px;
+  width: 95%;
 }
 
 .card-1 {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 30px;
+  gap: 20px;
 }
 
 .card-1 h1 {
-  flex: 1;
-  font-size: 32px;
+  width: 100%;
+  font-size: clamp(24px, 6vw, 32px);
   font-weight: bold;
+  text-align: center;
 }
 
 .card-1 p {
-  flex: 2;
-  font-size: 18px;
+  width: 100%;
+  font-size: clamp(14px, 3vw, 18px);
   line-height: 1.6;
   text-align: justify;
 }
 
 .card-2 h1 {
-  font-size: 28px;
-  margin-bottom: 20px;
+  font-size: clamp(20px, 5vw, 28px);
+  margin-bottom: 15px;
+  text-align: center;
 }
 
 .card-2 h2 {
-  margin-top: 20px;
-  font-size: 22px;
+  margin-top: 15px;
+  font-size: clamp(18px, 4vw, 22px);
 }
 
 .card-2 p {
-  font-size: 16px;
+  font-size: clamp(14px, 3vw, 16px);
   line-height: 1.6;
   text-align: justify;
 }
 
 .card-3 {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 20px;
   justify-content: space-between;
 }
 
 .vision-mission-values {
-  flex: 1;
-  min-width: 300px;
-  padding: 25px;
+  width: 100%;
+  padding: clamp(15px, 4vw, 25px);
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -137,21 +143,23 @@ footer {
 }
 
 .vision-mission-values h2 {
-  font-size: 22px;
-  margin-bottom: 15px;
+  font-size: clamp(18px, 4vw, 22px);
+  margin-bottom: 12px;
   padding-bottom: 8px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   display: flex;
   align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .vision-mission-values h2 i {
-  margin-right: 12px;
-  font-size: 26px;
+  margin-right: 10px;
+  font-size: clamp(20px, 4vw, 26px);
 }
 
 .vision-mission-values p {
-  font-size: 15px;
+  font-size: clamp(13px, 3vw, 15px);
   line-height: 1.6;
   text-align: justify;
 }
@@ -159,12 +167,14 @@ footer {
 /* Título da Página */
 .page-title {
   text-align: center;
-  margin: 120px 0 50px 0;
+  margin: 100px auto 30px;
   color: #3a4c91;
   font-weight: bold;
-  font-size: 34px;
+  font-size: clamp(24px, 6vw, 34px);
   position: relative;
   padding-bottom: 15px;
+  max-width: 1200px;
+  width: 95%;
 }
 
 .page-title:after {
@@ -173,27 +183,57 @@ footer {
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 120px;
+  width: min(120px, 60%);
   height: 4px;
   background-color: #3c9bff;
   border-radius: 2px;
 }
 
-/* Responsividade */
-@media (max-width: 992px) {
-  .card-1,
-  .card-2,
-  .card-3 {
-    padding: 30px 20px;
-  }
+/* Conteúdo principal */
+main {
+  padding-top: 80px;
+  padding-bottom: 20px;
+  min-height: 100vh;
+}
 
+/* Responsividade Aprimorada */
+@media (min-width: 768px) {
   .card-1 {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+    text-align: left;
   }
 
   .card-1 h1 {
-    margin-bottom: 20px;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  .card-3 {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .vision-mission-values {
+    width: calc(33.333% - 20px);
+    min-width: auto;
+  }
+
+  .page-title {
+    margin: 120px auto 50px;
+  }
+
+  main {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 767px) {
+  .card-1,
+  .card-2,
+  .card-3 {
+    padding: 25px 15px;
+    margin: 15px auto;
+    width: 98%;
   }
 
   .vision-mission-values {
@@ -201,6 +241,73 @@ footer {
   }
 
   .page-title {
-    font-size: 26px;
+    margin: 80px auto 25px;
+    font-size: 22px;
+  }
+
+  main {
+    padding-top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-1,
+  .card-2,
+  .card-3 {
+    padding: 20px 12px;
+    margin: 10px auto;
+    border-radius: 15px;
+  }
+
+  .vision-mission-values {
+    padding: 12px;
+  }
+
+  .page-title {
+    margin: 70px auto 20px;
+    font-size: 20px;
+  }
+
+  main {
+    padding-top: 60px;
+  }
+
+  .container-footer {
+    padding: 10px 5px;
+  }
+}
+
+@media (max-width: 320px) {
+  .card-1,
+  .card-2,
+  .card-3 {
+    padding: 15px 10px;
+  }
+
+  .page-title {
+    margin: 60px auto 15px;
+    font-size: 18px;
+  }
+}
+
+/* Para tablets em modo paisagem */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .card-1 {
+    flex-direction: row;
+  }
+
+  .vision-mission-values {
+    width: calc(33.333% - 15px);
+  }
+}
+
+/* Para dispositivos com altura limitada */
+@media (max-height: 600px) {
+  .page-title {
+    margin: 80px auto 20px;
+  }
+
+  main {
+    padding-top: 70px;
   }
 }
