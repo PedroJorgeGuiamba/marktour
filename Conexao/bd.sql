@@ -202,7 +202,7 @@ CREATE TABLE actividade_utilizador (
 );
 
 alter table actividade_utilizador
-add tipo text, 
+add tipo text,
 add duracao int;
 
 ALTER TABLE reserva ADD COLUMN id_pagamento INT, ADD FOREIGN KEY (id_pagamento) REFERENCES pagamento(id_pagamento);
@@ -219,3 +219,36 @@ ALTER TABLE empresa
 ADD COLUMN imagem_nuit_path VARCHAR(255) DEFAULT NULL,
 ADD COLUMN imagem_alvara_path VARCHAR(255) DEFAULT NULL,
 ADD COLUMN numAlvara VARCHAR(255) DEFAULT NULL;
+
+alter table reserva
+drop constraint reserva_ibfk_2;
+
+alter table pagamento
+drop constraint pagamento_ibfk_1;
+
+alter table reserva
+drop column id_pagamento;
+
+alter table pagamento
+drop column id_reserva;
+
+CREATE TABLE reserva_pagamento (
+    id_reserva_pagamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_reserva INT NOT NULL,
+    id_pagamento INT NOT NULL,
+    valor_parcial DECIMAL(10,2) NULL,
+    CONSTRAINT fk_reserva FOREIGN KEY (id_reserva) REFERENCES reserva(id_reserva),
+    CONSTRAINT fk_pagamento FOREIGN KEY (id_pagamento) REFERENCES pagamento(id_pagamento)
+);
+
+ALTER TABLE eventos
+ADD CONSTRAINT id_empresa
+FOREIGN KEY (id_empresa)
+REFERENCES empresa(id_empresa);
+
+ALTER TABLE faq ADD COLUMN id_utilizador INT NULL;
+
+ALTER TABLE faq
+ADD CONSTRAINT id_utilizador
+FOREIGN KEY (id_utilizador)
+REFERENCES utilizador(id_utilizador);

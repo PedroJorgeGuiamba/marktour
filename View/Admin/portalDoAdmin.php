@@ -89,7 +89,7 @@
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
                         <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
-                        <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="AdminFaqs.php">FAQ</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
