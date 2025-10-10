@@ -84,7 +84,7 @@
 
                     <div class="row">
                         <div class="form-group col-md-4">
-                            <div class="g-recaptcha" data-sitekey="6Ldecc4rAAAAACtS7KVdg59PJga_XoEXaC0xTGhg"></div>
+                            <div class="g-recaptcha" data-sitekey="6LfkWeUrAAAAALLsp633wAUdfij0ooPeMKvwkH-6"></div>
                         </div>
                     </div>
 

@@ -79,38 +79,6 @@ class AuthRegisterController
         } else {
             $erros .= "Erro ao registrar usuário.<br>";
         }
-
-        // $otp = random_int(100000, 999999);
-        // $expira = date("Y-m-d H:i:s", time() + 300);
-
-        // $sqlOtp = "INSERT INTO user_otps (user_id, otp_code, expires_at, created_at) VALUES (?, ?, ?, NOW())";
-        // $stmtOtp = $this->conn->prepare($sqlOtp);
-        // $stmtOtp->bind_param("iis", $row['id'], $otp, $expira);
-
-        // if ($stmtOtp->execute()) {
-        //     $stmtOtp->close();
-
-        //     // Envio email via Python
-        //     $escapedEmail = escapeshellarg($email);
-        //     $escapedOtp = escapeshellarg($otp);
-        //     $pythonPath = __DIR__ . '/AuthMailSender.py';
-        //     $command = "python $pythonPath $escapedEmail $escapedOtp 2>&1";
-        //     $output = shell_exec($command);
-        //     if (strpos($output ?? '', 'Erro') !== false) {
-        //         error_log("Falha email OTP: $output");
-        //     }
-
-        //     $_SESSION['pending_user_id'] = $this->criptografia->criptografar($row['id']);
-        //     $_SESSION['user_email'] = $this->criptografia->criptografar($row['email']);
-        //     $_SESSION['role'] = $this->criptografia->criptografar(strtolower(trim($row['role'] ?? '')));
-        //     error_log("DEBUG - AuthController: Role: '" . $this->criptografia->criptografar($row['role']) . "' para {$email}");
-        //     header("Location: /estagio/View/Auth/ValidarUser.php");
-        //     exit();
-        // } else {
-        //     $this->error = "Erro ao gerar OTP.";
-        //     return $this->error;
-        // }
-
         return $erros;
     }
 }

@@ -30,6 +30,31 @@ class AuthController
             return $this->error;
         }
 
+        $curl = curl_init();
+        curl_setopt_array($curl, [
+            CURLOPT_URL => 'https://www.google.com/recaptcha/api/siteverify',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => [
+                'secret' => getenv('RECAPTCHA'),
+                'response' => $_POST['g-recaptcha-response'] ?? ''
+            ]
+        ]);
+
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $responseArray = json_decode($response, true);
+        if (!isset($responseArray['success']) || !$responseArray['success']) {
+            $this->error = "Falha na validação do reCAPTCHA.";
+            $this->loginAttempts++;
+            $_SESSION['login_attempts'] = $this->loginAttempts;
+            
+            // Opcional: Registrar códigos de erro do reCAPTCHA, se houver
+            $errorCodes = $responseArray['error-codes'] ?? ['unknown-error'];
+            registrarAtividade(null, "Falha no reCAPTCHA: " . implode(', ', $errorCodes), "LOGIN_FAILED");
+            return $this->error;
+        }
+
         $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
         $senha = $_POST['senha'] ?? '';
         $erros = '';
@@ -39,7 +64,6 @@ class AuthController
             $this->loginAttempts++;
             $_SESSION['login_attempts'] = $this->loginAttempts;
             registrarAtividade(null, "Email inválido: " . $this->criptografia->criptografar($email), "LOGIN_FAILED");
-            // registrarAtividade(null, "Email inválido: ", "LOGIN_FAILED");
             return $this->error;
         }
 
@@ -58,72 +82,8 @@ class AuthController
         $stmt->bind_param("s", $email);
         $stmt->execute();
         $result = $stmt->get_result();
+        
 
-        // $sql = "SELECT id_utilizador, email, senha, tipo FROM utilizador";
-        // $result = $this->conn->query($sql);
-
-        // $userEncontrado = false;
-        // $row = null;
-
-        // if ($result && $result->num_rows > 0) {
-        //     while ($row = $result->fetch_assoc()) {
-        //         $email_descriptografado = $this->criptografia->descriptografar($row['email']);
-        //         if ($email_descriptografado === $email) {
-        //             $userEncontrado = true;
-        //             break;
-        //         }
-        //     }
-        // }
-
-        // if ($userEncontrado && $row) {
-        //     if (password_verify($senha, $row['senha'])) {
-        //         $_SESSION['login_attempts'] = 0; // Reset
-
-        //         $otp = random_int(100000, 999999);
-        //         $expira = date("Y-m-d H:i:s", time() + 300);
-
-        //         $sqlOtp = "INSERT INTO user_otps (user_id, otp_code, expires_at, created_at) VALUES (?, ?, ?, NOW())";
-        //         $stmtOtp = $this->conn->prepare($sqlOtp);
-        //         $stmtOtp->bind_param("iis", $row['id'], $otp, $expira);
-
-        //         if ($stmtOtp->execute()) {
-        //             $stmtOtp->close();
-
-        //             // Envio email via Python
-        //             $escapedEmail = escapeshellarg($email);
-        //             $escapedOtp = escapeshellarg($otp);
-        //             $pythonPath = __DIR__ . '/AuthMailSender.py';
-        //             $command = "python $pythonPath $escapedEmail $escapedOtp 2>&1";
-        //             $output = shell_exec($command);
-        //             if (strpos($output ?? '', 'Erro') !== false) {
-        //                 error_log("Falha email OTP: $output");
-        //             }
-
-        //             $_SESSION['pending_user_id'] = $this->criptografia->criptografar($row['id']);
-        //             $_SESSION['user_email'] = $this->criptografia->criptografar($row['email']);
-        //             $_SESSION['tipo'] = $this->criptografia->criptografar(strtolower(trim($row['tipo'] ?? '')));
-        //             error_log("DEBUG - AuthController: tipo: '" . $this->criptografia->criptografar($row['tipo']) . "' para {$email}");
-        //             header("Location: /marktour/View/Auth/ValidarUser.php");
-        //             exit();
-        //         } else {
-        //             $this->error = "Erro ao gerar OTP.";
-        //             return $this->error;
-        //         }
-        //     } else {
-        //         $this->error = "Senha incorreta.";
-        //         $this->loginAttempts++;
-        //         $_SESSION['login_attempts'] = $this->loginAttempts;
-        //         registrarAtividade(null, "Senha errada para " . $this->criptografia->criptografar($email), "LOGIN_FAILED");
-        //         return $this->error;
-        //     }
-        // } else {
-        //     $this->error = "Email não encontrado.";
-        //     $this->loginAttempts++;
-        //     $_SESSION['login_attempts'] = $this->loginAttempts;
-        //     // registrarAtividade(null, "Email não registrado: " . $this->criptografia->criptografar($email), "LOGIN_FAILED");
-        //     return $this->error;
-        // }
-    
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             if ($senha === $row['senha']) {

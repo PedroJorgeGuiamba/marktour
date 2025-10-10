@@ -2,5 +2,13 @@ Controller/Auth/.env
 lib/stripe/README.md
 actualizar.php
 erros.php
-uploads
+uploads/alojamentos/*
+!uploads/alojamentos/.gitkeep
+uploads/empresa/alvara/*
+!uploads/empresa/alvara/.gitkeep
+uploads/empresa/nuit/*
+!uploads/empresa/nuit/.gitkeep
 /Conexao/conector.php
+Config/*
+!Config/.gitkeep
+lib/google-api-php-client-v2.18.3-PHP8.3

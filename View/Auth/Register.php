@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/../../config.php';
 ?>
 
 <!DOCTYPE html>
@@ -11,7 +12,30 @@ session_start();
     <title>Registro</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../Style/home.css">
+    <style>
+        .facebook-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #4267B2;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .facebook-btn i {
+            margin-bottom: 5px;
+            font-size: 24px;
+        }
+        .facebook-btn:hover {
+            background-color: #365899;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -74,12 +98,23 @@ session_start();
                 </div>
             </div>
 
+            <div class="form-group col-md-12 mb-3">
+                <button class="btn btn-primary form-control" onclick="fbLogin()">Entrar com Facebook</button>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-primary form-control">Registar</button>
                 </div>
             </div>
         </form>
+
+        <div class="form-group col-md-12 mb-3">
+            <a href="https://www.facebook.com/v20.0/dialog/oauth?client_id=<?= FACEBOOK_APP_ID ?>&redirect_uri=<?= urlencode(FACEBOOK_REDIRECT_URI) ?>&scope=email,public_profile" class="facebook-btn">
+                <i class="fab fa-facebook-f"></i>
+                <span>Sign Up</span>
+            </a>
+        </div>
     </div>
 
 </body>
