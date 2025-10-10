@@ -8,9 +8,9 @@ require_once __DIR__ . '/../../Helpers/Actividade.php';
 require_once __DIR__ . '/../../Helpers/Criptografia.php';
 
 $fb = new \Facebook\Facebook([
-    'app_id' => FACEBOOK_APP_ID,
-    'app_secret' => FACEBOOK_APP_SECRET,
-    'default_graph_version' => FACEBOOK_GRAPH_VERSION,
+    'app_id' => getenv('FACEBOOK_APP_ID'),
+    'app_secret' => getenv('FACEBOOK_APP_SECRET'),
+    'default_graph_version' => getenv('FACEBOOK_GRAPH_VERSION'),
 ]);
 
 $helper = $fb->getRedirectLoginHelper();

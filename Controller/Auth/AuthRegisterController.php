@@ -84,6 +84,9 @@ class AuthRegisterController
 }
 
 $erros = '';
+if (isset($_GET['error'])) {
+    $erros = urldecode($_GET['error']);
+}
 $registro = new AuthRegisterController();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $erros = $registro->registrar();

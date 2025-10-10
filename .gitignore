@@ -11,4 +11,3 @@ uploads/empresa/nuit/*
 /Conexao/conector.php
 Config/*
 !Config/.gitkeep
-lib/google-api-php-client-v2.18.3-PHP8.3
