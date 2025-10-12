@@ -49,6 +49,7 @@ class RecuperarAlojamentos
             position: relative;
             margin-left: 15px;
         }
+
         .cart-count {
             position: absolute;
             top: -10px;
@@ -81,13 +82,13 @@ class RecuperarAlojamentos
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="carrinho.php" class="cart-icon">
+                                <a href="/View/Empresa/carrinho.php" class="cart-icon me-3">
                                     <i class="fas fa-shopping-cart fs-4" style="color: #3a4c91;"></i>
                                     <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span>
                                 </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -99,15 +100,15 @@ class RecuperarAlojamentos
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="../Empresa/portalDaEmpresa.php">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acomodações
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
+                        <li><a class="dropdown-item" href="MeusServicos.php">Hoteis</a></li>
+                        <li><a class="dropdown-item" href="MeusServicos.php">Resorts</a></li>
                         <li><a class="dropdown-item" href="#">Lounges</a></li>
                         <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
                         <li><a class="dropdown-item" href="#">Apartamentos</a></li>
@@ -126,19 +127,31 @@ class RecuperarAlojamentos
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         MarkTour
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Reviews</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="RegistrarAlojamento.php">Registrar Alojamento</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Alojamentos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="RegistrarPasseio.php">Registrar Passeios</a>
                 </li>
             </ul>
         </nav>
