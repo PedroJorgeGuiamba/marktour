@@ -85,9 +85,9 @@ $result = $conn->query($sql);
 $faqs = $result->fetch_all(MYSQLI_ASSOC);
 
 // Listar submissões pendentes
-$sql_submissions = "SELECT * FROM faq_submissions WHERE status = 'pendente' ORDER BY data_submissao DESC";
-$result_submissions = $conn->query($sql_submissions);
-$submissions = $result_submissions->fetch_all(MYSQLI_ASSOC);
+// $sql_submissions = "SELECT * FROM faq_submissions WHERE status = 'pendente' ORDER BY data_submissao DESC";
+// $result_submissions = $conn->query($sql_submissions);
+// $submissions = $result_submissions->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -103,6 +103,7 @@ $submissions = $result_submissions->fetch_all(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../Style/empresa.css">
 </head>
 
 <body>
@@ -124,12 +125,59 @@ $submissions = $result_submissions->fetch_all(MYSQLI_ASSOC);
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
+        </nav>
+
+        <nav>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="portalDoAdmin.php">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Acomodações
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
+                        <li><a class="dropdown-item" href="#">Resorts</a></li>
+                        <li><a class="dropdown-item" href="#">Lounges</a></li>
+                        <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
+                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Passeios
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                        <li><a class="dropdown-item" href="#">A Pe</a></li>
+                        <li><a class="dropdown-item" href="#">De Carro</a></li>
+                        <li><a class="dropdown-item" href="#">De Barco</a></li>
+                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
+                        <li><a class="dropdown-item" href="#">De Moto</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="#">Eventos</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        MarkTour
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                        <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="AdminFaqs.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
+                    </ul>
+                </li>
+            </ul>
         </nav>
     </header>
 

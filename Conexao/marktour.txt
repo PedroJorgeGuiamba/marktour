@@ -45,6 +45,7 @@ marktour/
 │
 ├── uploads/
 │   └── alojamentos/
+│   └── eventos/
 │   └── empresa/
 │   │   ├── alvara/
 │   │   └── nuit/

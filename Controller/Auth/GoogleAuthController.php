@@ -54,9 +54,9 @@ if (!class_exists('Google_Service_Oauth2')) {
 
 class GoogleAuthController
 {
-    private $client;
-    private $conn;
-    private $criptografia;
+    protected $client;
+    protected $conn;
+    protected $criptografia;
 
     public function __construct()
     {
@@ -69,10 +69,29 @@ class GoogleAuthController
             throw new Exception('Classe \Google\Client não encontrada. Verifique a instalação em lib/google-api-php-client-v2.18.3-PHP8.3.');
         }
         $this->client = new Client();
-        if (!file_exists(__DIR__ . '/../../config/client_secret.json')) {
-            throw new Exception('Arquivo client_secret.json não encontrado em config/.');
+        // Procurar automaticamente por um ficheiro de credenciais do Google
+        $configDir = realpath(__DIR__ . '/../../config');
+        $clientSecretPath = null;
+        if ($configDir !== false && is_dir($configDir)) {
+            // aceitar vários nomes gerados pelo Google, por exemplo client_secret-*.json
+            $matches = glob($configDir . DIRECTORY_SEPARATOR . 'client_secret*.json');
+            if (!empty($matches)) {
+                // escolher o primeiro encontrado
+                $clientSecretPath = $matches[0];
+            }
         }
-        $this->client->setAuthConfig(__DIR__ . '/../../config/client_secret.json');
+
+        if ($clientSecretPath === null) {
+            // Não encontrou ficheiro de credenciais — lançar exceção controlada com instruções
+            throw new Exception('Arquivo de credenciais do Google não encontrado em config/. Coloque o ficheiro JSON (ex: client_secret.json) em config/ conforme descrito no README.');
+        }
+
+        // Apenas chamar setAuthConfig se o ficheiro existir (evita fatal error em Client.php)
+        if (file_exists($clientSecretPath)) {
+            $this->client->setAuthConfig($clientSecretPath);
+        } else {
+            throw new Exception('Arquivo de credenciais do Google encontrado mas não acessível: ' . $clientSecretPath);
+        }
         $this->client->addScope('email');
         $this->client->addScope('profile');
         $this->client->setRedirectUri('http://localhost/marktour/Controller/Auth/GoogleCallback.php');
@@ -83,7 +102,20 @@ class GoogleAuthController
 
     public function iniciarAutenticacao()
     {
+        $state = bin2hex(random_bytes(16)); // Gera um state único
+        // Guardar state na sessão (mais portátil e evita depender de métodos do client)
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $_SESSION['oauth2state'] = $state;
+
+        // Criar URL de autenticação e anexar explicitamente o state se necessário
         $authUrl = $this->client->createAuthUrl();
+        // Se o state não estiver presente na query, anexa-lo
+        if (strpos($authUrl, 'state=') === false) {
+            $authUrl .= (strpos($authUrl, '?') === false ? '?' : '&') . 'state=' . urlencode($state);
+        }
+
         header('Location: ' . filter_var($authUrl, FILTER_SANITIZE_URL));
         exit();
     }
@@ -156,7 +188,7 @@ class GoogleAuthController
                     exit();
                 }
             } else {
-                header("Location: /marktour/View/Registro.php?erros=Erro na autenticação com Google");
+                header("Location: /marktour/View/Auth/Register.php?erros=Erro na autenticação com Google");
                 exit();
             }
         }

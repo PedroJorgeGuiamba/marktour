@@ -3,7 +3,7 @@ require_once __DIR__ . '/../Conexao/conector.php';
 
 class Evento
 {
-    private $id_evento;
+    private $id_empresa;
     private $nome;
     private $descricao;
     private $data_evento;
@@ -14,7 +14,7 @@ class Evento
     private $status;
 
     // Getters
-    public function getId_evento() { return $this->id_evento; }
+    public function getId_empresa() { return $this->id_empresa; }
     public function getNome() { return $this->nome; }
     public function getDescricao() { return $this->descricao; }
     public function getData_evento() { return $this->data_evento; }
@@ -25,7 +25,7 @@ class Evento
     public function getStatus() { return $this->status; }
 
     // Setters
-    public function setId_evento($id_evento) { $this->id_evento = $id_evento; }
+    public function setId_empresa($id_empresa) { $this->id_empresa = $id_empresa; }
     public function setNome($nome) { $this->nome = $nome; }
     public function setDescricao($descricao) { $this->descricao = $descricao; }
     public function setData_evento($data_evento) { $this->data_evento = $data_evento; }
@@ -37,16 +37,32 @@ class Evento
 
     public function salvar($conn)
     {
-        $sql = "INSERT INTO eventos (nome, descricao, data_evento, hora_inicio, hora_fim, local, organizador, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO eventos (nome, descricao, data_evento, hora_inicio, hora_fim, local, organizador, status, id_empresa) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssss", $this->nome, $this->descricao, $this->data_evento, $this->hora_inicio, $this->hora_fim, $this->local, $this->organizador, $this->status);
+        $stmt->bind_param("ssssssssi", $this->nome, $this->descricao, $this->data_evento, $this->hora_inicio, $this->hora_fim, $this->local, $this->organizador, $this->status, $this->id_empresa);
 
-        $success = $stmt->execute();
-        if ($success) {
-            return true;
+        if ($stmt->execute()) {
+            return $conn->insert_id; // Retorna o ID do evento inserido
         } else {
             error_log("Erro no INSERT na tabela eventos: " . $conn->error);
             return false;
         }
+    }
+
+    public function salvarMidias($conn, $id_evento, $midias)
+    {
+        $sql = "INSERT INTO eventos_midias (id_evento, tipo, path) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+
+        foreach ($midias as $midia) {
+            $tipo = $midia['tipo'];
+            $path = $midia['path'];
+            $stmt->bind_param("iss", $id_evento, $tipo, $path);
+            if (!$stmt->execute()) {
+                error_log("Erro ao inserir mídia na tabela eventos_midias: " . $conn->error);
+                throw new Exception("Erro ao salvar mídia no banco de dados: " . $conn->error);
+            }
+        }
+        $stmt->close();
     }
 }

@@ -156,6 +156,13 @@ include '../../Controller/Empresa/Home.php';
                         </select>
                         <span class="error_form" id="status_error_message"></span>
                     </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="midias" class="form-label">Imagens e Vídeos:</label>
+                        <input type="file" name="midias[]" class="form-control" id="midias" multiple accept="image/jpeg,image/png,image/gif,video/mp4,video/mpeg,video/webm">
+                        <span class="error_form" id="midias_error_message"></span>
+                        <button type="button" class="btn btn-secondary mt-2" id="addMoreFiles">Adicionar mais arquivos</button>
+                    </div>
                 </div>
 
                 <div class="row">
@@ -185,6 +192,15 @@ include '../../Controller/Empresa/Home.php';
         const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     </script>
     <script>
+        $('#addMoreFiles').click(function() {
+            const newInput = $('<input>').attr({
+                type: 'file',
+                name: 'midias[]',
+                class: 'form-control mt-2',
+                accept: 'image/jpeg,image/png,image/gif,video/mp4,video/mpeg,video/webm'
+            });
+            $('#midias').after(newInput);
+        });
         // Validação do formulário
         $("#formularioEventos").validate({
             rules: {
@@ -215,6 +231,11 @@ include '../../Controller/Empresa/Home.php';
                 },
                 status: {
                     required: true
+                },
+                'midias[]': {
+                    required: false,
+                    extension: "jpg|jpeg|png|gif|mp4|mpeg|webm",
+                    filesize: 10 // Tamanho máximo em MB
                 }
             },
             messages: {
@@ -236,6 +257,10 @@ include '../../Controller/Empresa/Home.php';
                 },
                 status: {
                     required: "Selecione o status do evento."
+                },
+                'midias[]': {
+                    extension: "Apenas arquivos JPEG, PNG, GIF, MP4, MPEG ou WebM são permitidos.",
+                    filesize: "O tamanho do arquivo deve ser inferior a 10MB."
                 }
             },
             errorClass: "is-invalid",
@@ -250,6 +275,17 @@ include '../../Controller/Empresa/Home.php';
                 error.insertAfter(element);
             }
         });
+
+        // Validação personalizada para tamanho do arquivo
+        $.validator.addMethod('filesize', function(value, element, param) {
+            if (element.files.length === 0) return true;
+            for (let i = 0; i < element.files.length; i++) {
+                if (element.files[i].size > param * 1024 * 1024) {
+                    return false;
+                }
+            }
+            return true;
+        }, 'O tamanho do arquivo deve ser inferior a {0}MB.');
     </script>
 </body>
 

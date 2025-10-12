@@ -9,96 +9,15 @@
     <!-- BootStrap Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+
     <!-- CSS -->
-    <link rel="stylesheet" href="Style/home.css">
+    <link rel="stylesheet" href="Style/index.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-    <style>
-        /* ====== Motor de Busca ====== */
-        .busca {
-            padding: 40px 20px;
-            border-radius: 12px;
-            color: #fff;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
 
-        .busca h2 {
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: #000000ff;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-        }
-
-        .busca form .form-control {
-            border-radius: 8px;
-            border: none;
-            padding: 12px;
-            font-size: 15px;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s;
-        }
-
-        .busca form .form-control:focus {
-            border: 2px solid #fff;
-            outline: none;
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
-        }
-
-        .busca form button {
-            border-radius: 8px;
-            padding: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            background: #023e8a;
-            border: none;
-            color: #fff;
-            transition: background 0.3s ease;
-        }
-
-        .busca form button:hover {
-            background: #03045e;
-        }
-
-        /* ====== Resultados ====== */
-        #resultadosBusca {
-            margin-top: 30px;
-        }
-
-        #resultadosBusca .card {
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        #resultadosBusca .card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        #resultadosBusca .card img {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        #resultadosBusca .card-body {
-            padding: 20px;
-        }
-
-        #resultadosBusca .card-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #0077b6;
-        }
-
-        #resultadosBusca .card-text {
-            font-size: 14px;
-            color: #555;
-        }
-    </style>
 </head>
 
 <body>
@@ -108,19 +27,24 @@
             <div class="container-fluid">
                 <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp" alt="Marktour Logo" height="30">
                 <div class="nav-modal">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i></a>
+                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4">
+                                    <i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i>
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
+                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4">
+                                    <i class="fa-brands fa-facebook" style="color: #3a4c91;"></i>
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="View/Auth/Login.php" class="me-3"><i class="fa fa-sign-in" aria-hidden="true"></i></a>
+                                <a href="View/Auth/Login.php" class="btn btn-danger">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -135,10 +59,10 @@
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAcomodacoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acomodações
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownAcomodacoes">
                         <li><a class="dropdown-item" href="#">Hoteis</a></li>
                         <li><a class="dropdown-item" href="#">Resorts</a></li>
                         <li><a class="dropdown-item" href="#">Lounges</a></li>
@@ -147,11 +71,11 @@
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPasseios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Passeios
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">A Pe</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownPasseios">
+                        <li><a class="dropdown-item" href="#">A Pé</a></li>
                         <li><a class="dropdown-item" href="#">De Carro</a></li>
                         <li><a class="dropdown-item" href="#">De Barco</a></li>
                         <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
@@ -162,10 +86,10 @@
                     <a class="nav-link" aria-current="page" href="../Empresa/promocoes.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         MarkTour
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
                         <li><a class="dropdown-item" href="View/MarkTour/Sobre.php">Sobre</a></li>
                         <li><a class="dropdown-item" href="View/MarkTour/Contactos.php">Contactos</a></li>
                         <li><a class="dropdown-item" href="View/MarkTour/faq.php">FAQ</a></li>
@@ -178,142 +102,209 @@
     </header>
 
     <main>
-        <!-- Motor de buscas -->
-        <section class="busca my-6">
+        <!-- Hero Section com imagem de fundo e busca -->
+        <section class="hero-section position-relative" style="background: url('https://www.visitarafrica.com/media/k2/items/cache/5e58b7b25b6a8f9a7ad4b2e96a6e51bc_XL.jpg') center/cover no-repeat; height: 80vh;">
+            <div class="hero-bg"></div>
+            <div class="container position-relative">
+                <div class="row justify-content-center text-center text-white py-5">
+                    <div class="col-lg-8">
+                        <h1 class="display-4 fw-bold mb-4">Descubra Lugares Incríveis</h1>
+                        <p class="lead mb-5">Explore destinos únicos e viva experiências inesquecíveis</p>
+                    </div>
+                </div>
+
+                <!-- Formulário de busca destacado -->
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="search-box bg-white rounded shadow p-4">
+                            <h3 class="text-center mb-4">Encontre sua Acomodação Ideal</h3>
+                            <form id="formBusca" class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Destino</label>
+                                    <input type="text" name="localizacao" class="form-control" placeholder="Para onde você vai?" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Check-in</label>
+                                    <input type="date" name="checkin" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Check-out</label>
+                                    <input type="date" name="checkout" class="form-control" required>
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">Hóspedes</label>
+                                    <select name="hospedes" class="form-select" required>
+                                        <option value="1">1 Hóspede</option>
+                                        <option value="2" selected>2 Hóspedes</option>
+                                        <option value="3">3 Hóspedes</option>
+                                        <option value="4">4 Hóspedes</option>
+                                        <option value="5">5+ Hóspedes</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2 d-grid align-self-end">
+                                    <button type="submit" class="btn btn-primary btn-lg">Buscar</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destaques e ofertas especiais -->
+        <section class="destaques py-5 bg-light">
             <div class="container">
-                <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre sua Acomodação</h2>
-                <form id="formBusca" class="row g-3">
-                    <div class="col-md-4">
-                        <input type="text" name="localizacao" class="form-control" placeholder="Digite o destino" required>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="date" name="checkin" class="form-control" required>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="date" name="checkout" class="form-control" required>
-                    </div>
-                    <div class="col-md-2">
-                        <input type="number" name="hospedes" class="form-control" min="1" value="1" required>
-                    </div>
-                    <div class="col-md-2 d-grid">
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </div>
-                </form>
-
-                <!-- Resultados -->
-                <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4 mt-4"></div>
-            </div>
-        </section>
-
-        <!-- Noticias -->
-        <section class="noticias">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Destinos em Destaque</h2>
+                        <p class="text-muted">Os lugares mais procurados pelos nossos viajantes</p>
                     </div>
                 </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <!-- Card 1 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Praia paradisíaca">
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-warning text-dark">Popular</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Praias do Sul</h5>
+                                <p class="card-text text-muted">Descubra as praias mais belas com águas cristalinas e areias brancas.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">A partir de R$ 299</span>
+                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
+                    <!-- Card 2 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Montanhas">
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-success">Ecoturismo</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Serra Verde</h5>
+                                <p class="card-text text-muted">Aventuras nas montanhas com trilhas deslumbrantes e paisagens únicas.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">A partir de R$ 189</span>
+                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
+                    <!-- Card 3 -->
+                    <div class="col">
+                        <div class="card h-100 shadow-sm border-0">
+                            <div class="position-relative overflow-hidden">
+                                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cidade histórica">
+                                <div class="position-absolute top-0 end-0 m-3">
+                                    <span class="badge bg-info">Cultural</span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Cidades Históricas</h5>
+                                <p class="card-text text-muted">Viaje no tempo e descubra a rica história e arquitetura colonial.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="h5 text-primary mb-0">A partir de R$ 159</span>
+                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Rodapé -->
-        <footer>
-            <div class="container-footer">
-                <p>
-                    Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservadors
-                </p>
+        <!-- Resultados da busca -->
+        <section class="resultados-busca py-5">
+            <div class="container">
+                <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4"></div>
             </div>
-        </footer>
+        </section>
+
+        <!-- Dicas e notícias de viagem -->
+        <section class="dicas-noticias py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Dicas e Notícias de Viagem</h2>
+                        <p class="text-muted">Fique por dentro das últimas tendências e novidades do mundo do turismo</p>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 g-4">
+                    <!-- Notícia 1 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Viagem sustentável">
+                            <div class="card-body">
+                                <span class="badge bg-success mb-2">Sustentabilidade</span>
+                                <h5 class="card-title">Como viajar de forma mais sustentável</h5>
+                                <p class="card-text text-muted">Descubra dicas práticas para reduzir seu impacto ambiental durante suas viagens e contribuir para um turismo mais responsável.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notícia 2 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Destinos em alta">
+                            <div class="card-body">
+                                <span class="badge bg-primary mb-2">Tendências</span>
+                                <h5 class="card-title">Os destinos mais procurados para 2023</h5>
+                                <p class="card-text text-muted">Confira a lista dos lugares que estão ganhando popularidade entre os viajantes e prepare sua próxima aventura.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notícia 3 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Gastronomia">
+                            <div class="card-body">
+                                <span class="badge bg-warning text-dark mb-2">Gastronomia</span>
+                                <h5 class="card-title">Sabores regionais: uma viagem pelo paladar</h5>
+                                <p class="card-text text-muted">Explore a riqueza da culinária local em cada destino e descubra pratos típicos que vão surpreender seu paladar.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Notícia 4 -->
+                    <div class="col">
+                        <div class="card h-100 border-0 shadow-sm">
+                            <img src="https://images.unsplash.com/photo-1539635278303-d4002c07eae3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Fotografia">
+                            <div class="card-body">
+                                <span class="badge bg-info mb-2">Fotografia</span>
+                                <h5 class="card-title">Dicas para fotos incríveis em suas viagens</h5>
+                                <p class="card-text text-muted">Aprenda técnicas simples para registrar momentos especiais e criar memórias visuais que vão durar para sempre.</p>
+                                <a href="#" class="btn btn-link text-primary p-0">Ler mais →</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <!-- Scripts do BootStrap -->
+
+    <footer>
+        <div class="container-footer">
+            <p>Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservados</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous">
-        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+        crossorigin="anonymous"></script>
+
+    <script>
         // AJAX para buscar hotéis
         document.getElementById("formBusca").addEventListener("submit", function(e) {
             e.preventDefault();
@@ -336,23 +327,22 @@
 
                     data.forEach(hotel => {
                         container.innerHTML += `
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="${hotel.imagem}" class="card-img-top" alt="${hotel.nome}">
-                                <div class="card-body">
-                                    <h5 class="card-title">${hotel.nome}</h5>
-                                    <p class="card-text">${hotel.descricao}</p>
-                                    <p><strong>Preço:</strong> ${hotel.preco} MT / noite</p>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+              <div class="col">
+                <div class="card h-100">
+                  <img src="${hotel.imagem}" class="card-img-top" alt="${hotel.nome}">
+                  <div class="card-body">
+                    <h5 class="card-title">${hotel.nome}</h5>
+                    <p class="card-text">${hotel.descricao}</p>
+                    <p><strong>Preço:</strong> ${hotel.preco} MT / noite</p>
+                  </div>
+                </div>
+              </div>
+            `;
                     });
                 })
                 .catch(err => console.error("Erro: ", err));
         });
     </script>
-
 </body>
 
 </html>

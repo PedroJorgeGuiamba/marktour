@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../../config.php';
+require_once __DIR__ . '/../../Config/config.php';
 ?>
 
 <!DOCTYPE html>
@@ -98,23 +98,31 @@ require_once __DIR__ . '/../../config.php';
                 </div>
             </div>
 
-            <div class="form-group col-md-12 mb-3">
-                <button class="btn btn-primary form-control" onclick="fbLogin()">Entrar com Facebook</button>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary form-control">Registar</button>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-6 mb-3">
+                                <button type="submit" class="btn btn-primary form-control">Registar</button>
+                        </div>
+                        
+                        <div class="form-group col-md-6 mb-3">
+                                <a href="https://www.facebook.com/v20.0/dialog/oauth?client_id=<?= FACEBOOK_APP_ID ?>&redirect_uri=<?= urlencode(FACEBOOK_REDIRECT_URI) ?>&scope=email,public_profile" class="facebook-btn">
+                                    <i class="fab fa-facebook-f"></i>
+                                    <span>Sign Up</span>
+                                </a>
+                        </div>
+                
+                        
+                        <div class="form-group col-md-6 mb-3">
+                                <a href="../../Controller/Auth/GoogleAuthController.php" class="btn form-control">
+                                    <i class="fab fa-google"></i> Registar com Google
+                                </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
 
-        <div class="form-group col-md-12 mb-3">
-            <a href="https://www.facebook.com/v20.0/dialog/oauth?client_id=<?= FACEBOOK_APP_ID ?>&redirect_uri=<?= urlencode(FACEBOOK_REDIRECT_URI) ?>&scope=email,public_profile" class="facebook-btn">
-                <i class="fab fa-facebook-f"></i>
-                <span>Sign Up</span>
-            </a>
-        </div>
     </div>
 
 </body>

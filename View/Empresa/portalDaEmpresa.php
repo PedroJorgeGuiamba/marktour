@@ -21,12 +21,13 @@ include '../../Controller/Empresa/Home.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="../../Style/empresa.css">
+    <link rel="stylesheet" href="../../Style/empresas.css">
     <style>
         .cart-icon {
             position: relative;
             margin-left: 15px;
         }
+
         .cart-count {
             position: absolute;
             top: -10px;
@@ -133,139 +134,136 @@ include '../../Controller/Empresa/Home.php';
             </ul>
         </nav>
     </header>
-
     <main>
-        <section class="busca my-6">
+        <!-- Seção Hero / Apresentação -->
+        <section class="hero d-flex align-items-center text-center text-white" style="background: url('https://www.visitarafrica.com/media/k2/items/cache/5e58b7b25b6a8f9a7ad4b2e96a6e51bc_XL.jpg') center/cover no-repeat; height: 80vh;">
             <div class="container">
-                <h2 class="text-center mb-10" style="padding-top: 100px;">Encontre sua Acomodação</h2>
+                <h1 class="display-4 fw-bold">Descubra o Melhor de Moçambique</h1>
+                <p class="lead mb-4">Aventure-se por praias paradisíacas, cultura vibrante e experiências inesquecíveis com a Marktour.</p>
+                <a href="#pacotes" class="btn btn-primary btn-lg">Explorar Pacotes</a>
+            </div>
+        </section>
 
+        <!-- Seção de Busca de Acomodações -->
+        <section class="busca my-5">
+            <div class="container">
+                <h2 class="text-center mb-4">Encontre a Sua Próxima Aventura</h2>
                 <form id="formBusca" class="row g-3 justify-content-center text-center">
                     <div class="col-md-3">
-                        <label style="color:black"></label>
-                        <input type="text" name="localizacao" class="form-control" placeholder="Digite o destino" required>
+                        <input type="text" name="localizacao" class="form-control" placeholder="Destino" required>
                     </div>
                     <div class="col-md-2">
-                        <label style="color:black">Check-in</label>
                         <input type="date" name="checkin" class="form-control" required>
                     </div>
                     <div class="col-md-2">
-                        <label style="color:black">Check-out</label>
                         <input type="date" name="checkout" class="form-control" required>
                     </div>
                     <div class="col-md-2">
-                        <label style="color:black">Hóspedes</label>
-                        <input type="number" name="hospedes" class="form-control" min="1" value="1" required>
+                        <input type="number" name="hospedes" class="form-control" min="1" value="1" placeholder="Hóspedes" required>
                     </div>
-                    <div class="col-md-2 d-grid align-items-end">
+                    <div class="col-md-2 d-grid">
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </div>
                 </form>
-
-                <!-- Resultados -->
                 <div id="resultadosBusca" class="row row-cols-1 row-cols-md-3 g-4 mt-4"></div>
             </div>
         </section>
 
-        <section class="noticias">
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
+        <!-- Seção de Pacotes Turísticos -->
+        <section id="pacotes" class="pacotes py-5 bg-light">
+            <div class="container">
+                <h2 class="text-center mb-5">Pacotes Mais Populares</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="Tofo">
+                            <div class="card-body">
+                                <h5 class="card-title">Praias de Tofo</h5>
+                                <p class="card-text">Mergulhe nas águas cristalinas de Tofo, com passeios de barco e observação de baleias.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-outline-primary">Ver Detalhes</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://cdn.britannica.com/65/162165-050-40AE51D2/Maputo-Mozambique.jpg" class="card-img-top" alt="Maputo">
+                            <div class="card-body">
+                                <h5 class="card-title">Tour Cultural em Maputo</h5>
+                                <p class="card-text">Descubra a arte, gastronomia e arquitetura da vibrante capital moçambicana.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-outline-primary">Ver Detalhes</a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional
-                                content. This content is a little bit longer.</p>
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://www.african-meccasafaris.com/wp-content/uploads/mozambique-gorongosa-park.jpg" class="card-img-top" alt="Gorongosa">
+                            <div class="card-body">
+                                <h5 class="card-title">Safari em Gorongosa</h5>
+                                <p class="card-text">Explore a vida selvagem e paisagens incríveis do Parque Nacional da Gorongosa.</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a href="#" class="btn btn-outline-primary">Ver Detalhes</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Rodapé -->
-        <footer>
-            <div class="container-footer">
-                <p>Copyright 2023 © Marktour | Todos Direitos Reservados <span>MARKTOUR.</span></p>
+        <!-- Seção de Notícias / Blog -->
+        <section class="noticias py-5">
+            <div class="container">
+                <h2 class="text-center mb-5">Notícias e Dicas de Viagem</h2>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="Tofo">
+                            <div class="card-body">
+                                <h5 class="card-title">5 Motivos para Visitar Inhambane</h5>
+                                <p class="card-text">História, praias, mergulho e hospitalidade local — um destino imperdível!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="Ilha de Moçambique">
+                            <div class="card-body">
+                                <h5 class="card-title">Ilha de Moçambique: Património Mundial</h5>
+                                <p class="card-text">Conheça o berço histórico do país e suas atrações culturais únicas.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="card h-100 shadow-sm">
+                            <img src="https://www.moz.life/wp-content/uploads/2017/03/bars-in-tofo.jpg.optimal-822x548.jpg" class="card-img-top" alt="Vilanculos">
+                            <div class="card-body">
+                                <h5 class="card-title">Aventura em Vilanculos</h5>
+                                <p class="card-text">Descubra o arquipélago de Bazaruto e as experiências únicas de mergulho.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </footer>
+        </section>
     </main>
-    
+
+
+    <!-- Rodapé -->
+    <footer>
+        <div class="container-footer">
+            <p>Copyright 2023 © Marktour | Todos Direitos Reservados <span>MARKTOUR.</span></p>
+        </div>
+    </footer>
+    </main>
+
     <!-- Scripts do BootStrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
