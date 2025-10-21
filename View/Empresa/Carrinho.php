@@ -2,27 +2,42 @@
 session_start();
 require_once __DIR__ . '/../../Conexao/conector.php';
 require_once __DIR__ . '/../../Model/Alojamento.php';
+var_dump($_SESSION['user_id']);
 
-class RecuperarAlojamentos
-{
-    public function listar()
-    {
+// Initialize cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// Handle cart actions
+if (isset($_GET['action']) && isset($_GET['id'])) {
+    $id = $_GET['id'];
+    if ($_GET['action'] == 'add') {
+        // Fetch accommodation details
         $conexao = new Conector();
         $conn = $conexao->getConexao();
-
-        // Consulta para recuperar todos os alojamentos
-        $sql = "SELECT * FROM alojamento";
-        $result = $conn->query($sql);
-
-        $alojamentos = [];
+        $sql = "SELECT * FROM alojamento WHERE id_alojamento = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
         if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $alojamentos[] = $row;
-            }
+            $alojamento = $result->fetch_assoc();
+            $_SESSION['cart'][$id] = [
+                'nome' => $alojamento['nome'],
+                'preco_noite' => $alojamento['preco_noite'],
+                'quantidade' => isset($_SESSION['cart'][$id]) ? $_SESSION['cart'][$id]['quantidade'] + 1 : 1
+            ];
+        } else {
+            $_SESSION['cart_error'] = "Alojamento não encontrado ou ID inválido.";
         }
-
-        return $alojamentos;
+    } elseif ($_GET['action'] == 'remove') {
+        unset($_SESSION['cart'][$id]);
     }
+    header("Location: Carrinho.php");
+    exit();
+
 }
 ?>
 
@@ -32,20 +47,27 @@ class RecuperarAlojamentos
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Alojamentos - MarkTour</title>
+    <title>Carrinho de Compras - MarkTour</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../Style/empresas.css">
+    <link rel="stylesheet" href="../../Style/empresa.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <style>
-        .alojamento-card {
-            display: none;
+        .cart-icon {
+            position: relative;
+            margin-left: 15px;
         }
-
-        .alojamento-card.show {
-            display: block;
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -69,13 +91,13 @@ class RecuperarAlojamentos
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/View/Empresa/carrinho.php" class="cart-icon me-3">
+                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="carrinho.php" class="cart-icon">
                                     <i class="fas fa-shopping-cart fs-4" style="color: #3a4c91;"></i>
                                     <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -87,15 +109,15 @@ class RecuperarAlojamentos
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="portalDaEmpresa.php">Home</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acomodações
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="MeusServicos.php">Hoteis</a></li>
-                        <li><a class="dropdown-item" href="MeusServicos.php">Resorts</a></li>
+                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
+                        <li><a class="dropdown-item" href="#">Resorts</a></li>
                         <li><a class="dropdown-item" href="#">Lounges</a></li>
                         <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
                         <li><a class="dropdown-item" href="#">Apartamentos</a></li>
@@ -114,7 +136,7 @@ class RecuperarAlojamentos
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="eventos.php">Eventos</a>
+                    <a class="nav-link" href="#">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -128,89 +150,65 @@ class RecuperarAlojamentos
                         <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="RegistrarAlojamento.php">Registrar Alojamento</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Alojamentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="RegistrarPasseio.php">Registrar Passeios</a>
-                </li>
             </ul>
         </nav>
     </header>
 
     <main class="container mt-5">
-        <h2>Alojamentos Registrados</h2>
-        <div id="alojamentos-container">
-            <?php
-            $recuperar = new RecuperarAlojamentos();
-            $alojamentos = $recuperar->listar();
+        <h2>Carrinho de Compras</h2>
 
-            // Data e hora atual
-            $dataHoraAtual = "10:02 AM CAT, Thursday, September 11, 2025";
+        <?php if (isset($_SESSION['cart_error'])): ?>
+            <div class='alert alert-danger' role='alert'>
+                <?php echo $_SESSION['cart_error']; unset($_SESSION['cart_error']); ?>
+            </div>
+        <?php endif; ?>
 
-            if (empty($alojamentos)) {
-                echo "<div class='alert alert-warning' role='alert'>Nenhum alojamento registrado.</div>";
-            } else {
-                echo "<div class='alert alert-info' id='select-message' role='alert'>Selecione um tipo de acomodação para visualizar os alojamentos.</div>";
-                foreach ($alojamentos as $alojamento) {
-                    echo "
-                    <div class='card mb-3 alojamento-card' data-tipo='{$alojamento['tipo']}' style='max-width: 540px;'>
-                        <div class='card-body'>
-                            <h5 class='card-title'>{$alojamento['nome']}</h5>
-                            <p class='card-text'><strong>Tipo:</strong> {$alojamento['tipo']}</p>
-                            <p class='card-text'><strong>Descrição:</strong> {$alojamento['descricao']}</p>
-                            <p class='card-text'><strong>Preço por Noite:</strong> {$alojamento['preco_noite']} MZN</p>
-                            <p class='card-text'><strong>Número de Quartos:</strong> {$alojamento['num_quartos']}</p>
-                            <p class='card-text'><strong>Empresa ID:</strong> {$alojamento['id_empresa']}</p>
-                            <p class='card-text'><small class='text-muted'>Última atualização: {$dataHoraAtual}</small></p>
-                        </div>
-                    </div>";
-                }
-            }
-            ?>
-        </div>
+        <?php if (empty($_SESSION['cart'])): ?>
+            <div class='alert alert-warning' role='alert'>Seu carrinho está vazio.</div>
+        <?php else: ?>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Preço por Noite (MZN)</th>
+                        <th>Quantidade</th>
+                        <th>Total (MZN)</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $total = 0;
+                    foreach ($_SESSION['cart'] as $id => $item):
+                        $subtotal = $item['preco_noite'] * $item['quantidade'];
+                        $total += $subtotal;
+                    ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($item['nome']); ?></td>
+                            <td><?php echo number_format($item['preco_noite'], 2); ?></td>
+                            <td><?php echo $item['quantidade']; ?></td>
+                            <td><?php echo number_format($subtotal, 2); ?></td>
+                            <td>
+                                <a href="carrinho.php?action=remove&id=<?php echo $id; ?>" class="btn btn-danger btn-sm">Remover</a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    <tr>
+                        <td colspan="3" class="text-end"><strong>Total Geral:</strong></td>
+                        <td><?php echo number_format($total, 2); ?> MZN</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-end">
+                <a href="../MarkTour/SelecionarMetodoPagamento.php" class="btn btn-success">Finalizar Reserva</a>
+            </div>
+        <?php endif; ?>
     </main>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            // Initially hide all alojamento cards
-            $('.alojamento-card').removeClass('show');
-
-            // Handle dropdown item clicks
-            $('.dropdown-menu a[data-tipo]').click(function(e) {
-                e.preventDefault();
-                var tipoSelecionado = $(this).data('tipo');
-
-                // Remove any existing messages
-                $('#alojamentos-container .alert').remove();
-
-                // Hide all cards
-                $('.alojamento-card').removeClass('show');
-
-                // Show only cards matching the selected type
-                $('.alojamento-card[data-tipo="' + tipoSelecionado + '"]').addClass('show');
-
-                // Update dropdown toggle text
-                $('#dropdownAcomodacoes').text(tipoSelecionado);
-
-                // Show message if no alojamentos match the selected type
-                if ($('.alojamento-card.show').length === 0) {
-                    $('#alojamentos-container').prepend(
-                        '<div class="alert alert-warning" role="alert">Nenhum alojamento encontrado para o tipo ' + tipoSelecionado + '.</div>'
-                    );
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

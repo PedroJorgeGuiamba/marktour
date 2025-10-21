@@ -18,7 +18,7 @@ include '../../Controller/Empresa/Home.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="../../Style/empresa.css">
+    <link rel="stylesheet" href="../../Style/empresas.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
@@ -34,19 +34,24 @@ include '../../Controller/Empresa/Home.php';
             <div class="container-fluid">
                 <img src="http://marktour.co.mz/wp-content/uploads/2022/04/Logo-Marktour-PNG-SEM-FUNDO1.png.webp" alt="Marktour Logo" height="30">
                 <div class="nav-modal">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+                        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarText">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                             <li class="nav-item">
-                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4"><i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i></a>
+                                <a href="https://www.instagram.com/marktourreservasonline/" class="me-3 text-white fs-4">
+                                    <i class="fa-brands fa-square-instagram" style="color: #3a4c91;"></i>
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
+                                <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4">
+                                    <i class="fa-brands fa-facebook" style="color: #3a4c91;"></i>
+                                </a>
                             </li>
                             <li class="nav-item">
-                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="View/Auth/Login.php" class="btn btn-danger">Login</a>
                             </li>
                         </ul>
                     </div>
@@ -58,13 +63,13 @@ include '../../Controller/Empresa/Home.php';
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../Empresa/portalDaEmpresa.php">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAcomodacoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acomodações
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownAcomodacoes">
                         <li><a class="dropdown-item" href="#">Hoteis</a></li>
                         <li><a class="dropdown-item" href="#">Resorts</a></li>
                         <li><a class="dropdown-item" href="#">Lounges</a></li>
@@ -73,11 +78,11 @@ include '../../Controller/Empresa/Home.php';
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPasseios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Passeios
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">A Pe</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownPasseios">
+                        <li><a class="dropdown-item" href="#">A Pé</a></li>
                         <li><a class="dropdown-item" href="#">De Carro</a></li>
                         <li><a class="dropdown-item" href="#">De Barco</a></li>
                         <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
@@ -85,18 +90,18 @@ include '../../Controller/Empresa/Home.php';
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../Empresa/eventos.php">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="../Empresa/promocoes.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         MarkTour
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Reviews</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
+                        <li><a class="dropdown-item" href="View/MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/Blog.php">Blog</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
                 </li>
             </ul>
@@ -105,9 +110,7 @@ include '../../Controller/Empresa/Home.php';
 
     <main>
         <div class="formulario" style="padding-top: 100px; margin: 70px;">
-            <form action="../../Controller/Empresa/RegistrarAlojamento.php"
-            method="post" id="formularioAlojamento"
-            enctype="multipart/form-data">
+            <form action="../../Controller/Empresa/RegistrarAlojamento.php" method="post" id="formularioAlojamento">
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label for="nome" class="form-label">nome:</label>
@@ -146,12 +149,6 @@ include '../../Controller/Empresa/Home.php';
                         <label for="numeroDeQuartos" class="form-label">Numero De Quartos:</label>
                         <input type="number" name="numeroDeQuartos" class="form-control" id="numeroDeQuartos">
                         <span class="error_form" id="numeroDeQuartos_error_message"></span>
-                    </div>
-
-                    <div class="form-group col-md-4">
-                        <label for="imagem" class="form-label">Imagem do Alojamento:</label>
-                        <input type="file" name="imagem" class="form-control" id="imagem" accept="image/*">
-                        <span class="error_form" id="imagem_error_message"></span>
                     </div>
 
                     <div class="row">
@@ -197,10 +194,6 @@ include '../../Controller/Empresa/Home.php';
                 numeroDeQuartos: {
                     required: false,
                     digits: true
-                },
-                imagem: {
-                    required: true,
-                    accept: "image/jpeg,image/png,image/gif"
                 }
             },
             messages: {
@@ -213,10 +206,6 @@ include '../../Controller/Empresa/Home.php';
                 },
                 precoPorNoite: {
                     minlength: "O preço por noite deve ter pelo menos 2 digitos."
-                },
-                imagem: {
-                    required: "Por favor, envie uma imagem.",
-                    accept: "Apenas arquivos JPG, PNG ou GIF são permitidos."
                 }
             },
             errorClass: "is-invalid",

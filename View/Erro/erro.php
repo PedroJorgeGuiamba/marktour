@@ -57,7 +57,7 @@ $erroMensagem = isset($_GET['msg']) ? htmlspecialchars($_GET['msg']) : 'Ocorreu 
                     <div class="card-body">
                         <h5 class="card-title">Ocorreu um Problema</h5>
                         <p class="card-text"><?php echo $erroMensagem; ?></p>
-                        <a href="../Empresa/portalDaEmpresa.php" class="btn btn-light">Voltar para a Página Inicial</a>
+                        <a href="../Utilizador/portalDoUtilizador.php" class="btn btn-light">Voltar para a Página Inicial</a>
                     </div>
                 </div>
             </div>

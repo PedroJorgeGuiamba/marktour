@@ -92,6 +92,7 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
 
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -117,13 +118,15 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             --warning-color: #ffc107;
             --danger-color: #dc3545;
             --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
             --border-radius: 15px;
         }
+
         body {
             background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .dashboard-header {
             background: var(--bg-gradient);
             color: white;
@@ -131,6 +134,7 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             margin-bottom: 2rem;
             box-shadow: var(--card-shadow);
         }
+
         .stat-card {
             background: white;
             border-radius: var(--border-radius);
@@ -138,10 +142,12 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             overflow: hidden;
         }
+
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
+
         .stat-icon {
             width: 60px;
             height: 60px;
@@ -153,12 +159,31 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             color: white;
             margin-bottom: 1rem;
         }
-        .stat-card.users .stat-icon { background: var(--info-color); }
-        .stat-card.accommodations .stat-icon { background: var(--success-color); }
-        .stat-card.events .stat-icon { background: var(--warning-color); }
-        .stat-card.activities .stat-icon { background: var(--primary-color); }
-        .stat-card.reservations .stat-icon { background: var(--danger-color); }
-        .stat-card.faqs .stat-icon { background: var(--secondary-color); }
+
+        .stat-card.users .stat-icon {
+            background: var(--info-color);
+        }
+
+        .stat-card.accommodations .stat-icon {
+            background: var(--success-color);
+        }
+
+        .stat-card.events .stat-icon {
+            background: var(--warning-color);
+        }
+
+        .stat-card.activities .stat-icon {
+            background: var(--primary-color);
+        }
+
+        .stat-card.reservations .stat-icon {
+            background: var(--danger-color);
+        }
+
+        .stat-card.faqs .stat-icon {
+            background: var(--secondary-color);
+        }
+
         .chart-container {
             background: white;
             border-radius: var(--border-radius);
@@ -166,25 +191,51 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             padding: 2rem;
             margin-bottom: 2rem;
         }
+
         .chart-title {
             text-align: center;
             margin-bottom: 1.5rem;
             font-weight: bold;
             color: #333;
         }
+
         footer {
             background: var(--bg-gradient);
             color: white;
             padding: 1rem 0;
             margin-top: 3rem;
         }
+
         .pulse {
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .nav-link {
+            color: var(--text-light) !important;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover {
+            color: var(--secondary-color) !important;
+        }
+
+        .dropdown-menu {
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-medium);
         }
     </style>
 </head>
@@ -231,6 +282,7 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">MarkTour</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="AdminFaqs.php">Faqs - Admin</a></li>
                     </ul>
                 </li>
             </ul>
@@ -348,10 +400,22 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             options: {
                 responsive: true,
                 plugins: {
-                    legend: { position: 'bottom', labels: { padding: 20 } },
-                    tooltip: { callbacks: { label: (ctx) => ctx.label + ': ' + ctx.parsed + ' (' + ((ctx.parsed / <?php echo array_sum($reservations_by_type) ?: 1; ?> * 100).toFixed(1)) + '%)' } }
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => ctx.label + ': ' + ctx.parsed + ' (' + ((ctx.parsed / <?php echo array_sum($reservations_by_type) ?: 1; ?> * 100).toFixed(1)) + '%)'
+                        }
+                    }
                 },
-                animation: { duration: 2000, easing: 'easeInOutQuart' }
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
             }
         });
 
@@ -372,9 +436,17 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             options: {
                 responsive: true,
                 scales: {
-                    y: { beginAtZero: true, ticks: { stepSize: 10 } }
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 10
+                        }
+                    }
                 },
-                animation: { duration: 1500, easing: 'easeOutBounce' }
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutBounce'
+                }
             }
         });
 
@@ -384,19 +456,49 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
             type: 'line',
             data: {
                 labels: <?php echo json_encode($labels); ?>,
-                datasets: [
-                    { label: 'Alojamentos', data: <?php echo json_encode($aloj_data); ?>, borderColor: '#198754', backgroundColor: 'rgba(25, 135, 84, 0.1)', tension: 0.4 },
-                    { label: 'Eventos', data: <?php echo json_encode($eventos_data); ?>, borderColor: '#ffc107', backgroundColor: 'rgba(255, 193, 7, 0.1)', tension: 0.4 },
-                    { label: 'Atividades', data: <?php echo json_encode($ativ_data); ?>, borderColor: '#0d6efd', backgroundColor: 'rgba(13, 110, 253, 0.1)', tension: 0.4 }
+                datasets: [{
+                        label: 'Alojamentos',
+                        data: <?php echo json_encode($aloj_data); ?>,
+                        borderColor: '#198754',
+                        backgroundColor: 'rgba(25, 135, 84, 0.1)',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Eventos',
+                        data: <?php echo json_encode($eventos_data); ?>,
+                        borderColor: '#ffc107',
+                        backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                        tension: 0.4
+                    },
+                    {
+                        label: 'Atividades',
+                        data: <?php echo json_encode($ativ_data); ?>,
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        tension: 0.4
+                    }
                 ]
             },
             options: {
                 responsive: true,
-                scales: { y: { beginAtZero: true } },
-                plugins: { legend: { display: true, position: 'top' } },
-                animation: { duration: 2000, easing: 'easeInOutQuart' }
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeInOutQuart'
+                }
             }
         });
     </script>
 </body>
+
 </html>

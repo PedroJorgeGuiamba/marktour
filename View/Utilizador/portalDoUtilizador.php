@@ -85,8 +85,11 @@ if (!isset($_SESSION['cart'])) {
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Acomodações</a>
+                </li>
+                <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="MeusAlojamentos.php" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acomodações
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
@@ -96,7 +99,7 @@ if (!isset($_SESSION['cart'])) {
                         <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
                         <li><a class="dropdown-item" href="#">Apartamentos</a></li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Passeios

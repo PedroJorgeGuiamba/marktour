@@ -5,16 +5,6 @@ require_once __DIR__ . '/../../Conexao/conector.php';
 $conexao = new Conector();
 $conn = $conexao->getConexao();
 
-// Submissão de pergunta pelo usuário
-if (isset($_POST['submit_pergunta'])) {
-    $pergunta = trim($_POST['pergunta']);
-    $id_utilizador = $_SESSION['user_id'] ?? 0; // Assumindo que o ID do usuário está na sessão
-
-    $stmt = $conn->prepare("INSERT INTO faq (pergunta, id_utilizador) VALUES (?, ?)");
-    $stmt->bind_param("si", $pergunta, $id_utilizador);
-    $stmt->execute();
-}
-
 // Listar FAQs
 $sql = "SELECT pergunta, resposta FROM faq WHERE visivel = TRUE ORDER BY data_criacao DESC";
 $result = $conn->query($sql);
@@ -157,12 +147,12 @@ if ($result->num_rows > 0) {
         <!-- Formulário para submeter pergunta -->
         <div class="mt-5">
             <h3>Faça uma Pergunta</h3>
-            <form method="POST">
+            <form method="POST" action="../../Controller/MarkTour/FaqController.php">
                 <div class="mb-3">
                     <label for="pergunta" class="form-label">Sua Pergunta</label>
                     <textarea class="form-control" id="pergunta" name="pergunta" rows="3" required></textarea>
                 </div>
-                <button type="submit" name="submit_pergunta" class="btn btn-primary">Enviar</button>
+                <button type="submit" class="btn btn-primary">Enviar</button>
             </form>
         </div>
     </main>

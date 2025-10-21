@@ -1,23 +1,103 @@
+<?php
+session_start();
+require_once __DIR__ . '/Conexao/conector.php';
+require_once __DIR__ . '/Model/Alojamento.php';
+
+// Initialize cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+class RecuperarAlojamentos
+{
+    public function listar()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+
+        // Consulta para recuperar todos os alojamentos
+        $sql = "SELECT * FROM alojamento";
+        $result = $conn->query($sql);
+
+        $alojamentos = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $alojamentos[] = $row;
+            }
+        }
+
+        return $alojamentos;
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-pt">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marktour</title>
-
-    <!-- BootStrap Links -->
+    <title>MarkTour</title>
+    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
-
     <!-- CSS -->
     <link rel="stylesheet" href="Style/index.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-
+    <style>
+        .horizontal-scroll-container {
+            position: relative;
+            width: 100%;
+        }
+        .horizontal-scroll {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex;
+            scroll-behavior: smooth;
+        }
+        .horizontal-scroll .card {
+            display: inline-flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 18rem; /* Aproximadamente o mesmo tamanho dos cards de destinos em md */
+            margin-right: 1rem;
+        }
+        .horizontal-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+        .horizontal-scroll::-webkit-scrollbar-thumb {
+            background-color: #3a4c91;
+            border-radius: 4px;
+        }
+        .horizontal-scroll::-webkit-scrollbar-track {
+            background-color: #f1f1f1;
+        }
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            z-index: 10;
+            display: none;
+            font-size: 1.5rem;
+            color: #3a4c91;
+        }
+        .scroll-btn.left {
+            left: 0;
+        }
+        .scroll-btn.right {
+            right: 0;
+        }
+        .horizontal-scroll-container:hover .scroll-btn {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,7 +124,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="View/Auth/Login.php" class="btn btn-danger">Login</a>
+                                <a href="View/Auth/Login.php" class="btn btn-danger">Iniciar Sessão</a>
                             </li>
                         </ul>
                     </div>
@@ -56,17 +136,17 @@
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#">Início</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownAcomodacoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Acomodações
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownAcomodacoes">
-                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
+                        <li><a class="dropdown-item" href="#">Hotéis</a></li>
                         <li><a class="dropdown-item" href="#">Resorts</a></li>
                         <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
+                        <li><a class="dropdown-item" href="#">Casas de Praia</a></li>
                         <li><a class="dropdown-item" href="#">Apartamentos</a></li>
                     </ul>
                 </li>
@@ -83,7 +163,7 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="../Empresa/promocoes.php">Eventos</a>
+                    <a class="nav-link" href="View/Empresa/promocoes.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -94,7 +174,7 @@
                         <li><a class="dropdown-item" href="View/MarkTour/Contactos.php">Contactos</a></li>
                         <li><a class="dropdown-item" href="View/MarkTour/faq.php">FAQ</a></li>
                         <li><a class="dropdown-item" href="View/MarkTour/Blog.php">Blog</a></li>
-                        <li><a class="dropdown-item" href="View/MarkTour/Reviews.php">Reviews</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/Reviews.php">Avaliações</a></li>
                     </ul>
                 </li>
             </ul>
@@ -174,7 +254,7 @@
                                 <h5 class="card-title">Praias do Sul</h5>
                                 <p class="card-text text-muted">Descubra as praias mais belas com águas cristalinas e areias brancas.</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de R$ 299</span>
+                                    <span class="h5 text-primary mb-0">A partir de 299 MZN</span>
                                     <a href="#" class="btn btn-outline-primary">Explorar</a>
                                 </div>
                             </div>
@@ -193,7 +273,7 @@
                                 <h5 class="card-title">Serra Verde</h5>
                                 <p class="card-text text-muted">Aventuras nas montanhas com trilhas deslumbrantes e paisagens únicas.</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de R$ 189</span>
+                                    <span class="h5 text-primary mb-0">A partir de 189 MZN</span>
                                     <a href="#" class="btn btn-outline-primary">Explorar</a>
                                 </div>
                             </div>
@@ -212,10 +292,65 @@
                                 <h5 class="card-title">Cidades Históricas</h5>
                                 <p class="card-text text-muted">Viaje no tempo e descubra a rica história e arquitetura colonial.</p>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de R$ 159</span>
+                                    <span class="h5 text-primary mb-0">A partir de 159 MZN</span>
                                     <a href="#" class="btn btn-outline-primary">Explorar</a>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alojamentos em Destaque -->
+        <section class="alojamentos py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Alojamentos em Destaque</h2>
+                        <p class="text-muted">Descubra as melhores opções de alojamento para a sua viagem</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="horizontal-scroll-container">
+                            <button class="scroll-btn left" onclick="scrollHorizontal(-300)"><i class="fas fa-chevron-left"></i></button>
+                            <div class="horizontal-scroll" onscroll="checkScrollLimits()">
+                                <?php
+                                $recuperar = new RecuperarAlojamentos();
+                                $alojamentos = $recuperar->listar();
+
+                                if (empty($alojamentos)) {
+                                    echo "<div class='text-center text-muted'>Nenhum alojamento registado.</div>";
+                                } else {
+                                    foreach ($alojamentos as $alojamento) {
+                                        echo "
+                                        <div class='card h-100 shadow-sm border-0'>
+                                            <div class='position-relative overflow-hidden'>
+                                                <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/Uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                                <div class='position-absolute top-0 end-0 m-3'>
+                                                    <span class='badge bg-primary'>Alojamentos</span>
+                                                </div>
+                                            </div>
+                                            <div class='card-body'>
+                                                <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
+                                                <p class='card-text text-muted'>" . htmlspecialchars($alojamento['descricao']) . "</p>
+                                                <div class='d-flex justify-content-between align-items-center mb-2'>
+                                                    <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($alojamento['preco_noite']) . " MZN</span>
+                                                </div>
+                                                <p class='card-text mb-2'><small class='text-muted'>Tipo: " . htmlspecialchars($alojamento['tipo']) . "</small></p>
+                                                <p class='card-text mb-3'><small class='text-muted'>Número de Quartos: " . htmlspecialchars($alojamento['num_quartos']) . "</small></p>
+                                                <div class='d-flex gap-2'>
+                                                    <a href='View/Empresa/Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                                    <a href='View/Empresa/reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
+                                                </div>
+                                            </div>
+                                        </div>";
+                                    }
+                                }
+                                ?>
+                            </div>
+                            <button class="scroll-btn right" onclick="scrollHorizontal(300)"><i class="fas fa-chevron-right"></i></button>
                         </div>
                     </div>
                 </div>
@@ -292,10 +427,9 @@
         </section>
     </main>
 
-
     <footer>
         <div class="container-footer">
-            <p>Copyright 2023 © <span>Marktour</span> | Todos Direitos Reservados</p>
+            <p>Copyright 2023 © <span>MarkTour</span> | Todos os Direitos Reservados</p>
         </div>
     </footer>
 
@@ -303,8 +437,40 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        function scrollHorizontal(amount) {
+            const scrollContainer = document.querySelector('.horizontal-scroll');
+            scrollContainer.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        function checkScrollLimits() {
+            const scrollContainer = document.querySelector('.horizontal-scroll');
+            const leftBtn = document.querySelector('.scroll-btn.left');
+            const rightBtn = document.querySelector('.scroll-btn.right');
+
+            if (scrollContainer.scrollLeft <= 0) {
+                leftBtn.style.display = 'none';
+            } else {
+                leftBtn.style.display = 'block';
+            }
+
+            if (scrollContainer.scrollLeft >= (scrollContainer.scrollWidth - scrollContainer.clientWidth - 1)) {
+                rightBtn.style.display = 'none';
+            } else {
+                rightBtn.style.display = 'block';
+            }
+        }
+
+        // Inicializar verificação ao carregar a página
+        window.addEventListener('load', checkScrollLimits);
+
+        // Atualizar ao redimensionar a janela
+        window.addEventListener('resize', checkScrollLimits);
+
+        // Atualizar ao scroll
+        document.querySelector('.horizontal-scroll').addEventListener('scroll', checkScrollLimits);
+
         // AJAX para buscar hotéis
         document.getElementById("formBusca").addEventListener("submit", function(e) {
             e.preventDefault();
@@ -333,7 +499,7 @@
                   <div class="card-body">
                     <h5 class="card-title">${hotel.nome}</h5>
                     <p class="card-text">${hotel.descricao}</p>
-                    <p><strong>Preço:</strong> ${hotel.preco} MT / noite</p>
+                    <p><strong>Preço:</strong> ${hotel.preco} MZN / noite</p>
                   </div>
                 </div>
               </div>

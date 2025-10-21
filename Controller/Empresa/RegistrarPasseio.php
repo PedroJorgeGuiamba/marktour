@@ -25,6 +25,26 @@ class RegistrarPasseio
                 $conexao = new Conector();
                 $conn = $conexao->getConexao();
 
+                 // Configuração do upload
+                $uploadDir = "../../uploads/alojamentos/";
+                if (!file_exists($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                $imagemPath = null;
+                if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] == UPLOAD_ERR_OK) {
+                    $imagemName = basename($_FILES['imagem']['name']);
+                    $imagemExt = strtolower(pathinfo($imagemName, PATHINFO_EXTENSION));
+                    $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
+                    if (in_array($imagemExt, $allowedExts)) {
+                        $newImagemName = uniqid() . '.' . $imagemExt;
+                        $targetFile = $uploadDir . $newImagemName;
+                        if (move_uploaded_file($_FILES['imagem']['tmp_name'], $targetFile)) {
+                            $imagemPath = "/marktour/uploads/passeios/" . $newImagemName;
+                        }
+                    }
+                }
+
                 $stmt = $conn->prepare("SELECT id_empresa FROM empresa WHERE id_utilizador = ?");
                 $stmt->bind_param("i", $id_utilizador);
                 $stmt->execute();
@@ -59,6 +79,7 @@ class RegistrarPasseio
                 $passeio->setPreco( $preco);
                 $passeio->setDataHora( $formattedDateTime);
                 $passeio->setLocal($local);
+                $passeio->setImagemPath($imagemPath);
 
                 if ($passeio->salvar()) {
                     if (isset($_SESSION['sessao_id'])) {
@@ -69,12 +90,15 @@ class RegistrarPasseio
                     exit();
                 } else {
                     echo "Erro ao criar passeio da empresa.";
+                    exit();
                 }
             } catch (Exception $e) {
                 echo "Erro no sistema: " . $e->getMessage();
+                exit();
             }
         } else {
             echo "Método inválido.";
+            exit();
         }
     }
 }
