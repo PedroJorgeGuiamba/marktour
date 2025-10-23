@@ -34,7 +34,7 @@ try {
     $conn->begin_transaction();
 
     $total = $session->amount_total / 100;
-    $stmt_reserva = $conn->prepare("INSERT INTO reserva (id_utilizador, data_reserva, total, estado) VALUES (?, NOW(), ?, 'confirmada')");
+    $stmt_reserva = $conn->prepare("INSERT INTO reserva (id_utilizador, data_reserva, total, estado) VALUES (?, NOW(), ?, 'pendente')");
     $stmt_reserva->bind_param("id", $_SESSION['id_utilizador'], $total);
     $stmt_reserva->execute();
     $id_reserva = $stmt_reserva->insert_id; // Usar insert_id do statement para maior precisão

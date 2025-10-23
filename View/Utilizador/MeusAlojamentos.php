@@ -106,46 +106,30 @@ class RecuperarAlojamentos
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../Empresa/portalDaEmpresa.php">Início</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAcomodacoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Acomodações
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownAcomodacoes">
-                        <li><a class="dropdown-item" href="#">Hotéis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
-                        <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas de Praia</a></li>
-                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPasseios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Passeios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownPasseios">
-                        <li><a class="dropdown-item" href="#">A Pé</a></li>
-                        <li><a class="dropdown-item" href="#">De Carro</a></li>
-                        <li><a class="dropdown-item" href="#">De Barco</a></li>
-                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
-                        <li><a class="dropdown-item" href="#">De Moto</a></li>
-                    </ul>
+                    <a class="nav-link active" aria-current="page" href="portalDoUtilizador.php">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Eventos</a>
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Acomodações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="Passeios.php">Passeios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="Eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         MarkTour
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Avaliações</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
                     </ul>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
                 </li>
             </ul>
         </nav>

@@ -47,7 +47,7 @@
         </nav>
     </header>
 
-    <div class="container custom-container">
+    <div class="container custom-container" style="padding-top: 50px;">
         <h2>LOGIN</h2>
         <hr />
         <form method="post" id="loginForm">

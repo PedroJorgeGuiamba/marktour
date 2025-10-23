@@ -91,7 +91,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                                 <a href="https://web.facebook.com/marktour.ei?_rdc=1&_rdr#" class="me-3 text-white fs-4"><i class="fa-brands fa-facebook" style="color: #3a4c91;"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a href="/Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
+                                <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
                             <li class="nav-item">
                                 <a href="carrinho.php" class="cart-icon">

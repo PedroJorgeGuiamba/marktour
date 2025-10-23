@@ -1,8 +1,99 @@
 <?php
 session_start();
+include '../../Conexao/conector.php';
 include '../../Controller/Utilizador/Home.php';
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
+}
+
+$conexao = new Conector();
+$conn = $conexao->getConexao();
+$userId = $_SESSION['id_utilizador'] ?? 0; // Assume logged in
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['action'])) {
+        if ($_POST['action'] === 'mark_read' && isset($_POST['id_notificacao'])) {
+            $notifId = intval($_POST['id_notificacao']);
+            $sql = "UPDATE notificacao SET lida = 1 WHERE id_notificacao = $notifId AND id_utilizador = $userId";
+            $conn->query($sql);
+        } elseif ($_POST['action'] === 'mark_all_read') {
+            $sql = "UPDATE notificacao SET lida = 1 WHERE id_utilizador = $userId AND deleted = 0";
+            $conn->query($sql);
+        } elseif ($_POST['action'] === 'clear_all') {
+            $sql = "UPDATE notificacao SET deleted = 1 WHERE id_utilizador = $userId";
+            $conn->query($sql);
+        }
+    }
+    // Reload the page after action
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+// Fetch unread count
+$sql = "SELECT COUNT(*) as count FROM notificacao WHERE id_utilizador = $userId AND lida = 0 ";
+$result = $conn->query($sql);
+$unreadCount = $result ? $result->fetch_assoc()['count'] : 0;
+
+// Fetch all notifications for dropdown
+$sql = "SELECT * FROM notificacao WHERE id_utilizador = $userId ORDER BY lida ASC, data DESC";
+$result = $conn->query($sql);
+$notifications = [];
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $notifications[] = $row;
+    }
+}
+class RecuperarAlojamentos
+{
+    public function listarAlojamentos()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+
+        // Consulta para recuperar todos os alojamentos
+        $sql = "SELECT * FROM alojamento";
+        $result = $conn->query($sql);
+
+        $alojamentos = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $alojamentos[] = $row;
+            }
+        }
+
+        return $alojamentos;
+    }
+
+    public function listarEventos()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+        // Consulta para recuperar todos os eventos
+        $sql = "SELECT * FROM eventos";
+        $result = $conn->query($sql);
+        $eventos = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $eventos[] = $row;
+            }
+        }
+        return $eventos;
+    }
+    public function listarActividades()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+        // Consulta para recuperar todas as actividades (passeios)
+        $sql = "SELECT * FROM actividade";
+        $result = $conn->query($sql);
+        $actividades = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $actividades[] = $row;
+            }
+        }
+        return $actividades;
+    }
 }
 ?>
 
@@ -40,6 +131,33 @@ if (!isset($_SESSION['cart'])) {
             padding: 2px 6px;
             font-size: 12px;
         }
+
+        .notification-icon {
+            position: relative;
+            margin-left: 15px;
+        }
+        .notification-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+        }
+        .dropdown-menu.notifications {
+            width: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .notification-item {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+        }
+        .notification-item.unread {
+            background-color: #f8f9fa;
+        }
     </style>
 
 </head>
@@ -71,6 +189,45 @@ if (!isset($_SESSION['cart'])) {
                                     <span class="cart-count"><?php echo count($_SESSION['cart']); ?></span>
                                 </a>
                             </li>
+                            <!-- Notification Bell -->
+                            <li class="nav-item dropdown">
+                                <a href="#" class="notification-icon me-3 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell fs-4" style="color: #3a4c91;"></i>
+                                    <?php if ($unreadCount > 0): ?>
+                                        <span class="notification-count"><?php echo $unreadCount; ?></span>
+                                    <?php endif; ?>
+                                </a>
+                                <ul class="dropdown-menu notifications dropdown-menu-end">
+                                    <?php if (empty($notifications)): ?>
+                                        <li class="notification-item text-center">Nenhuma notificação.</li>
+                                    <?php else: ?>
+                                        <?php foreach ($notifications as $notif): ?>
+                                            <li class="notification-item <?php echo $notif['lida'] == 0 ? 'unread' : ''; ?>">
+                                                <p><?php echo htmlspecialchars($notif['mensagem']); ?></p>
+                                                <small class="text-muted"><?php echo htmlspecialchars($notif['data']); ?></small>
+                                                <?php if ($notif['lida'] == 0): ?>
+                                                    <form method="POST" style="display:inline;">
+                                                        <input type="hidden" name="action" value="mark_read">
+                                                        <input type="hidden" name="id_notificacao" value="<?php echo $notif['id_notificacao']; ?>">
+                                                        <button type="submit" class="btn btn-sm btn-link">Marcar como lida</button>
+                                                    </form>
+                                                <?php endif; ?>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="text-center">
+                                        <form method="POST" style="display:inline;">
+                                            <input type="hidden" name="action" value="mark_all_read">
+                                            <button type="submit" class="btn btn-sm btn-primary">Marcar todas como lidas</button>
+                                        </form>
+                                        <form method="POST" style="display:inline;">
+                                            <input type="hidden" name="action" value="clear_all">
+                                            <button type="submit" class="btn btn-sm btn-danger">Limpar todas</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a href="../../Controller/Auth/LogoutController.php" class="btn btn-danger">Logout</a>
                             </li>
@@ -88,32 +245,11 @@ if (!isset($_SESSION['cart'])) {
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Acomodações</a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="MeusAlojamentos.php" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Acomodações
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
-                        <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
-                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
-                    </ul>
-                </li> -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Passeios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">A Pe</a></li>
-                        <li><a class="dropdown-item" href="#">De Carro</a></li>
-                        <li><a class="dropdown-item" href="#">De Barco</a></li>
-                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
-                        <li><a class="dropdown-item" href="#">De Moto</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Passeios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="Eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -125,6 +261,8 @@ if (!isset($_SESSION['cart'])) {
                         <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/TermosECondicoes.php">Termos E Condições</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/PoliticasDePricacidade.php">Política de Privacidade</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -134,7 +272,7 @@ if (!isset($_SESSION['cart'])) {
         </nav>
     </header>
 
-    <main>
+<main>
         <!-- Hero Section com imagem de fundo e busca -->
         <section class="hero-section position-relative" style="background: url('https://www.visitarafrica.com/media/k2/items/cache/5e58b7b25b6a8f9a7ad4b2e96a6e51bc_XL.jpg') center/cover no-repeat; height: 80vh;">
             <div class="hero-bg"></div>
@@ -184,73 +322,158 @@ if (!isset($_SESSION['cart'])) {
             </div>
         </section>
 
-        <!-- Destaques e ofertas especiais -->
-        <section class="destaques py-5 bg-light">
+        
+        <!-- Alojamentos em Destaque -->
+        <section class="alojamentos py-5">
             <div class="container">
                 <div class="row mb-5">
                     <div class="col text-center">
-                        <h2 class="fw-bold">Destinos em Destaque</h2>
-                        <p class="text-muted">Os lugares mais procurados pelos nossos viajantes</p>
+                        <h2 class="fw-bold">Alojamentos em Destaque</h2>
+                            <p class="text-muted">Descubra as melhores opções de alojamento para a sua viagem</p>
                     </div>
                 </div>
                 <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <!-- Card 1 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Praia paradisíaca">
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-warning text-dark">Popular</span>
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $alojamentos = $recuperar->listarAlojamentos();
+
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+
+                    if (empty($alojamentos)) {
+                        echo "<div class='col text-center text-muted'>Nenhum alojamento registado.</div>";
+                    } else {
+                        foreach ($alojamentos as $alojamento) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Alojamentos</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($alojamento['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($alojamento['preco_noite']) . " MZN</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Tipo: " . htmlspecialchars($alojamento['tipo']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Número de Quartos: " . htmlspecialchars($alojamento['num_quartos']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Praias do Sul</h5>
-                                <p class="card-text text-muted">Descubra as praias mais belas com águas cristalinas e areias brancas.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de R$ 299</span>
-                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
-                                </div>
-                            </div>
-                        </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+
+        </section>
+        
+        <!-- Destaques e ofertas especiais -->
+        <section class="eventos py-5 bg-light">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Eventos em Destaque</h2>
+                        <p class="text-muted">Descubra os melhores eventos para a sua experiência</p>
                     </div>
-                    <!-- Card 2 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Montanhas">
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-success">Ecoturismo</span>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $eventos = $recuperar->listarEventos();
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+                    if (empty($eventos)) {
+                        echo "<div class='col text-center text-muted'>Nenhum evento registado.</div>";
+                    } else {
+                        foreach ($eventos as $evento) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($evento['imagem_path'] ?? '/uploads/eventos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$evento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Eventos</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($evento['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($evento['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>Data: " . htmlspecialchars($evento['data_evento']) . "</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Local: " . htmlspecialchars($evento['local']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Organizador: " . htmlspecialchars($evento['organizador']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($evento['id_evento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($evento['id_evento']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Serra Verde</h5>
-                                <p class="card-text text-muted">Aventuras nas montanhas com trilhas deslumbrantes e paisagens únicas.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de R$ 189</span>
-                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
-                                </div>
-                            </div>
-                        </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </section>
+        <!-- Passeios em Destaque -->
+        <section class="passeios py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Passeios em Destaque</h2>
+                        <p class="text-muted">Descubra os melhores passeios e atividades para a sua aventura</p>
                     </div>
-                    <!-- Card 3 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cidade histórica">
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-info">Cultural</span>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $actividades = $recuperar->listarActividades();
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+                    if (empty($actividades)) {
+                        echo "<div class='col text-center text-muted'>Nenhuma actividade registada.</div>";
+                    } else {
+                        foreach ($actividades as $actividade) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($actividade['imagem_path'] ?? '/uploads/actividades/placeholder.png') . "' class='card-img-top' alt='Imagem da {$actividade['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Passeios</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($actividade['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($actividade['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($actividade['preco']) . " MZN</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Local: " . htmlspecialchars($actividade['local']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Duração: " . htmlspecialchars($actividade['duracao']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($actividade['id_actividade']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($actividade['id_actividade']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Cidades Históricas</h5>
-                                <p class="card-text text-muted">Viaje no tempo e descubra a rica história e arquitetura colonial.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de R$ 159</span>
-                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            </div>";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </section>
@@ -364,7 +587,6 @@ if (!isset($_SESSION['cart'])) {
             </p>
         </div>
     </footer>
-    </main>
 
     <!-- Scripts do BootStrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

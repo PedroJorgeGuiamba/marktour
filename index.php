@@ -3,14 +3,13 @@ session_start();
 require_once __DIR__ . '/Conexao/conector.php';
 require_once __DIR__ . '/Model/Alojamento.php';
 
-// Initialize cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
 class RecuperarAlojamentos
 {
-    public function listar()
+    public function listarAlojamentos()
     {
         $conexao = new Conector();
         $conn = $conexao->getConexao();
@@ -27,6 +26,37 @@ class RecuperarAlojamentos
         }
 
         return $alojamentos;
+    }
+
+    public function listarEventos()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+        // Consulta para recuperar todos os eventos
+        $sql = "SELECT * FROM eventos";
+        $result = $conn->query($sql);
+        $eventos = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $eventos[] = $row;
+            }
+        }
+        return $eventos;
+    }
+    public function listarActividades()
+    {
+        $conexao = new Conector();
+        $conn = $conexao->getConexao();
+        // Consulta para recuperar todas as actividades (passeios)
+        $sql = "SELECT * FROM actividade";
+        $result = $conn->query($sql);
+        $actividades = [];
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $actividades[] = $row;
+            }
+        }
+        return $actividades;
     }
 }
 ?>
@@ -47,57 +77,6 @@ class RecuperarAlojamentos
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
-    <style>
-        .horizontal-scroll-container {
-            position: relative;
-            width: 100%;
-        }
-        .horizontal-scroll {
-            overflow-x: auto;
-            white-space: nowrap;
-            display: flex;
-            scroll-behavior: smooth;
-        }
-        .horizontal-scroll .card {
-            display: inline-flex;
-            flex-direction: column;
-            width: 100%;
-            max-width: 18rem; /* Aproximadamente o mesmo tamanho dos cards de destinos em md */
-            margin-right: 1rem;
-        }
-        .horizontal-scroll::-webkit-scrollbar {
-            height: 8px;
-        }
-        .horizontal-scroll::-webkit-scrollbar-thumb {
-            background-color: #3a4c91;
-            border-radius: 4px;
-        }
-        .horizontal-scroll::-webkit-scrollbar-track {
-            background-color: #f1f1f1;
-        }
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            border: none;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            z-index: 10;
-            display: none;
-            font-size: 1.5rem;
-            color: #3a4c91;
-        }
-        .scroll-btn.left {
-            left: 0;
-        }
-        .scroll-btn.right {
-            right: 0;
-        }
-        .horizontal-scroll-container:hover .scroll-btn {
-            display: block;
-        }
-    </style>
 </head>
 
 <body>
@@ -138,29 +117,11 @@ class RecuperarAlojamentos
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Início</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAcomodacoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Acomodações
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownAcomodacoes">
-                        <li><a class="dropdown-item" href="#">Hotéis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
-                        <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas de Praia</a></li>
-                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Acomodações</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPasseios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Passeios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownPasseios">
-                        <li><a class="dropdown-item" href="#">A Pé</a></li>
-                        <li><a class="dropdown-item" href="#">De Carro</a></li>
-                        <li><a class="dropdown-item" href="#">De Barco</a></li>
-                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
-                        <li><a class="dropdown-item" href="#">De Moto</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Passeios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="View/Empresa/promocoes.php">Eventos</a>
@@ -175,6 +136,8 @@ class RecuperarAlojamentos
                         <li><a class="dropdown-item" href="View/MarkTour/faq.php">FAQ</a></li>
                         <li><a class="dropdown-item" href="View/MarkTour/Blog.php">Blog</a></li>
                         <li><a class="dropdown-item" href="View/MarkTour/Reviews.php">Avaliações</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/TermosECondicoes.php">Termos E Condições</a></li>
+                        <li><a class="dropdown-item" href="View/MarkTour/PoliticasDePricacidade.php">Política de Privacidade</a></li>
                     </ul>
                 </li>
             </ul>
@@ -231,128 +194,158 @@ class RecuperarAlojamentos
             </div>
         </section>
 
-        <!-- Destaques e ofertas especiais -->
-        <section class="destaques py-5 bg-light">
-            <div class="container">
-                <div class="row mb-5">
-                    <div class="col text-center">
-                        <h2 class="fw-bold">Destinos em Destaque</h2>
-                        <p class="text-muted">Os lugares mais procurados pelos nossos viajantes</p>
-                    </div>
-                </div>
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <!-- Card 1 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Praia paradisíaca">
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-warning text-dark">Popular</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Praias do Sul</h5>
-                                <p class="card-text text-muted">Descubra as praias mais belas com águas cristalinas e areias brancas.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de 299 MZN</span>
-                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 2 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Montanhas">
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-success">Ecoturismo</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Serra Verde</h5>
-                                <p class="card-text text-muted">Aventuras nas montanhas com trilhas deslumbrantes e paisagens únicas.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de 189 MZN</span>
-                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Card 3 -->
-                    <div class="col">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="position-relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Cidade histórica">
-                                <div class="position-absolute top-0 end-0 m-3">
-                                    <span class="badge bg-info">Cultural</span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Cidades Históricas</h5>
-                                <p class="card-text text-muted">Viaje no tempo e descubra a rica história e arquitetura colonial.</p>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="h5 text-primary mb-0">A partir de 159 MZN</span>
-                                    <a href="#" class="btn btn-outline-primary">Explorar</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
+        
         <!-- Alojamentos em Destaque -->
         <section class="alojamentos py-5">
             <div class="container">
                 <div class="row mb-5">
                     <div class="col text-center">
                         <h2 class="fw-bold">Alojamentos em Destaque</h2>
-                        <p class="text-muted">Descubra as melhores opções de alojamento para a sua viagem</p>
+                            <p class="text-muted">Descubra as melhores opções de alojamento para a sua viagem</p>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="horizontal-scroll-container">
-                            <button class="scroll-btn left" onclick="scrollHorizontal(-300)"><i class="fas fa-chevron-left"></i></button>
-                            <div class="horizontal-scroll" onscroll="checkScrollLimits()">
-                                <?php
-                                $recuperar = new RecuperarAlojamentos();
-                                $alojamentos = $recuperar->listar();
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $alojamentos = $recuperar->listarAlojamentos();
 
-                                if (empty($alojamentos)) {
-                                    echo "<div class='text-center text-muted'>Nenhum alojamento registado.</div>";
-                                } else {
-                                    foreach ($alojamentos as $alojamento) {
-                                        echo "
-                                        <div class='card h-100 shadow-sm border-0'>
-                                            <div class='position-relative overflow-hidden'>
-                                                <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/Uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
-                                                <div class='position-absolute top-0 end-0 m-3'>
-                                                    <span class='badge bg-primary'>Alojamentos</span>
-                                                </div>
-                                            </div>
-                                            <div class='card-body'>
-                                                <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
-                                                <p class='card-text text-muted'>" . htmlspecialchars($alojamento['descricao']) . "</p>
-                                                <div class='d-flex justify-content-between align-items-center mb-2'>
-                                                    <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($alojamento['preco_noite']) . " MZN</span>
-                                                </div>
-                                                <p class='card-text mb-2'><small class='text-muted'>Tipo: " . htmlspecialchars($alojamento['tipo']) . "</small></p>
-                                                <p class='card-text mb-3'><small class='text-muted'>Número de Quartos: " . htmlspecialchars($alojamento['num_quartos']) . "</small></p>
-                                                <div class='d-flex gap-2'>
-                                                    <a href='View/Empresa/Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
-                                                    <a href='View/Empresa/reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
-                                                </div>
-                                            </div>
-                                        </div>";
-                                    }
-                                }
-                                ?>
-                            </div>
-                            <button class="scroll-btn right" onclick="scrollHorizontal(300)"><i class="fas fa-chevron-right"></i></button>
-                        </div>
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+
+                    if (empty($alojamentos)) {
+                        echo "<div class='col text-center text-muted'>Nenhum alojamento registado.</div>";
+                    } else {
+                        foreach ($alojamentos as $alojamento) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Alojamentos</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($alojamento['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($alojamento['preco_noite']) . " MZN</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Tipo: " . htmlspecialchars($alojamento['tipo']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Número de Quartos: " . htmlspecialchars($alojamento['num_quartos']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+
+        </section>
+        
+        <!-- Destaques e ofertas especiais -->
+        <section class="eventos py-5 bg-light">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Eventos em Destaque</h2>
+                        <p class="text-muted">Descubra os melhores eventos para a sua experiência</p>
                     </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $eventos = $recuperar->listarEventos();
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+                    if (empty($eventos)) {
+                        echo "<div class='col text-center text-muted'>Nenhum evento registado.</div>";
+                    } else {
+                        foreach ($eventos as $evento) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($evento['imagem_path'] ?? '/uploads/eventos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$evento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Eventos</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($evento['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($evento['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>Data: " . htmlspecialchars($evento['data_evento']) . "</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Local: " . htmlspecialchars($evento['local']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Organizador: " . htmlspecialchars($evento['organizador']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($evento['id_evento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($evento['id_evento']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </section>
+        <!-- Passeios em Destaque -->
+        <section class="passeios py-5">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Passeios em Destaque</h2>
+                        <p class="text-muted">Descubra os melhores passeios e atividades para a sua aventura</p>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $actividades = $recuperar->listarActividades();
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+                    if (empty($actividades)) {
+                        echo "<div class='col text-center text-muted'>Nenhuma actividade registada.</div>";
+                    } else {
+                        foreach ($actividades as $actividade) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($actividade['imagem_path'] ?? '/uploads/actividades/placeholder.png') . "' class='card-img-top' alt='Imagem da {$actividade['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Passeios</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($actividade['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($actividade['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($actividade['preco']) . " MZN</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Local: " . htmlspecialchars($actividade['local']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Duração: " . htmlspecialchars($actividade['duracao']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($actividade['id_actividade']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($actividade['id_actividade']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </section>
@@ -438,77 +431,6 @@ class RecuperarAlojamentos
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        function scrollHorizontal(amount) {
-            const scrollContainer = document.querySelector('.horizontal-scroll');
-            scrollContainer.scrollBy({ left: amount, behavior: 'smooth' });
-        }
-
-        function checkScrollLimits() {
-            const scrollContainer = document.querySelector('.horizontal-scroll');
-            const leftBtn = document.querySelector('.scroll-btn.left');
-            const rightBtn = document.querySelector('.scroll-btn.right');
-
-            if (scrollContainer.scrollLeft <= 0) {
-                leftBtn.style.display = 'none';
-            } else {
-                leftBtn.style.display = 'block';
-            }
-
-            if (scrollContainer.scrollLeft >= (scrollContainer.scrollWidth - scrollContainer.clientWidth - 1)) {
-                rightBtn.style.display = 'none';
-            } else {
-                rightBtn.style.display = 'block';
-            }
-        }
-
-        // Inicializar verificação ao carregar a página
-        window.addEventListener('load', checkScrollLimits);
-
-        // Atualizar ao redimensionar a janela
-        window.addEventListener('resize', checkScrollLimits);
-
-        // Atualizar ao scroll
-        document.querySelector('.horizontal-scroll').addEventListener('scroll', checkScrollLimits);
-
-        // AJAX para buscar hotéis
-        document.getElementById("formBusca").addEventListener("submit", function(e) {
-            e.preventDefault();
-
-            let formData = new FormData(this);
-
-            fetch("Controller/Hotel/", {
-                    method: "POST",
-                    body: formData
-                })
-                .then(res => res.json())
-                .then(data => {
-                    let container = document.getElementById("resultadosBusca");
-                    container.innerHTML = "";
-
-                    if (data.length === 0) {
-                        container.innerHTML = "<p class='text-center text-muted'>Nenhum resultado encontrado.</p>";
-                        return;
-                    }
-
-                    data.forEach(hotel => {
-                        container.innerHTML += `
-              <div class="col">
-                <div class="card h-100">
-                  <img src="${hotel.imagem}" class="card-img-top" alt="${hotel.nome}">
-                  <div class="card-body">
-                    <h5 class="card-title">${hotel.nome}</h5>
-                    <p class="card-text">${hotel.descricao}</p>
-                    <p><strong>Preço:</strong> ${hotel.preco} MZN / noite</p>
-                  </div>
-                </div>
-              </div>
-            `;
-                    });
-                })
-                .catch(err => console.error("Erro: ", err));
-        });
-    </script>
 </body>
 
 </html>

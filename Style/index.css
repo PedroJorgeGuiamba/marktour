@@ -140,7 +140,7 @@ footer {
 }
 
 /* ====== CARDS E SEÇÕES ====== */
-.destaques,
+.eventos,
 .dicas-noticias {
   padding: 3rem 0;
 }
@@ -260,7 +260,7 @@ footer {
     height: 150px;
   }
 
-  .destaques,
+  .eventos,
   .dicas-noticias {
     padding: 2rem 0;
   }

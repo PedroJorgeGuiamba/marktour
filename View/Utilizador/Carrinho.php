@@ -2,7 +2,7 @@
 session_start();
 require_once __DIR__ . '/../../Conexao/conector.php';
 require_once __DIR__ . '/../../Model/Alojamento.php';
-var_dump($_SESSION['user_id']);
+// var_dump($_SESSION['user_id']);
 
 // Initialize cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
@@ -50,7 +50,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
     <title>Carrinho de Compras - MarkTour</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../Style/empresa.css">
+    <link rel="stylesheet" href="../../Style/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
@@ -109,46 +109,30 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="../Utilizador/portalDoUtilizador.php">Home</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Acomodações
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">Hoteis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
-                        <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
-                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Passeios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">A Pe</a></li>
-                        <li><a class="dropdown-item" href="#">De Carro</a></li>
-                        <li><a class="dropdown-item" href="#">De Barco</a></li>
-                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
-                        <li><a class="dropdown-item" href="#">De Moto</a></li>
-                    </ul>
+                    <a class="nav-link active" aria-current="page" href="portalDoUtilizador.php">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Eventos</a>
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Acomodações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="Passeios.php">Passeios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="Eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownModulos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         MarkTour
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
                         <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
                         <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
-                        <li><a class="dropdown-item" href="../MarkTour/Reviews.php">Reviews</a></li>
                     </ul>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
                 </li>
             </ul>
         </nav>
@@ -183,7 +167,7 @@ if (isset($_GET['action']) && isset($_GET['id'])) {
                         $subtotal = $item['preco_noite'] * $item['quantidade'];
                         $total += $subtotal;
                     ?>
-                        <tr>
+                   <tr>
                             <td><?php echo htmlspecialchars($item['nome']); ?></td>
                             <td><?php echo number_format($item['preco_noite'], 2); ?></td>
                             <td><?php echo $item['quantidade']; ?></td>

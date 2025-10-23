@@ -283,6 +283,7 @@ $total_faqs = ($total_faqs_query) ? mysqli_fetch_row($total_faqs_query)[0] : 0;
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
                         <li><a class="dropdown-item" href="AdminFaqs.php">Faqs - Admin</a></li>
+                        <li><a class="dropdown-item" href="PainelDeAprovacaoDePagamentos.php">Pagamentos</a></li>
                     </ul>
                 </li>
             </ul>

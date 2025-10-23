@@ -1,30 +1,45 @@
+// perfil.php
 <?php
 session_start();
-require_once __DIR__ . '/../../Conexao/conector.php';
+header('Content-Type: application/json');
 
-// Verificar se o usuário está logado e é do tipo empresa
-if (!isset($_SESSION['usuario_id']) || $_SESSION['tipo'] !== 'cliente') {
-    header("Location: /marktour/View/Auth/Login.php");
-    exit();
-}
-
-$id_utilizador = $_SESSION['usuario_id'];
+require_once __DIR__ . '/../../Conexao/conector.php'; // Adjust path if needed
 $conexao = new Conector();
 $conn = $conexao->getConexao();
 
-function recuperarInformacoes($conn, $id_utilizador) {
-    $dados = [];
+$response = ['utilizador' => null, 'empresa' => null];
 
-    $sql_utilizador = "SELECT nome, email FROM utilizador WHERE id_utilizador = ?";
-    $stmt_utilizador = $conn->prepare($sql_utilizador);
-    $stmt_utilizador->bind_param("i", $id_utilizador);
-    $stmt_utilizador->execute();
-    $dados['utilizador'] = $stmt_utilizador->get_result()->fetch_assoc();
-    $stmt_utilizador->close();
-
-    return $dados;
+if (!isset($_SESSION['id_utilizador'])) {
+    echo json_encode($response);
+    exit;
 }
 
+$userId = $_SESSION['id_utilizador'];
 
-$conn->close();
+// Fetch user with prepared statement
+$stmt = mysqli_prepare($conn, "SELECT * FROM utilizador WHERE id_utilizador = ?");
+mysqli_stmt_bind_param($stmt, "i", $userId);
+mysqli_stmt_execute($stmt);
+$result = mysqli_stmt_get_result($stmt);
+$user = mysqli_fetch_assoc($result);
+mysqli_stmt_close($stmt);
+
+if ($user) {
+    $response['utilizador'] = $user;
+    
+    // If type is 'empresa', fetch company
+    if ($user['tipo'] === 'empresa') {
+        $stmt = mysqli_prepare($conn, "SELECT * FROM empresa WHERE id_utilizador = ?");
+        mysqli_stmt_bind_param($stmt, "i", $userId);
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $empresa = mysqli_fetch_assoc($result);
+        mysqli_stmt_close($stmt);
+        if ($empresa) {
+            $response['empresa'] = $empresa;
+        }
+    }
+}
+
+echo json_encode($response);
 ?>

@@ -3,26 +3,27 @@ session_start();
 require_once __DIR__ . '/../../Conexao/conector.php';
 require_once __DIR__ . '/../../Model/Alojamento.php';
 
+// Initialize cart if it doesn't exist
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
 class RecuperarAlojamentos
 {
-    public function listar()
+    public function listarEventos()
     {
         $conexao = new Conector();
         $conn = $conexao->getConexao();
-        $sql = "SELECT * FROM alojamento";
+        // Consulta para recuperar todos os eventos
+        $sql = "SELECT * FROM eventos";
         $result = $conn->query($sql);
-        $alojamentos = [];
+        $eventos = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $alojamentos[] = $row;
+                $eventos[] = $row;
             }
         }
-
-        return $alojamentos;
+        return $eventos;
     }
 }
 ?>
@@ -102,31 +103,13 @@ class RecuperarAlojamentos
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="../Empresa/portalDaEmpresa.php">Início</a>
+                    <a class="nav-link active" aria-current="page" href="portalDoUtilizador.php">Início</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownAcomodacoes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Acomodações
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownAcomodacoes">
-                        <li><a class="dropdown-item" href="#">Hotéis</a></li>
-                        <li><a class="dropdown-item" href="#">Resorts</a></li>
-                        <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas de Praia</a></li>
-                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Acomodações</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPasseios" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Passeios
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownPasseios">
-                        <li><a class="dropdown-item" href="#">A Pé</a></li>
-                        <li><a class="dropdown-item" href="#">De Carro</a></li>
-                        <li><a class="dropdown-item" href="#">De Barco</a></li>
-                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
-                        <li><a class="dropdown-item" href="#">De Moto</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="portalDoUtilizador.php">Passeios</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Eventos</a>
@@ -136,67 +119,70 @@ class RecuperarAlojamentos
                         MarkTour
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMarkTour">
-                        <li><a class="dropdown-item" href="#">Sobre</a></li>
-                        <li><a class="dropdown-item" href="#">Contactos</a></li>
-                        <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Blog</a></li>
-                        <li><a class="dropdown-item" href="#">Avaliações</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Sobre.php">Sobre</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Contactos.php">Contactos</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/faq.php">FAQ</a></li>
+                        <li><a class="dropdown-item" href="../MarkTour/Blog.php">Blog</a></li>
                     </ul>
+                </li>
+                                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
                 </li>
             </ul>
         </nav>
     </header>
 
     <main class="destaques py-5 bg-light" style="padding-top: 100px;">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col text-center">
-                    <h2 class="fw-bold">Alojamentos em Destaque</h2>
-                    <p class="text-muted">Os alojamentos mais procurados pelos nossos viajantes</p>
+        <!-- Destaques e ofertas especiais -->
+        <section class="eventos py-5 bg-light">
+            <div class="container">
+                <div class="row mb-5">
+                    <div class="col text-center">
+                        <h2 class="fw-bold">Eventos em Destaque</h2>
+                        <p class="text-muted">Descubra os melhores eventos para a sua experiência</p>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <?php
+                    $recuperar = new RecuperarAlojamentos();
+                    $eventos = $recuperar->listarEventos();
+                    // Usar a data e hora atual
+                    $dataHoraAtual = date("h:i A T, l, F d, Y");
+                    if (empty($eventos)) {
+                        echo "<div class='col text-center text-muted'>Nenhum evento registado.</div>";
+                    } else {
+                        foreach ($eventos as $evento) {
+                            echo "
+                            <div class='col'>
+                                <div class='card h-100 shadow-sm border-0'>
+                                    <div class='position-relative overflow-hidden'>
+                                        <img src='" . htmlspecialchars($evento['imagem_path'] ?? '/uploads/eventos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$evento['nome']}' style='max-height: 200px; object-fit: cover;'>
+                                        <div class='position-absolute top-0 end-0 m-3'>
+                                            <span class='badge bg-primary'>Eventos</span>
+                                        </div>
+                                    </div>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>" . htmlspecialchars($evento['nome']) . "</h5>
+                                        <p class='card-text text-muted'>" . htmlspecialchars($evento['descricao']) . "</p>
+                                        <div class='d-flex justify-content-between align-items-center mb-2'>
+                                            <span class='h5 text-primary mb-0'>Data: " . htmlspecialchars($evento['data_evento']) . "</span>
+                                        </div>
+                                        <p class='card-text mb-2'><small class='text-muted'>Local: " . htmlspecialchars($evento['local']) . "</small></p>
+                                        <p class='card-text mb-2'><small class='text-muted'>Organizador: " . htmlspecialchars($evento['organizador']) . "</small></p>
+                                        <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
+                                        <div class='d-flex gap-2'>
+                                            <a href='Carrinho.php?action=add&id=" . htmlspecialchars($evento['id_evento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
+                                            <a href='reservar.php?id=" . htmlspecialchars($evento['id_evento']) . "' class='btn btn-success'>Reservar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <?php
-                $recuperar = new RecuperarAlojamentos();
-                $alojamentos = $recuperar->listar();
-
-                // Usar a data e hora atual
-                $dataHoraAtual = date("h:i A T, l, F d, Y");
-
-                if (empty($alojamentos)) {
-                    echo "<div class='col text-center text-muted'>Nenhum alojamento registado.</div>";
-                } else {
-                    foreach ($alojamentos as $alojamento) {
-                        echo "
-                        <div class='col'>
-                            <div class='card h-100 shadow-sm border-0'>
-                                <div class='position-relative overflow-hidden'>
-                                    <img src='" . htmlspecialchars($alojamento['imagem_path'] ?? '/uploads/alojamentos/placeholder.png') . "' class='card-img-top' alt='Imagem do {$alojamento['nome']}' style='max-height: 200px; object-fit: cover;'>
-                                    <div class='position-absolute top-0 end-0 m-3'>
-                                        <span class='badge bg-primary'>Alojamentos</span>
-                                    </div>
-                                </div>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>" . htmlspecialchars($alojamento['nome']) . "</h5>
-                                    <p class='card-text text-muted'>" . htmlspecialchars($alojamento['descricao']) . "</p>
-                                    <div class='d-flex justify-content-between align-items-center mb-2'>
-                                        <span class='h5 text-primary mb-0'>A partir de " . htmlspecialchars($alojamento['preco_noite']) . " MZN</span>
-                                    </div>
-                                    <p class='card-text mb-2'><small class='text-muted'>Tipo: " . htmlspecialchars($alojamento['tipo']) . "</small></p>
-                                    <p class='card-text mb-2'><small class='text-muted'>Número de Quartos: " . htmlspecialchars($alojamento['num_quartos']) . "</small></p>
-                                    <p class='card-text mb-3'><small class='text-muted'>Última atualização: " . htmlspecialchars($dataHoraAtual) . "</small></p>
-                                    <div class='d-flex gap-2'>
-                                        <a href='Carrinho.php?action=add&id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-primary'>Adicionar ao Carrinho</a>
-                                        <a href='reservar.php?id=" . htmlspecialchars($alojamento['id_alojamento']) . "' class='btn btn-success'>Reservar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>";
-                    }
-                }
-                ?>
-            </div>
-        </div>
+        </section>
     </main>
 
     <footer>
