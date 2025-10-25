@@ -254,6 +254,9 @@ if ($userId > 0) {
                         <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
                     </li>
                 <?php endif; ?>
+                <li class="nav-item">
+                    <div id="google_translate_element"></div>
+                </li>
             </ul>
         </nav>
     </header>
@@ -369,5 +372,14 @@ if ($userId > 0) {
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous">
     </script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'pt',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
