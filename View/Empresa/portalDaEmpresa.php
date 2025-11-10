@@ -85,11 +85,8 @@ include '../../Controller/Empresa/Home.php';
                         Acomodações
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="MeusServicos.php">Hoteis</a></li>
-                        <li><a class="dropdown-item" href="MeusServicos.php">Resorts</a></li>
-                        <li><a class="dropdown-item" href="#">Lounges</a></li>
-                        <li><a class="dropdown-item" href="#">Casas De Praia</a></li>
-                        <li><a class="dropdown-item" href="#">Apartamentos</a></li>
+                        <li><a class="dropdown-item" href="RegistrarAlojamento.php">Registrar Alojamento</a></li>
+                        <li><a class="dropdown-item" href="MeusAlojamentos.php">Ver Alojamentos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -97,11 +94,8 @@ include '../../Controller/Empresa/Home.php';
                         Passeios
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownModulos">
-                        <li><a class="dropdown-item" href="#">A Pe</a></li>
-                        <li><a class="dropdown-item" href="#">De Carro</a></li>
-                        <li><a class="dropdown-item" href="#">De Barco</a></li>
-                        <li><a class="dropdown-item" href="#">De Jet Ski</a></li>
-                        <li><a class="dropdown-item" href="#">De Moto</a></li>
+                        <li><a class="dropdown-item" href="RegistrarPasseio.php">Registrar Passeios</a></li>
+                        <li><a class="dropdown-item" href="MeusServicos.php">Ver Passeios</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -121,15 +115,6 @@ include '../../Controller/Empresa/Home.php';
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="perfil.php">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="RegistrarAlojamento.php">Registrar Alojamento</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Ver Alojamentos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="RegistrarPasseio.php">Registrar Passeios</a>
                 </li>
             </ul>
         </nav>

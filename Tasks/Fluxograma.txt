@@ -1,0 +1,213 @@
+START
+   │
+   ▼
+┌───────────────────────────────┐
+│ 1. REGISTO DA ENTIDADE HOTELEIRA │
+│ (1 única vez por NIF/proprietário)│
+└─────────────┬─────────────────┘
+              │
+              ▼
+   ┌──────────────────────────┐
+   │ Preencher dados LEGAIS              │
+   │ • Nome empresa / razão social       │
+   │ • NIF / VAT / Tax ID                │
+   │ • Morada fiscal                     │
+   │ • IBAN (pagamentos)                 │
+   │ • Licença AL / RNET / Turismo PT    │
+   │ • Seguro responsabilidade civil     │
+   │ • CAE                               │
+   │ • Contacto principal + telemóvel    │
+   └─────────────┬────────────────────┘
+                 │
+                 ▼
+   ┌──────────────────────────┐
+   │ Verificação OTA (Booking, Agoda, │
+   │ Expedia, Airbnb, Hotelbeds)      │
+   │ → Envio documentos (NIF, comprovativo │
+   │   IBAN, licença AL)                 │
+   └─────────────┬────────────────────┘
+                 │ Aprovado?
+        ┌────────┴────────┐
+        NO                      YES
+        │                       │
+        ▼                       ▼
+   [CONTA BLOQUEADA]   ┌──────────────────────┐
+                       │ CONTA ACTIVADA               │
+                       └──────────┬───────────┘
+                                  │
+                                  ▼
+┌──────────────────────────────────────────────────────┐
+│ 2. REGISTO DO ALOJAMENTO (1 vez por propriedade)                         │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.1 IDENTIFICAÇÃO DO ALOJAMENTO    │
+           │ • Property ID interno              │
+           │ • Hotel Code (OTA)                 │
+           │ • GIATA ID / TTIcode               │
+           │ • Chain Code (se aplicável)        │
+           │ • Nome comercial (todos idiomas)   │
+           │ • Tipo (Hotel, AP, Villa, Resort,  │
+           │   Lounge, Glamping, etc.)          │
+           │ • Estrelas / Chaves                │
+           │ • Ano construção / renovação       │
+           │ • Nº total unidades                │
+           └──────────────┬─────────────────────┘
+                              	│
+                                ▼
+           ┌────────────────────────────────────┐
+           │ 2.2 LOCALIZAÇÃO                    │
+           │ • Endereço completo + complemento  │
+           │ • Cidade, país, código postal      │
+           │ • GPS (8 decimais)                 │
+           │ • Altitude                         │
+           │ • Distâncias (aeroporto, centro,   │
+           │   praia, ski-lift, hospital)       │
+           │ • Zona turística                   │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.3 CONTACTOS                      │
+           │ • Telefone 24h, WhatsApp Business  │
+           │ • E-mail reservas                  │
+           │ • Website, redes sociais           │
+           │ • Check-in sem contacto (fechadura │
+           │   inteligente / caixa chaves)      │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.4 DESCRIÇÕES E TEXTOS            │
+           │ • Título, subtítulo                │
+           │ • Descrição longa/curta (10+ idiomas)│
+           │ • Regras da casa                   │
+           │ • Palavras-chave internas          │
+           │ • Acessibilidade                   │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.5 TIPOS DE UNIDADE               │
+           │ • Room Type Code (DBL, TWN, 1BED…) │
+           │ • Nome unidade                     │
+           │ • Capacidade (adultos/crianças/bebés)│
+           │ • Configuração camas (King, Futon…)│
+           │ • Tamanho m², vista, andar         │
+           │ • Privacidade (inteiro/partilhado) │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.6 COMODIDADES E SERVIÇOS         │
+           │ • Quarto: AC, Wi-Fi 25 Mbps+,      │
+           │   kitchenette, jacuzzi privado     │
+           │ • Propriedade: piscina infinita,   │
+           │   praia privada, spa, lounge,      │
+           │   ski-in ski-out                   │
+           │ • Serviços: transfer grátis,       │
+           │   babysitting, lavandaria          │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.7 POLÍTICAS                      │
+           │ • Check-in/out, Quiet hours        │
+           │ • Cancelamento (Free 48h, Non-ref) │
+           │ • Depósito segurança               │
+           │ • Crianças/berço, animais (peso)   │
+           │ • Taxa turística, resort fee       │
+           │ • Pagamentos aceites               │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.8 FOTOGRAFIAS                    │
+           │ • 2048–4000 px, legendas 10 idiomas│
+           │ • Tags (Bed, Pool view, Sunset…)  │
+           │ • 360° tour, vídeo 4K              │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.9 PREÇOS E DISPONIBILIDADE       │
+           │ • Plano refeição (RO, AI Premium)  │
+           │ • Moeda, taxas incluídas           │
+           │ • MLOS, CTA/CTD, Early-bird        │
+           │ • BAR, Non-ref rate                │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ 2.10 INTEGRAÇÕES E CERTIFICAÇÕES   │
+           │ • PMS ID (Cloudbeds, Mews, Opera)  │
+           │ • Channel Manager ID               │
+           │ • Google Hotel ID, GIATA MultiCode │
+           │ • Green Key, Superhost, Preferred+ │
+           └──────────────┬─────────────────────┘
+                          │
+                          ▼
+           ┌────────────────────────────────────┐
+           │ OTA APROVA ALOJAMENTO              │
+           │ → Score de completude 100 %        │
+           │ → Atribuição badges (Preferred,    │
+           │   Superhost, Genius Partner)       │
+           └──────────────┬────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────┐
+│ 3. PUBLICAÇÃO E VISIBILIDADE                         │
+│ • Metabuscadores (Google, Kayak, Trivago)            │
+│ • Filtros (Wi-Fi rápido, piscina, cancel. grátis)    │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────┐
+│ 4. RESERVA DO HÓSPEDE                                │
+│ • Busca → filtro por estrelas, distância, AI, etc.   │
+│ • Vê fotos 360°, lê descrição longa, regras da casa  │
+│ • Escolhe data → vê MLOS, CTA/CTD                    │
+│ • Seleciona tarifa (Non-ref -10 %, Free 48h)         │
+│ • Paga (cartão, MBWay, Pix, WeChat Pay)              │
+│ • Receveis: confirmação automática + voucher         │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────┐
+│ 5. GESTÃO DA RESERVA (PMS / Channel Manager)         │
+│ • Sincronização em tempo real (disponibilidade)      │
+│ • Bloqueio automático datas                          │
+│ • Envio e-mail/SMS/WhatsApp com código fechadura     │
+│ • Check-in online (upload BI/passaporte)             │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────┐
+│ 6. CHECK-IN                                          │
+│ • Hóspede chega                                      │
+│ • Opções:                                            │
+│   a) Recepção 24h (dados já no PMS)                  │
+│   b) Fechadura inteligente (código enviado)         │
+│   c) Caixa de chaves com código                      │
+│ • Registo turista (SEF / IMTT automático via PMS)    │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────┐
+│ 7. ESTADIA                                           │
+│ • Uso de comodidades (piscina infinita, spa, lounge) │
+│ • Consumo extra (minibar, resort fee cobrado)        │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+┌──────────────────────────────────────────────────────┐
+│ 8. CHECK-OUT & PÓS-ESTADIA                           │
+│ • Check-out tardio (sujeito disponibilidade)         │
+│ • Devolução depósito segurança                       │
+│ • Pedido de review (Booking, Airbnb, TripAdvisor)    │
+│ • Atualização score → Superhost / Preferred +        │
+└───────────────────────┬──────────────────────────────┘
+                          │
+                          ▼
+                           END

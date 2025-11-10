@@ -26,7 +26,7 @@ class RegistrarPasseio
                 $conn = $conexao->getConexao();
 
                  // Configuração do upload
-                $uploadDir = "../../uploads/alojamentos/";
+                $uploadDir = "../../uploads/passeios/";
                 if (!file_exists($uploadDir)) {
                     mkdir($uploadDir, 0777, true);
                 }

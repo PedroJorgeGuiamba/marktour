@@ -3,15 +3,12 @@ session_start();
 include '../../Controller/Empresa/Home.php';
 // require_once __DIR__ . '/../../middleware/auth.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Alojamentos</title>
-
     <!-- BootStrap Links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -19,14 +16,13 @@ include '../../Controller/Empresa/Home.php';
     <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="../../Style/empresas.css">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <link href='https://cdn.boxicons.com/fonts/brands/boxicons-brands.min.css' rel='stylesheet'>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script> <!-- For extension validation -->
 </head>
-
 <body>
     <header>
         <!-- Nav principal -->
@@ -58,7 +54,6 @@ include '../../Controller/Empresa/Home.php';
                 </div>
             </div>
         </nav>
-
         <!-- Nav Secundária -->
         <nav>
             <ul class="nav justify-content-center">
@@ -107,18 +102,16 @@ include '../../Controller/Empresa/Home.php';
             </ul>
         </nav>
     </header>
-
     <main>
         <div class="formulario" style="padding-top: 100px; margin: 70px;">
-            <form action="../../Controller/Empresa/RegistrarAlojamento.php" method="post" id="formularioAlojamento">
+            <form action="../../Controller/Empresa/RegistrarAlojamento.php" method="post" id="formularioAlojamento" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-md-4">
-                        <label for="nome" class="form-label">nome:</label>
+                        <label for="nome" class="form-label">Nome:</label>
                         <input type="text" name="nome" class="form-control" id="nome"
                             placeholder="Suite Presidencial">
                         <span class="error_form" id="nome_error_message"></span>
                     </div>
-
                     <div class="form-group col-md-4">
                         <label for="tipo" class="form-label">Tipo:</label>
                         <select name="tipo" class="form-control" id="tipo">
@@ -130,27 +123,28 @@ include '../../Controller/Empresa/Home.php';
                         </select>
                         <span class="error_form" id="tipo_error_message"></span>
                     </div>
-
                     <div class="form-group col-md-4">
-                        <label for="descricao" class="form-label">Descricao:</label>
+                        <label for="descricao" class="form-label">Descrição:</label>
                         <input type="text" name="descricao" class="form-control" id="descricao"
                             placeholder="Suite">
                         <span class="error_form" id="descricao_error_message"></span>
                     </div>
-
                     <div class="form-group col-md-4">
                         <label for="precoPorNoite" class="form-label">Preço por noite:</label>
                         <input type="text" name="precoPorNoite" class="form-control" id="precoPorNoite"
                             placeholder="200000">
                         <span class="error_form" id="preco_error_message"></span>
                     </div>
-
                     <div class="form-group col-md-4">
                         <label for="numeroDeQuartos" class="form-label">Numero De Quartos:</label>
                         <input type="number" name="numeroDeQuartos" class="form-control" id="numeroDeQuartos">
                         <span class="error_form" id="numeroDeQuartos_error_message"></span>
                     </div>
-
+                    <div class="form-group col-md-4">
+                        <label for="imagem" class="form-label">Capa do Alojamento:</label>
+                        <input type="file" name="imagem" class="form-control" id="imagem" accept="image/jpeg,image/png,image/jpg,image/gif">
+                        <span class="error_form" id="imagem_error_message"></span>
+                    </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-3" style="padding-top: 20px;">
@@ -158,14 +152,10 @@ include '../../Controller/Empresa/Home.php';
                             </div>
                         </div>
                     </div>
-
             </form>
         </div>
     </main>
-
-
     <!-- Scripts do BootStrap -->
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
@@ -185,15 +175,16 @@ include '../../Controller/Empresa/Home.php';
                     required: true
                 },
                 descricao: {
-                    required: false,
                     minlength: 2
                 },
                 precoPorNoite: {
-                    required: false
+                    minlength: 2
                 },
                 numeroDeQuartos: {
-                    required: false,
                     digits: true
+                },
+                imagem: {
+                    extension: "jpg|jpeg|png|gif"
                 }
             },
             messages: {
@@ -206,6 +197,9 @@ include '../../Controller/Empresa/Home.php';
                 },
                 precoPorNoite: {
                     minlength: "O preço por noite deve ter pelo menos 2 digitos."
+                },
+                imagem: {
+                    extension: "Por favor, selecione uma imagem válida (jpg, jpeg, png, gif)."
                 }
             },
             errorClass: "is-invalid",
@@ -222,5 +216,4 @@ include '../../Controller/Empresa/Home.php';
         });
     </script>
 </body>
-
 </html>

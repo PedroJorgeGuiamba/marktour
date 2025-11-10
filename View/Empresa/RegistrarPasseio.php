@@ -166,6 +166,12 @@ include '../../Controller/Empresa/Home.php';
                         <span class="error_form" id="local_error_message"></span>
                     </div>
 
+                    <div class="form-group col-md-4">
+                        <label for="imagem" class="form-label">Capa do Passeio:</label>
+                        <input type="file" name="imagem" class="form-control" id="imagem" accept="image/jpeg,image/png,image/jpg,image/gif">
+                        <span class="error_form" id="imagem_error_message"></span>
+                    </div>
+
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-3" style="padding-top: 20px;">
@@ -211,6 +217,9 @@ include '../../Controller/Empresa/Home.php';
                 },
                 dataHora: {
                     required: true
+                },
+                imagem: {
+                    extension: "jpg|jpeg|png|gif"
                 }
             },
             messages: {
@@ -223,6 +232,9 @@ include '../../Controller/Empresa/Home.php';
                 },
                 precoPorNoite: {
                     minlength: "O preço por noite deve ter pelo menos 2 digitos."
+                },
+                imagem: {
+                    extension: "Por favor, selecione uma imagem válida (jpg, jpeg, png, gif)."
                 }
             },
             errorClass: "is-invalid",

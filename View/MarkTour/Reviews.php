@@ -175,16 +175,16 @@ class RecuperarReviews
         <nav>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="portalDoUtilizador.php">Início</a>
+                    <a class="nav-link active" aria-current="page" href="../Utilizador/portalDoUtilizador.php">Início</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="MeusAlojamentos.php">Acomodações</a>
+                    <a class="nav-link active" aria-current="page" href="../Utilizador/MeusAlojamentos.php">Acomodações</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="Passeios.php">Passeios</a>
+                    <a class="nav-link active" aria-current="page" href="../Utilizador/Passeios.php">Passeios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="Eventos.php">Eventos</a>
+                    <a class="nav-link" aria-current="page" href="../Utilizador/Eventos.php">Eventos</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdownMarkTour" role="button" data-bs-toggle="dropdown" aria-expanded="false">

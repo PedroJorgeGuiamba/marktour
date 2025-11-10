@@ -86,36 +86,96 @@ try {
     <title>Comprovativo de Pagamento - MarkTour</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../../Style/empresa.css">
+    <link rel="stylesheet" href="../../Style/sucess.css">
 </head>
 <body>
-    <div class="container mt-5">
-        <h2>Comprovativo de Pagamento</h2>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Pagamento Confirmado</h5>
-                <p class="card-text"><strong>ID do Pagamento:</strong> <?php echo htmlspecialchars($payment_intent->id); ?></p>
-                <p class="card-text"><strong>ID do Usuário:</strong> <?php echo htmlspecialchars($session->client_reference_id); ?></p>
-                <p class="card-text"><strong>ID da Reserva:</strong> <?php echo $id_reserva; ?></p>
-                <p class="card-text"><strong>Data do Pagamento:</strong> <?php echo date('d/m/Y H:i:s', $payment_intent->created); ?></p>
-                <p class="card-text"><strong>Valor Total:</strong> <?php echo number_format($session->amount_total / 100, 2); ?> MZN</p>
-                <h6>Itens Comprados:</h6>
-                <ul>
-                    <?php foreach ($line_items->data as $item): ?>
-                        <li>
-                            <?php echo htmlspecialchars($item->description); ?> - 
-                            Quantidade: <?php echo $item->quantity; ?> - 
-                            Valor: <?php echo number_format($item->amount_total / 100, 2); ?> MZN
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-                <p class="card-text"><small class="text-muted">Obrigado pela sua compra! Sua reserva está pendente de verificação por um administrador.</small></p>
-                <a href="../Utilizador/portalDoUtilizador.php" class="btn btn-primary">Voltar ao Início</a>
+    <div class="container mt-4 mt-md-5 mb-5">
+        <h2 class="page-title">Comprovativo de Pagamento - MarkTour</h2>
+        <div class="card receipt-card">
+            <div class="receipt-header">
+                <h5>Pagamento Confirmado</h5>
+                <div class="status-badge">Reserva Pendente de Verificação</div>
+            </div>
+            <div class="receipt-body">
+                <div class="receipt-info">
+                    <div class="info-item">
+                        <strong>ID do Pagamento:</strong>
+                        <span id="payment-id"><?php echo htmlspecialchars($payment_intent->id); ?></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>ID do Usuário:</strong>
+                        <span id="user-id"><?php echo htmlspecialchars($session->client_reference_id); ?></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>ID da Reserva:</strong>
+                        <span id="reservation-id"><?php echo $id_reserva; ?></span>
+                    </div>
+                    <div class="info-item">
+                        <strong>Data do Pagamento:</strong>
+                        <span id="payment-date"><?php echo date('d/m/Y H:i:s', $payment_intent->created); ?></span>
+                    </div>
+                </div>
+                
+                <div class="items-list">
+                    <h6>Itens Comprados:</h6>
+                    <ul id="items-list">
+                        <?php foreach ($line_items->data as $item): ?>
+                            <li>
+                                <span><?php echo htmlspecialchars($item->description); ?></span>
+                                <span>Quantidade: <?php echo $item->quantity; ?></span>
+                                <span>Valor: <?php echo number_format($item->amount_total / 100, 2); ?> MZN</span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                    <div class="total-amount">
+                        Valor Total: <span id="total-amount"><?php echo number_format($session->amount_total / 100, 2); ?> MZN</span>
+                    </div>
+                </div>
+                
+                <div class="qrcode-container">
+                    <h6>QR Code do Comprovativo</h6>
+                    <div id="qrcode"></div>
+                    <p class="mt-2 text-muted">Use este código para verificar a autenticidade do comprovativo</p>
+                </div>
+                
+                <div class="receipt-footer">
+                    <p class="text-muted">Obrigado pela sua compra! Sua reserva está pendente de verificação por um administrador.</p>
+                    <a href="../Utilizador/portalDoUtilizador.php" class="btn btn-primary">Voltar ao Início</a>
+                    <button class="btn btn-outline-secondary ms-2" onclick="window.print()">Imprimir Comprovativo</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script>
+        // Função para gerar o QR Code
+        function generateQRCode() {
+            // Obter dados para o QR Code
+            const paymentId = document.getElementById('payment-id').textContent;
+            const userId = document.getElementById('user-id').textContent;
+            const reservationId = document.getElementById('reservation-id').textContent;
+            const totalAmount = document.getElementById('total-amount').textContent;
+            
+            // Criar texto para o QR Code
+            const qrText = `MarkTour Payment Receipt\nPayment ID: ${paymentId}\nUser ID: ${userId}\nReservation ID: ${reservationId}\nTotal: ${totalAmount}`;
+            
+            // Gerar QR Code
+            QRCode.toCanvas(document.getElementById('qrcode'), qrText, {
+                width: 180,
+                margin: 1,
+                color: {
+                    dark: '#2c3e50',
+                    light: '#ffffff'
+                }
+            }, function (error) {
+                if (error) console.error(error);
+            });
+        }
+        
+        // Gerar QR Code quando a página carregar
+        document.addEventListener('DOMContentLoaded', generateQRCode);
+    </script>
 </body>
 </html>

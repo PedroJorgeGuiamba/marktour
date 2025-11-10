@@ -38,9 +38,9 @@ class Passeio
         $conexao = new Conector();
         $conn = $conexao->getConexao();
         
-        $sql = "INSERT INTO actividade (nome, duracao, descricao, preco, local, data_hora, id_empresa, imagem_path) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO actividade (nome, duracao, descricao, preco, local, data_hora, id_empresa, imagem_path) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("sssdssi", $this->nome, $this->duracao, $this->descricao, $this->preco, $this->local, $this->dataHora, $this->id_empresa, $this->ImagemPath);
+        $stmt->bind_param("sssdssis", $this->nome, $this->duracao, $this->descricao, $this->preco, $this->local, $this->dataHora, $this->id_empresa, $this->ImagemPath);
 
         return $stmt->execute();
     }

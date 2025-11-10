@@ -87,11 +87,29 @@ if (!$id_utilizador || !$id_localizacao) {
                         <input type="text" name="nuit" id="nuit" placeholder="85xxxxxxx">
                         <span class="error_form" id="nuit_error_message"></span>
                     </div>
-
+                    
                     <div>
                         <label for="descricao">Descrição:</label>
                         <input type="text" name="descricao" id="descricao" placeholder="Descrição da empresa">
                         <span class="error_form" id="descricao_error_message"></span>
+                    </div>
+
+                    <div>
+                        <label for="numAlvara">Número do Alvara:</label>
+                        <input type="text" name="numAlvara" id="numAlvara" placeholder="Número do Alvara">
+                        <span class="error_form" id="numAlvara_error_message"></span>
+                    </div>
+
+                    <div>
+                        <label for="imagem_nuit_path">Documento do NUIT (imagem ou PDF):</label>
+                        <input type="file" name="imagem_nuit_path" id="imagem_nuit_path" accept="image/jpeg,image/png,image/gif,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <span class="error_form" id="imagem_nuit_path_error_message"></span>
+                    </div>
+
+                    <div>
+                        <label for="imagem_alvara_path">Documento do Alvara (imagem ou PDF):</label>
+                        <input type="file" name="imagem_alvara_path" id="imagem_alvara_path" accept="image/jpeg,image/png,image/gif,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+                        <span class="error_form" id="imagem_alvara_path_error_message"></span>
                     </div>
                 </div>
 
@@ -119,6 +137,16 @@ if (!$id_utilizador || !$id_localizacao) {
                 descricao: {
                     required: true,
                     minlength: 2
+                },
+                numAlvara: {
+                    required: true,
+                    minlength: 2
+                },
+                imagem_nuit_path: {
+                    extension: "jpg|jpeg|png|gif|pdf|doc|docx"
+                },
+                imagem_alvara_path: {
+                    extension: "jpg|jpeg|png|gif|pdf|doc|docx"
                 }
             },
             messages: {
@@ -135,6 +163,16 @@ if (!$id_utilizador || !$id_localizacao) {
                 descricao: {
                     required: "Informe a descrição.",
                     minlength: "A descrição deve ter pelo menos 2 caracteres."
+                },
+                numAlvara: {
+                    required: "Informe o número do Alvara.",
+                    minlength: "O número do Alvara deve ter pelo menos 2 caracteres."
+                },
+                imagem_nuit_path: {
+                    extension: "Por favor, selecione um arquivo válido (jpg, jpeg, png, gif, pdf, doc, docx)."
+                },
+                imagem_alvara_path: {
+                    extension: "Por favor, selecione um arquivo válido (jpg, jpeg, png, gif, pdf, doc, docx)."
                 }
             },
             errorClass: "is-invalid",
